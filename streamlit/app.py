@@ -391,7 +391,7 @@ if "Dashboard" in page:
         **CHART_DEFAULTS,
         title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
         map=dict(style="carto-darkmatter", zoom=1, center=dict(lat=20, lon=10)),
-        margin=dict(l=0, r=0, t=40, b=0),
+        margin=dict(l=10, r=10, t=50, b=10),
         height=420,
         showlegend=False,
     )
@@ -424,10 +424,12 @@ if "Dashboard" in page:
         fig_bar.update_layout(
             **CHART_DEFAULTS,
             title="Average PM2.5 by Country (µg/m³)",
-            xaxis=dict(gridcolor="#1e2d4a", color="#64748b", title="Avg PM2.5 (µg/m³)"),
-            yaxis=dict(color="#94a3b8"),
-            margin=dict(l=0, r=10, t=40, b=10),
-            height=380,
+            xaxis=dict(gridcolor="#1e2d4a", color="#64748b",
+                       title=dict(text="Avg PM2.5 (µg/m³)", standoff=10),
+                       automargin=True),
+            yaxis=dict(color="#94a3b8", automargin=True),
+            margin=dict(l=10, r=20, t=50, b=40),
+            height=420,
             showlegend=False,
         )
         st.plotly_chart(fig_bar, config=PLOTLY_CONFIG, theme=None, width='stretch')
@@ -451,13 +453,16 @@ if "Dashboard" in page:
             title="AQI Category Distribution",
             showlegend=True,
             legend=dict(
-                font=dict(color="#94a3b8", size=10),
-                bgcolor="#0f1629",
-                bordercolor="#1e2d4a",
+                font=dict(color="#cbd5e1", size=11),
+                bgcolor="rgba(10,14,26,0.85)",
+                bordercolor="rgba(0,212,255,0.25)",
                 borderwidth=1,
+                orientation="h",
+                yanchor="top", y=-0.05,
+                xanchor="center", x=0.5,
             ),
-            margin=dict(l=0, r=0, t=40, b=10),
-            height=380,
+            margin=dict(l=10, r=10, t=50, b=10),
+            height=420,
         )
         st.plotly_chart(fig_donut, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
@@ -479,10 +484,10 @@ if "Dashboard" in page:
     fig_pred.update_layout(
         **CHART_DEFAULTS,
         title="ML-Predicted AQI Classes (Random Forest · 96.15% accuracy)",
-        xaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
-        yaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
-        margin=dict(l=0, r=0, t=40, b=10),
-        height=300,
+        xaxis=dict(color="#94a3b8", gridcolor="#1e2d4a", automargin=True),
+        yaxis=dict(color="#64748b", gridcolor="#1e2d4a", automargin=True),
+        margin=dict(l=10, r=10, t=50, b=40),
+        height=320,
         showlegend=False,
     )
     st.plotly_chart(fig_pred, config=PLOTLY_CONFIG, theme=None, width='stretch')
