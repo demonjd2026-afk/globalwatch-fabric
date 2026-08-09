@@ -125,10 +125,11 @@ CHART_DEFAULTS = dict(
     font=dict(color="#94a3b8", family="Space Grotesk"),
     title_font=dict(size=14, color="#94a3b8"),
     hoverlabel=dict(
-        bgcolor="#1e2d4a",
-        font_color="#00d4ff",
+        bgcolor="#0a0e1a",
+        font_color="#ffffff",
         bordercolor="#00d4ff",
-        font_size=12,
+        font_size=13,
+        font_family="Space Grotesk",
     ),
     modebar=dict(
         bgcolor="#0f1629",
@@ -292,9 +293,9 @@ if "Dashboard" in page:
         customdata=map_df[["city","country_code","value"]],
         hovertemplate=(
             "<b>%{text}</b><br>"
-            "City: %{customdata[0]}<br>"
-            "Country: %{customdata[1]}<br>"
-            "PM2.5: %{customdata[2]:.1f} µg/m³"
+            "<span style='color:#94a3b8'>City:</span> %{customdata[0]}<br>"
+            "<span style='color:#94a3b8'>Country:</span> %{customdata[1]}<br>"
+            "<span style='color:#94a3b8'>PM2.5:</span> %{customdata[2]:.1f} µg/m³"
             "<extra></extra>"
         ),
     ))
