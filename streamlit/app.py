@@ -14,120 +14,190 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 html, body, [class*="css"] { font-family: 'Space Grotesk', sans-serif; }
 
-.stApp { background: #0a0e1a; color: #e2e8f0; }
-
-[data-testid="stSidebar"] {
-    background: #0f1629;
-    border-right: 1px solid #1e2d4a;
+/* ── App background — subtle radial glow ── */
+.stApp {
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 136, 204, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 110%, rgba(0, 212, 255, 0.05), transparent),
+        #0a0e1a;
+    color: #e2e8f0;
 }
 
-/* Equal height metric cards */
+/* ── Sidebar ── */
+[data-testid="stSidebar"] {
+    background: rgba(15, 22, 41, 0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(30, 58, 95, 0.5);
+}
+
+/* ── Glassmorphism KPI cards ── */
 .metric-card {
-    background: linear-gradient(135deg, #0f1629 0%, #1a2540 100%);
-    border: 1px solid #1e3a5f;
-    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(15, 22, 41, 0.7), rgba(26, 37, 64, 0.7));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    border-radius: 16px;
     padding: 20px 12px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    height: 100px;
+    height: 104px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+.metric-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 212, 255, 0.45);
+    box-shadow: 0 8px 32px rgba(0, 136, 204, 0.25);
 }
 .metric-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #0088cc);
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
 }
 .metric-value {
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 700;
-    color: #00d4ff;
+    background: linear-gradient(135deg, #00d4ff, #66e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     line-height: 1;
     font-family: 'JetBrains Mono', monospace;
 }
 .metric-label {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 6px;
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+    font-weight: 500;
 }
 
-/* Chart wrapper — spacing between charts */
-.chart-wrapper {
-    margin-bottom: 24px;
+/* ── Chart card containers ── */
+.element-container:has(.js-plotly-plot) {
+    background: rgba(15, 22, 41, 0.55);
+    border: 1px solid rgba(30, 58, 95, 0.45);
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.25s ease;
+}
+.element-container:has(.js-plotly-plot):hover {
+    border-color: rgba(0, 212, 255, 0.3);
+}
+.js-plotly-plot { border-radius: 12px; overflow: hidden; }
+
+/* ── Section headers ── */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+}
+.section-header .accent {
+    width: 4px;
+    height: 22px;
+    background: linear-gradient(180deg, #00d4ff, #0088cc);
+    border-radius: 2px;
+}
+.section-header .title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+.section-gap { margin: 28px 0; }
+
+/* ── Dataframe styling ── */
+[data-testid="stDataFrame"] {
+    background: rgba(15, 22, 41, 0.55);
+    border: 1px solid rgba(30, 58, 95, 0.45);
+    border-radius: 16px;
+    padding: 8px;
 }
 
-/* Section divider */
-.section-gap { margin: 24px 0; }
-
-/* Chat messages */
+/* ── Chat messages ── */
 .chat-user {
-    background: #1e3a5f;
-    border-radius: 12px 12px 4px 12px;
-    padding: 12px 16px;
-    margin: 8px 0;
-    margin-left: 20%;
-    border: 1px solid #2563eb;
+    background: linear-gradient(135deg, rgba(30, 58, 95, 0.85), rgba(37, 99, 235, 0.25));
+    backdrop-filter: blur(8px);
+    border-radius: 14px 14px 4px 14px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    margin-left: 18%;
+    border: 1px solid rgba(37, 99, 235, 0.5);
     color: #e2e8f0;
 }
 .chat-agent {
-    background: #0f1629;
-    border-radius: 12px 12px 12px 4px;
-    padding: 12px 16px;
-    margin: 8px 0;
-    margin-right: 20%;
-    border: 1px solid #1e2d4a;
+    background: rgba(15, 22, 41, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 14px 14px 14px 4px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    margin-right: 18%;
+    border: 1px solid rgba(30, 45, 74, 0.8);
     color: #e2e8f0;
 }
 
 h1, h2, h3 { color: #e2e8f0 !important; }
 
+/* ── Inputs ── */
 .stTextInput > div > div > input {
-    background: #0f1629;
-    border: 1px solid #1e3a5f;
+    background: rgba(15, 22, 41, 0.75);
+    border: 1px solid rgba(30, 58, 95, 0.6);
     color: #e2e8f0;
-    border-radius: 8px;
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+.stTextInput > div > div > input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
 }
 
+/* ── Buttons ── */
 .stButton > button {
     background: linear-gradient(135deg, #0088cc, #00d4ff);
     color: #0a0e1a;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 8px 24px;
+    transition: all 0.2s ease;
+}
+.stButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.35);
 }
 
-/* Fix Plotly hover and modebar in dark mode */
-.js-plotly-plot .plotly .modebar {
-    background: #0f1629 !important;
+/* ── Modebar dark ── */
+.js-plotly-plot .plotly .modebar { background: transparent !important; }
+.js-plotly-plot .plotly .modebar-btn path { fill: #475569 !important; }
+.js-plotly-plot .plotly .modebar-btn:hover path { fill: #00d4ff !important; }
+
+/* ── Radio nav in sidebar ── */
+[data-testid="stSidebar"] .stRadio label {
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
 }
-.js-plotly-plot .plotly .modebar-btn path {
-    fill: #64748b !important;
+[data-testid="stSidebar"] .stRadio label:hover {
+    background: rgba(0, 212, 255, 0.08);
 }
 
-/* Force hover tooltip text visible */
-.js-plotly-plot .plotly .hovertext text,
-.js-plotly-plot .plotly .hoverlayer .hovertext text {
-    fill: #000000 !important;
-    font-weight: 600 !important;
-}
-.js-plotly-plot .plotly .hovertext path,
-.js-plotly-plot .plotly .hoverlayer .hovertext path {
-    fill: #ffffff !important;
-    stroke: #0088cc !important;
-    stroke-width: 2px !important;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0e1a; }
+::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00d4ff; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -137,13 +207,6 @@ CHART_DEFAULTS = dict(
     plot_bgcolor="#0f1629",
     font=dict(color="#94a3b8", family="Space Grotesk"),
     title_font=dict(size=14, color="#94a3b8"),
-    hoverlabel=dict(
-        bgcolor="#ffffff",
-        font_color="#000000",
-        bordercolor="#0088cc",
-        font_size=13,
-        
-    ),
     modebar=dict(
         bgcolor="#0f1629",
         color="#475569",
@@ -242,14 +305,26 @@ with st.sidebar:
 if "Dashboard" in page:
 
     st.markdown("""
-    <div style='margin-bottom:8px'>
-        <span style='font-size:0.75rem; color:#00d4ff; text-transform:uppercase;
+    <div style='display:flex; align-items:center; gap:10px; margin-bottom:10px'>
+        <span style='display:inline-flex; align-items:center; gap:6px;
+                     background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35);
+                     color:#22c55e; font-size:0.68rem; font-weight:600; padding:4px 12px;
+                     border-radius:999px; letter-spacing:0.08em; font-family:JetBrains Mono'>
+            <span style='width:7px; height:7px; background:#22c55e; border-radius:50%;
+                         box-shadow:0 0 8px #22c55e; display:inline-block'></span>
+            LIVE
+        </span>
+        <span style='font-size:0.72rem; color:#00d4ff; text-transform:uppercase;
                      letter-spacing:0.15em; font-family:JetBrains Mono'>
-            LIVE AIR QUALITY INTELLIGENCE PLATFORM
+            AIR QUALITY INTELLIGENCE PLATFORM
         </span>
     </div>
-    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>World Air Quality Dashboard</h1>
-    <p style='color:#64748b; margin:0 0 28px; font-size:0.9rem'>
+    <h1 style='font-size:2.3rem; margin:0 0 6px; font-weight:700; line-height:1.1'>
+        World Air Quality
+        <span style='background:linear-gradient(135deg,#00d4ff,#66e5ff);
+                     -webkit-background-clip:text; -webkit-text-fill-color:transparent'>Dashboard</span>
+    </h1>
+    <p style='color:#64748b; margin:0 0 28px; font-size:0.92rem'>
         Real-time air quality intelligence powered by Microsoft Fabric · OpenAQ v3 · WHO guideline tracking
     </p>
     """, unsafe_allow_html=True)
@@ -293,11 +368,11 @@ if "Dashboard" in page:
         on="location_id", how="left"
     ).dropna(subset=["latitude","longitude","value"])
 
-    fig_map = go.Figure(go.Scattermapbox(
+    fig_map = go.Figure(go.Scattermap(
         lat=map_df["latitude"],
         lon=map_df["longitude"],
         mode="markers",
-        marker=go.scattermapbox.Marker(
+        marker=dict(
             size=[max(6, min(30, v/5)) for v in map_df["value"]],
             color=[pm25_color(v) for v in map_df["value"]],
             opacity=0.85,
@@ -311,16 +386,11 @@ if "Dashboard" in page:
             "PM2.5: %{customdata[2]:.1f} µg/m³"
             "<extra></extra>"
         ),
-        hoverlabel=dict(
-            bgcolor="#ffffff",
-            bordercolor="#0088cc",
-            font=dict(color="#000000", size=13),
-        ),
     ))
     fig_map.update_layout(
         **CHART_DEFAULTS,
         title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
-        mapbox=dict(style="carto-darkmatter", zoom=1, center=dict(lat=20, lon=10)),
+        map=dict(style="carto-darkmatter", zoom=1, center=dict(lat=20, lon=10)),
         margin=dict(l=0, r=0, t=40, b=0),
         height=420,
         showlegend=False,
@@ -344,7 +414,6 @@ if "Dashboard" in page:
             orientation="h",
             marker_color=[pm25_color(v) for v in pm25["Avg PM2.5"]],
             hovertemplate="<b>%{y}</b><br>Avg PM2.5: %{x:.1f} µg/m³<extra></extra>",
-            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
         ))
         fig_bar.add_vline(
             x=15, line_dash="dash", line_color="#00d4ff",
@@ -376,7 +445,6 @@ if "Dashboard" in page:
             textinfo="percent",
             textfont=dict(color="#e2e8f0", size=11),
             hovertemplate="<b>%{label}</b><br>Count: %{value}<br>%{percent}<extra></extra>",
-            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
         ))
         fig_donut.update_layout(
             **CHART_DEFAULTS,
@@ -407,7 +475,6 @@ if "Dashboard" in page:
         textposition="outside",
         textfont=dict(color="#94a3b8"),
         hovertemplate="<b>%{x}</b><br>Stations: %{y}<extra></extra>",
-        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
     ))
     fig_pred.update_layout(
         **CHART_DEFAULTS,
@@ -423,7 +490,12 @@ if "Dashboard" in page:
     st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
 
     # ── Top 10 Most Polluted Stations ──
-    st.markdown("### 🚨 Top 10 Most Polluted Stations")
+    st.markdown("""
+    <div class='section-header'>
+        <div class='accent'></div>
+        <div class='title'>🚨 Top 10 Most Polluted Stations</div>
+    </div>
+    """, unsafe_allow_html=True)
     top_stations = fact_df[fact_df["parameter"]=="pm25"] \
         .merge(station_df[["location_id","location_name","city"]], on="location_id", how="left") \
         .groupby(["location_name","city","country_name","aqi_category"])["value"].max().reset_index() \
@@ -453,15 +525,25 @@ if "Dashboard" in page:
 # ══════════════════════════════════════════════════════════════
 else:
     st.markdown("""
-    <div style='margin-bottom:8px'>
-        <span style='font-size:0.75rem; color:#00d4ff; text-transform:uppercase;
+    <div style='display:flex; align-items:center; gap:10px; margin-bottom:10px'>
+        <span style='display:inline-flex; align-items:center; gap:6px;
+                     background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.35);
+                     color:#00d4ff; font-size:0.68rem; font-weight:600; padding:4px 12px;
+                     border-radius:999px; letter-spacing:0.08em; font-family:JetBrains Mono'>
+            🤖 AI POWERED
+        </span>
+        <span style='font-size:0.72rem; color:#00d4ff; text-transform:uppercase;
                      letter-spacing:0.15em; font-family:JetBrains Mono'>
-            NATURAL LANGUAGE AIR QUALITY AGENT
+            NATURAL LANGUAGE AGENT
         </span>
     </div>
-    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>GlobalWatch AI Agent</h1>
-    <p style='color:#64748b; margin:0 0 24px; font-size:0.9rem'>
-        Ask questions about air quality data in plain English
+    <h1 style='font-size:2.3rem; margin:0 0 6px; font-weight:700; line-height:1.1'>
+        GlobalWatch
+        <span style='background:linear-gradient(135deg,#00d4ff,#66e5ff);
+                     -webkit-background-clip:text; -webkit-text-fill-color:transparent'>AI Agent</span>
+    </h1>
+    <p style='color:#64748b; margin:0 0 24px; font-size:0.92rem'>
+        Ask questions about air quality data in plain English — powered by Claude
     </p>
     """, unsafe_allow_html=True)
 
