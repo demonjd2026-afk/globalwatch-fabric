@@ -56,7 +56,6 @@
 {"station_sk":-357040185,"location_id":39,"location_name":"Gobernación","city":"Tocopilla","country_code":"CL","latitude":-22.093082,"longitude":-70.20121}
 {"station_sk":-873830185,"location_id":58,"location_name":"Zegveld-Oude Meije","city":"Zegveld","country_code":"NL","latitude":52.137949999962665,"longitude":4.83819000034937}
 {"station_sk":1500340406,"location_id":154,"location_name":"London Marylebone Road - UKA00315","city":"Westminster","country_code":"GB","latitude":51.52252999942243,"longitude":-0.15461100008049963}
-{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Biest Houtakker","country_code":"NL","latitude":51.5184,"longitude":5.14845}
 {"station_sk":1801126452,"location_id":174,"location_name":"Wallisville Road C617","city":"United States","country_code":"US","latitude":29.821389,"longitude":-94.99}
 {"station_sk":1237327324,"location_id":148,"location_name":"Camden - Bloomsbury","city":"Camden","country_code":"GB","latitude":51.52228699999999,"longitude":-0.125848}
 {"station_sk":778719264,"location_id":155,"location_name":"Kensington and Chelsea - North Ken","city":"Kensington and Chelsea","country_code":"GB","latitude":51.5210467476039,"longitude":-0.213492139585065}
@@ -114,8 +113,73 @@
 {"station_sk":1159954462,"location_id":43,"location_name":"Konarskiego","city":"Poland","country_code":"PL","latitude":52.17203333,"longitude":22.27277778}
 {"station_sk":1860791280,"location_id":94,"location_name":"Din Daeng, Din Daeng","city":"Thailand","country_code":"TH","latitude":13.775373291477,"longitude":100.56892844813}
 {"station_sk":1547219295,"location_id":53,"location_name":"Shenyang","city":"Shenyang","country_code":"CN","latitude":41.78,"longitude":123.42}
+{"station_sk":-1574997941,"location_id":2600,"location_name":"US Diplomatic Post: Bogota","city":"Colombia","country_code":"CO","latitude":4.6379935,"longitude":-74.0962868}
+{"station_sk":-2117619214,"location_id":7645,"location_name":"SAB-RAME - Sabaneta - I.E. Rafael J. Mejía","city":"Colombia","country_code":"CO","latitude":6.1433334,"longitude":-75.6202774}
+{"station_sk":320289675,"location_id":6396,"location_name":"ITA-POGO - Itagüí - Estación de Policía Los Gómez","city":"Itagüí","country_code":"CO","latitude":6.189889,"longitude":-75.610611}
+{"station_sk":-1413974713,"location_id":5252,"location_name":"Congonhas","city":"São Paulo","country_code":"BR","latitude":-23.61632008,"longitude":-46.66346553}
+{"station_sk":-1262868678,"location_id":7038,"location_name":"MED-ARAN - Medellín, Aranjuez - I.E Ciro Mendia","city":"Colombia","country_code":"CO","latitude":6.2934599,"longitude":-75.556427}
+{"station_sk":-979078000,"location_id":5243,"location_name":"Pinheiros","city":"São Paulo","country_code":"BR","latitude":-23.56145989,"longitude":-46.70201651}
+{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Braakman","country_code":"NL","latitude":51.29446600001544,"longitude":3.7494090003978005}
+{"station_sk":-1341035557,"location_id":7061,"location_name":"MED-TESO - Medellín, El Poblado - I.E INEM sede Santa Catalina","city":"Medellin","country_code":"CO","latitude":6.1998701,"longitude":-75.5609512}
+{"station_sk":1579092727,"location_id":7063,"location_name":"MED-ARAN - Medellín, Aranjuez - I.E Ciro Mendia","city":"Medellin","country_code":"CO","latitude":6.2904806,"longitude":-75.5555191}
+{"station_sk":689453665,"location_id":7062,"location_name":"GIR-IECO - Institucion Educativa Colombia. Girardota","city":"Colombia","country_code":"CO","latitude":6.3785167,"longitude":-75.443985}
+{"station_sk":-1964645801,"location_id":5233,"location_name":"Cid.Universitária-USP-Ipen","city":"São Paulo","country_code":"BR","latitude":-23.56634178,"longitude":-46.73741428}
+{"station_sk":-1216565310,"location_id":7065,"location_name":"BAR-TORR - Barbosa - Torre Social","city":"Barbosa","country_code":"CO","latitude":6.4369602,"longitude":-75.3303986}
+{"station_sk":-1955366256,"location_id":8025,"location_name":"Usme","city":"Colombia","country_code":"CO","latitude":4.53120556,"longitude":-74.11171388888887}
+{"station_sk":-1065640108,"location_id":7064,"location_name":"GIR-SOSN - Girardota - S.O.S Aburrá Norte","city":"Colombia","country_code":"CO","latitude":6.3790379,"longitude":-75.4509125}
+{"station_sk":1693156219,"location_id":5231,"location_name":"Taubaté","city":"Taubaté","country_code":"BR","latitude":-23.03235096,"longitude":-45.57580502}
+{"station_sk":903667940,"location_id":5255,"location_name":"Grajaú-Parelheiros","city":"Grajaú-Parelheiros","country_code":"BR","latitude":-23.77626598,"longitude":-46.69696108}
+{"station_sk":-1395281570,"location_id":5256,"location_name":"Piracicaba","city":"Piracicaba","country_code":"BR","latitude":-22.70122234,"longitude":-47.64965269}
+{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Houtakker","country_code":"NL","latitude":51.51838800001479,"longitude":5.148450000227909}
+{"station_sk":429684542,"location_id":5261,"location_name":"Catanduva","city":"Catanduva","country_code":"BR","latitude":-21.14194276,"longitude":-48.98307527}
+{"station_sk":1121702002,"location_id":5254,"location_name":"Tatuí","city":"Tatuí","country_code":"BR","latitude":-23.36075154,"longitude":-47.87079907}
+{"station_sk":-606961208,"location_id":5257,"location_name":"Campinas-V.União","city":"Campinas","country_code":"BR","latitude":-22.94672842,"longitude":-47.11928086}
+{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Biest Houtakker","country_code":"NL","latitude":51.5184,"longitude":5.14845}
+{"station_sk":1240669690,"location_id":9628,"location_name":"US Diplomatic Post: Bogota","city":"Bogota","country_code":"CO","latitude":4.637735,"longitude":-74.09486}
+{"station_sk":1265474649,"location_id":5258,"location_name":"Itaquera","city":"São Paulo","country_code":"BR","latitude":-23.58001483,"longitude":-46.46665141}
+{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Philippine","country_code":"NL","latitude":51.29449999999999,"longitude":3.7494799999999997}
+{"station_sk":-1586008368,"location_id":10490,"location_name":"Ciudad Bolivar","city":"Colombia","country_code":"CO","latitude":4.577805599999999,"longitude":-74.16627777777778}
+{"station_sk":-708852504,"location_id":7121,"location_name":"BAR-PDLA - Parque de las Aguas","city":"Barbosa","country_code":"CO","latitude":6.4067135,"longitude":-75.419487}
+{"station_sk":779484792,"location_id":7066,"location_name":"MED-EXSA - Exito San Antonio - Medellin","city":"Colombia","country_code":"CO","latitude":6.2493334,"longitude":-75.5702515}
+{"station_sk":1013624015,"location_id":5259,"location_name":"Araraquara","city":"Araraquara","country_code":"BR","latitude":-21.78252215,"longitude":-48.18583181}
+{"station_sk":1539367219,"location_id":5244,"location_name":"Paulínia-Sul","city":"Brazil","country_code":"BR","latitude":-22.78680643,"longitude":-47.13655888}
+{"station_sk":-954836147,"location_id":7060,"location_name":"SAB-RAME - Sabaneta - I.E. Rafael J. Mejía","city":"Colombia","country_code":"CO","latitude":6.1454778,"longitude":-75.6214142}
+{"station_sk":1781533513,"location_id":5239,"location_name":"Osasco","city":"Osasco","country_code":"BR","latitude":-23.52672142,"longitude":-46.79207766}
+{"station_sk":1855670184,"location_id":5260,"location_name":"Jundiaí","city":"Brazil","country_code":"BR","latitude":-23.19200374,"longitude":-46.89709727}
+{"station_sk":1500696302,"location_id":7067,"location_name":"COP-CVID - Copacabana - Ciudadela Educativa La Vida","city":"Copacabana","country_code":"CO","latitude":6.3453598,"longitude":-75.5047531}
+{"station_sk":-828612760,"location_id":5947,"location_name":"市教育基地","city":"China","country_code":"CN","latitude":31.7133,"longitude":118.64390000000002}
+{"station_sk":1941546951,"location_id":2294,"location_name":"PUENTE PIEDRA","city":"Lima","country_code":"PE","latitude":-11.863253,"longitude":-77.074133}
+{"station_sk":949155231,"location_id":2403,"location_name":"San Juan De Lurigancho","city":"Peru","country_code":"PE","latitude":-12.016890000000002,"longitude":-76.99883}
+{"station_sk":-135275991,"location_id":1212896,"location_name":"EMC II La Matanza","city":"Buenos Aires","country_code":"AR","latitude":-34.883175,"longitude":-58.682542000000005}
+{"station_sk":-1180995586,"location_id":5946,"location_name":"天平服装","city":"China","country_code":"CN","latitude":31.641099999999998,"longitude":118.4828}
+{"station_sk":336849467,"location_id":2289,"location_name":"HUACHIPA","city":"Peru","country_code":"PE","latitude":-12.017094,"longitude":-76.948597}
+{"station_sk":1420166613,"location_id":1894638,"location_name":"Luciano, Argentina Facultad de Informática UNLP (DISAB7040 → A4QP99VT)","city":"Argentina","country_code":"AR","latitude":-34.903448,"longitude":-57.937651}
+{"station_sk":1771989125,"location_id":697,"location_name":"Haldia, Haldia - WBPCB","city":"India","country_code":"IN","latitude":22.06047,"longitude":88.109737}
+{"station_sk":-906912911,"location_id":5943,"location_name":"济民医院(对照点)","city":"China","country_code":"CN","latitude":31.3839,"longitude":118.4022}
+{"station_sk":2054572543,"location_id":235,"location_name":"Anand Vihar, New Delhi - DPCC","city":"India","country_code":"IN","latitude":28.646835,"longitude":77.316032}
+{"station_sk":1335215369,"location_id":2402,"location_name":"SAN BORJA","city":"Lima","country_code":"PE","latitude":-12.108872,"longitude":-77.007689}
+{"station_sk":1579369209,"location_id":5948,"location_name":"马钢动力厂","city":"China","country_code":"CN","latitude":31.692800000000002,"longitude":118.48}
+{"station_sk":546455108,"location_id":5945,"location_name":"Chizhou Lao Gan Bu Ju","city":"China","country_code":"CN","latitude":30.66,"longitude":117.49}
+{"station_sk":763018609,"location_id":1894631,"location_name":"Argentina EP15 - Saladillo","city":"Argentina","country_code":"AR","latitude":-35.68277,"longitude":-59.76544}
+{"station_sk":1860602771,"location_id":1212895,"location_name":"EMC I Dock Sud","city":"Buenos Aires","country_code":"AR","latitude":-34.667375,"longitude":-58.329231}
+{"station_sk":-1229179486,"location_id":2798193,"location_name":"EET1_Saladillo","city":"Argentina","country_code":"AR","latitude":-35.6442117793875,"longitude":-59.783312717343826}
+{"station_sk":-1364953485,"location_id":2351,"location_name":"SAN MARTIN DE PORRES","city":"Lima","country_code":"PE","latitude":-12.008889,"longitude":-77.084472}
+{"station_sk":1281483392,"location_id":819,"location_name":"Ate","city":"Peru","country_code":"PE","latitude":-12.0261111,"longitude":-76.9186111}
+{"station_sk":-1827208572,"location_id":2099180,"location_name":"La Matanza, Buenos Aires","city":"Argentina","country_code":"AR","latitude":-34.88106631929777,"longitude":-58.68288039022074}
+{"station_sk":1255854988,"location_id":2302,"location_name":"VILLA MARIA DEL TRIUNFO","city":"Lima","country_code":"PE","latitude":-12.166389,"longitude":-76.92}
+{"station_sk":9159054,"location_id":286,"location_name":"Collectorate - Gaya - BSPCB","city":"India","country_code":"IN","latitude":24.7489694,"longitude":84.9438395}
+{"station_sk":1949555699,"location_id":2277,"location_name":"CARABAYLLO","city":"Lima","country_code":"PE","latitude":-11.902194,"longitude":-77.033639}
+{"station_sk":1906662875,"location_id":5921,"location_name":"Anqing Lian Fu Hua Yuan","city":"China","country_code":"CN","latitude":30.5489,"longitude":117.04859999999998}
+{"station_sk":-1091338782,"location_id":703,"location_name":"Collectorate Jodhpur - RSPCB","city":"India","country_code":"IN","latitude":26.2920639,"longitude":73.0379111111111}
+{"station_sk":-1143470174,"location_id":407,"location_name":"Zoo Park, Hyderabad - TSPCB","city":"India","country_code":"IN","latitude":17.349694,"longitude":78.451437}
+{"station_sk":1475654674,"location_id":301,"location_name":"Vikas Sadan, Gurugram - HSPCB","city":"India","country_code":"IN","latitude":28.4501238,"longitude":77.0263051}
+{"station_sk":1921856577,"location_id":2847298,"location_name":"Adrogué","city":"Argentina","country_code":"AR","latitude":-34.79488517026303,"longitude":-58.40140165642574}
+{"station_sk":-344810422,"location_id":2397,"location_name":"SANTA ANITA","city":"Lima","country_code":"PE","latitude":-12.043022,"longitude":-76.971444}
+{"station_sk":-924163605,"location_id":2415,"location_name":"CAMPO DE MARTE","city":"Lima","country_code":"PE","latitude":-12.070544,"longitude":-77.043214}
+{"station_sk":664682653,"location_id":304,"location_name":"Campbelltown West","city":"Sydney South-west","country_code":"AU","latitude":-34.06666669999999,"longitude":150.7952778}
+{"station_sk":770606158,"location_id":355,"location_name":"Prospect","city":"Sydney North-west","country_code":"AU","latitude":-33.7947222,"longitude":150.9125}
+{"station_sk":-490900878,"location_id":336,"location_name":"Earlwood","city":"Sydney East","country_code":"AU","latitude":-33.9177778,"longitude":151.1347222}
 {"station_sk":-300109018,"location_id":60,"location_name":"Haringey - Haringey Town Hall","city":"Haringey","country_code":"GB","latitude":51.599302,"longitude":-0.068218}
 {"station_sk":-1367854885,"location_id":146,"location_name":"Southwark - A2 Old Kent Road","city":"Southwark","country_code":"GB","latitude":51.4804994936467,"longitude":-0.0595528932573422}
-{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Philippine","country_code":"NL","latitude":51.29449999999999,"longitude":3.7494799999999997}
 {"station_sk":-1341209213,"location_id":152,"location_name":"Camden - Swiss Cottage","city":"Camden","country_code":"GB","latitude":51.544219,"longitude":-0.175284}
 {"station_sk":-1067175668,"location_id":157,"location_name":"Bexley - Slade Green Fidas","city":"Bexley","country_code":"GB","latitude":51.4659832746662,"longitude":0.184877126994369}
