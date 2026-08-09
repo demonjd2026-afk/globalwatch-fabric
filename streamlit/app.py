@@ -319,8 +319,18 @@ if "Dashboard" in page:
         margin=dict(l=0, r=0, t=40, b=0),
         height=420,
         showlegend=False,
+        hoverlabel=dict(
+            bgcolor="#1e2d4a",
+            font_color="#e2e8f0",
+            bordercolor="#00d4ff"
+        ),
+        modebar=dict(
+            bgcolor="#0f1629",
+            color="#64748b",
+            activecolor="#00d4ff"
+        ),
     )
-    st.plotly_chart(fig_map, use_container_width=True)
+    st.plotly_chart(fig_map, use_container_width=True, config={"displaylogo": False})
 
     # ── Row 3: Bar chart + Donut ──
     col_left, col_right = st.columns([3, 2])
@@ -353,10 +363,12 @@ if "Dashboard" in page:
             yaxis=dict(color="#94a3b8"),
             height=320,
             showlegend=False,
+            hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
+            modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
         )
         fig_bar.add_vline(x=15, line_dash="dash", line_color="#00d4ff",
                           annotation_text="WHO limit", annotation_font_color="#00d4ff")
-        st.plotly_chart(fig_bar, use_container_width=True)
+        st.plotly_chart(fig_bar, use_container_width=True, config={"displaylogo": False})
 
     with col_right:
         aqi_counts = fact_df["aqi_category"].value_counts().reset_index()
@@ -390,8 +402,10 @@ if "Dashboard" in page:
             ),
             margin=dict(l=0, r=0, t=40, b=10),
             height=320,
+            hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
+            modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
         )
-        st.plotly_chart(fig_donut, use_container_width=True)
+        st.plotly_chart(fig_donut, use_container_width=True, config={"displaylogo": False})
 
     # ── Row 3: ML predictions full width ──
     pred_counts = pred_df["predicted_aqi_class"].value_counts().reset_index()
@@ -416,8 +430,10 @@ if "Dashboard" in page:
         margin=dict(l=0, r=0, t=40, b=10),
         height=300,
         showlegend=False,
+        hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
+        modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
     )
-    st.plotly_chart(fig_pred, use_container_width=True)
+    st.plotly_chart(fig_pred, use_container_width=True, config={"displaylogo": False})
 
     # ── Row 4: Top polluted stations ──
     st.markdown("### 🚨 Top 10 Most Polluted Stations")
