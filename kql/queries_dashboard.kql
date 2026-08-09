@@ -1,0 +1,79 @@
+// ============================================================
+// GlobalWatch — KQL Dashboard Queries
+// Used in RTI Dashboard tiles
+// ============================================================
+
+// QUERY 1: Current AQI by country — world map tile
+// Shows latest PM2.5 average per country (last 24h)
+silver_readings
+| where reading_ts >= ago(24h)
+| summarize avg_value = avg(value),
+            latest_ts = max(reading_ts)
+            by country_code, country_name, parameter, aqi_category
+| where parameter == "pm25"
+| order by avg_value desc
+
+// ============================================================
+
+// QUERY 2: Top 10 most polluted stations (last 1 hour)
+silver_readings
+| where reading_ts >= ago(1h)
+| where parameter == "pm25"
+| summarize avg_pm25 = avg(value) by location_id, location_name, city, country_code
+| top 10 by avg_pm25 desc
+| extend who_exceedance_factor = round(avg_pm25 / 15.0, 1)
+
+// ============================================================
+
+// QUERY 3: WHO exceedance rate by country
+silver_readings
+| where reading_ts >= ago(24h)
+| where parameter in ("pm25", "no2")
+| summarize
+    total = count(),
+    exceeded = countif(exceeds_who_guideline == true)
+    by country_name, parameter
+| extend exceedance_pct = round(todouble(exceeded) / todouble(total) * 100, 1)
+| order by exceedance_pct desc
+
+// ============================================================
+
+// QUERY 4: AQI category distribution (last 24h)
+silver_readings
+| where reading_ts >= ago(24h)
+| where parameter == "pm25"
+| summarize count() by aqi_category
+| order by count_ desc
+
+// ============================================================
+
+// QUERY 5: Hourly PM2.5 trend — last 7 days
+silver_readings
+| where reading_ts >= ago(7d)
+| where parameter == "pm25"
+| summarize avg_pm25 = avg(value) by bin(reading_ts, 1h), country_code
+| order by reading_ts asc
+
+// ============================================================
+
+// QUERY 6: Hazardous readings alert check
+// Used by Data Activator trigger
+silver_readings
+| where reading_ts >= ago(1h)
+| where parameter == "pm25"
+| where value > 150.4
+| summarize
+    latest_reading = max(value),
+    reading_count = count(),
+    latest_ts = max(reading_ts)
+    by location_id, location_name, city, country_code
+| where reading_count >= 1
+| order by latest_reading desc
+
+// ============================================================
+
+// QUERY 7: Real-time ingestion rate (last 30 mins)
+raw_readings
+| where ingestion_time() >= ago(30m)
+| summarize ingested = count() by bin(ingestion_time(), 1m)
+| order by ingestion_time_ asc

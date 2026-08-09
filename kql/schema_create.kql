@@ -1,0 +1,100 @@
+# GlobalWatch — KQL Database Schema
+# Run each script block in the KQL Queryset in order
+
+# ============================================================
+# SCRIPT 1 — Create raw_readings table
+# Purpose: Real-time landing table from Eventstream
+# Retention: 30 days
+# ============================================================
+.create table raw_readings (
+    location_id: int,
+    location_name: string,
+    city: string,
+    country_code: string,
+    country_name: string,
+    latitude: real,
+    longitude: real,
+    parameter: string,
+    value: real,
+    unit: string,
+    reading_ts: datetime,
+    ingestion_ts: datetime,
+    source_system: string
+)
+
+# ============================================================
+# SCRIPT 2 — Create silver_readings table
+# Purpose: Transformed readings — populated by update policy
+# Retention: 365 days
+# ============================================================
+.create table silver_readings (
+    location_id: int,
+    location_name: string,
+    city: string,
+    country_code: string,
+    country_name: string,
+    latitude: real,
+    longitude: real,
+    parameter: string,
+    value: real,
+    unit: string,
+    aqi_category: string,
+    exceeds_who_guideline: bool,
+    reading_ts: datetime,
+    ingestion_ts: datetime,
+    source_system: string
+)
+
+# ============================================================
+# SCRIPT 3 — Create transform function
+# Purpose: AQI categorization + WHO exceedance flag
+# Called by update policy on every raw_readings ingestion
+# ============================================================
+.create-or-alter function TransformRawReadings() {
+    raw_readings
+    | where parameter in ("pm25", "pm10", "no2", "co", "o3")
+    | where value >= 0 and value < 10000
+    | extend aqi_category = case(
+        parameter == "pm25" and value <= 12.0,   "Good",
+        parameter == "pm25" and value <= 35.4,   "Moderate",
+        parameter == "pm25" and value <= 55.4,   "Unhealthy for Sensitive",
+        parameter == "pm25" and value <= 150.4,  "Unhealthy",
+        parameter == "pm25" and value > 150.4,   "Hazardous",
+        "N/A"
+    )
+    | extend exceeds_who_guideline = case(
+        parameter == "pm25"  and value > 15.0,   true,
+        parameter == "pm10"  and value > 45.0,   true,
+        parameter == "no2"   and value > 10.0,   true,
+        parameter == "co"    and value > 4000.0, true,
+        parameter == "o3"    and value > 60.0,   true,
+        false
+    )
+    | project
+        location_id, location_name, city,
+        country_code, country_name,
+        latitude, longitude,
+        parameter, value, unit,
+        aqi_category, exceeds_who_guideline,
+        reading_ts, ingestion_ts, source_system
+}
+
+# ============================================================
+# SCRIPT 4 — Attach update policy
+# Fires automatically on every raw_readings ingestion
+# IsTransactional: if transform fails, raw ingestion rolls back
+# ============================================================
+.alter table silver_readings policy update "[{\"IsEnabled\": true, \"Source\": \"raw_readings\", \"Query\": \"TransformRawReadings()\", \"IsTransactional\": true, \"PropagateIngestionProperties\": true}]"
+
+# ============================================================
+# SCRIPT 5 — Retention policies
+# ============================================================
+.alter table raw_readings policy retention "{\"SoftDeletePeriod\": \"30.00:00:00\", \"Recoverability\": \"Enabled\"}"
+
+.alter table silver_readings policy retention "{\"SoftDeletePeriod\": \"365.00:00:00\", \"Recoverability\": \"Enabled\"}"
+
+# ============================================================
+# SCRIPT 6 — Backfill silver from existing raw data
+# Run once after initial data load
+# ============================================================
+.set-or-append silver_readings <| TransformRawReadings()
