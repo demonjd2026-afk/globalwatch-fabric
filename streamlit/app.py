@@ -522,7 +522,11 @@ Always cite specific numbers from the data.
             try:
                 response = requests.post(
                     "https://api.anthropic.com/v1/messages",
-                    headers={"Content-Type": "application/json"},
+                    headers={
+                        "Content-Type": "application/json",
+                        "x-api-key": st.secrets.get("ANTHROPIC_API_KEY", ""),
+                        "anthropic-version": "2023-06-01"
+                    },
                     json={
                         "model": "claude-sonnet-4-6",
                         "max_tokens": 1000,
@@ -534,7 +538,13 @@ Always cite specific numbers from the data.
                     },
                     timeout=30
                 )
-                answer = response.json()["content"][0]["text"]
+                resp_json = response.json()
+                if "content" in resp_json:
+                    answer = resp_json["content"][0]["text"]
+                elif "error" in resp_json:
+                    answer = f"API Error: {resp_json['error']['message']}"
+                else:
+                    answer = f"Unexpected response: {str(resp_json)[:200]}"
             except Exception as e:
                 answer = f"Unable to connect to AI service. Error: {str(e)}"
 
