@@ -97,3 +97,51 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 **Action:** Added `time.sleep(1)` between sensor-level API calls and `time.sleep(0.5)` between location iterations. Wrapped all API calls in try/except to log and skip individual failures rather than crashing the pipeline. Added a 429 detection check — if a page returns 429, the loop breaks gracefully and the watermark only updates if at least some records were written.
 
 **Result:** Zero pipeline crashes from rate limits. The 429 on page 3 of the initial test was caught gracefully — 335 records were still written successfully for pages 1 and 2, and the next run picks up where it left off via the watermark.
+
+---
+
+## "How did you build your real-time KQL pipeline?"
+
+**Situation:** GlobalWatch needed a real-time layer that could process incoming air quality readings and automatically classify them by AQI category without a separate streaming compute job.
+
+**Task:** Stream OpenAQ readings into a KQL Database and apply transformations natively as data arrives.
+
+**Action:** Created a KQL Eventhouse with two tables: `raw_readings` (landing zone, 30-day retention) and `silver_readings` (365-day retention). Wrote a KQL function `TransformRawReadings()` that applies AQI categorization logic and WHO exceedance flags. Attached it as an update policy on `raw_readings` with `IsEnabled=true, IsTransactional=true` — so every new row landing in raw automatically triggers the function and writes a transformed record to silver in the same transaction. The Eventstream custom endpoint (`es_openaq_realtime`) routes the OpenAQ feed directly into `kql-raw-readings`.
+
+**Result:** 315 events streamed end-to-end within the first run. No Spark streaming job needed — KQL update policies handle the transformation natively, with transactional guarantees meaning raw and silver are always in sync. This is the Fabric-native alternative to Structured Streaming for sub-minute latency use cases.
+
+---
+
+## "What is a KQL update policy and when would you use it?"
+
+**Situation:** Incoming raw air quality readings needed AQI categorization applied in real time — but spinning up a separate Spark Structured Streaming job just for a column derivation felt like overengineering.
+
+**Task:** Find a Fabric-native way to apply a transformation automatically as each row arrives in the KQL database.
+
+**Action:** Used a KQL update policy — a mechanism where you define a KQL function (the transformation) and attach it to a destination table. When a row lands in the source table, the policy fires the function and inserts the result into the destination table, atomically. The key setting is `IsTransactional=true` — if the function fails, the source write also rolls back, so you never get a raw row without a corresponding silver row.
+
+**Result:** Zero-code, zero-latency real-time transformation. The update policy replaces what would otherwise be a Spark streaming pipeline with complex checkpoint management. It's the right tool when your transformation is a column derivation or lookup — not when you need windowing, aggregation, or ML scoring (those still need Spark).
+
+---
+
+## "How did you set up automated alerting in your pipeline?"
+
+**Situation:** The GlobalWatch dashboard showed PM2.5 readings but there was no mechanism to proactively notify anyone when a hazardous reading was detected — analysts had to check the dashboard manually.
+
+**Task:** Implement automated alerting that triggers when PM2.5 exceeds the WHO Hazardous threshold (150 µg/m³) without any custom polling code.
+
+**Action:** Used Fabric Data Activator connected directly to the `es_openaq_realtime` Eventstream. Defined a `pm25_station` object tracking the `location_id` field as the instance key. Created a rule `pm25_hazard_alert` that fires when `value > 150` and sends an email with station name, city, country, and current reading. No code — configured entirely through Data Activator's visual rule builder. The alert is bound to the live stream, not a batch query, so detection latency is seconds not hours.
+
+**Result:** Alert confirmed firing — email received at Aug 09 2026 6:08 UTC with subject "[Fabric Activator] ⚠️ GlobalWatch PM2.5 Hazard Alert". 5 of 98 monitored station IDs actively triggered. This demonstrates the full observability loop: real-time ingest → KQL transformation → automated action, entirely Fabric-native with no external infrastructure.
+
+---
+
+## "Have you worked with Fabric Real-Time Intelligence end-to-end?"
+
+**Situation:** Most portfolio projects demonstrate batch medallion pipelines. Interviewers at companies using Fabric increasingly ask about Real-Time Intelligence (RTI) — Eventstream, KQL, and Data Activator — as these are the differentiating Fabric features vs. pure Databricks stacks.
+
+**Task:** Build and demonstrate a complete RTI pipeline from live API source through to automated action.
+
+**Action:** Built the full RTI stack for GlobalWatch: (1) Fabric Eventstream with a custom endpoint receives OpenAQ readings via the `07_streaming_openaq_eventstream.ipynb` notebook posting JSON payloads over the Azure Event Hubs SDK. (2) Eventstream routes to `kql-raw-readings` in the `globalwatch_eventhouse` KQL Database using Event processing mode. (3) A KQL update policy transforms raw → silver readings with AQI categorization automatically. (4) Data Activator monitors the same Eventstream and fires email alerts when PM2.5 exceeds 150 µg/m³. The KQL Queryset also includes analytical queries (e.g., `silver_readings | summarize count() by country_code, parameter, aqi_category | order by count_ desc | take 10`) for dashboard consumption.
+
+**Result:** 315 events end-to-end in the first streaming run. Top real-time findings: Netherlands (NL) dominates event count — 27 PM10, 23 NO2, 20 PM25 readings; Chile (CL) and Ghana (GH) also active. Data Activator alert confirmed. This is a complete, working RTI reference implementation — not a tutorial replica.

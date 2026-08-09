@@ -101,7 +101,8 @@ globalwatch-fabric/
 │   ├── README.md                    ← Detailed notebook guide
 │   ├── 01_bronze_ingest_openaq.ipynb
 │   ├── 04_silver_transform.ipynb
-│   └── 05_gold_star_schema.ipynb
+│   ├── 05_gold_star_schema.ipynb
+│   └── 07_streaming_openaq_eventstream.ipynb  ← Posts to Eventstream (315 events)
 │
 ├── docs/                            ← Deep-dive documentation
 │   ├── architecture.md              ← ADRs + architecture decisions
@@ -214,8 +215,10 @@ Transforms raw readings to AQI categories automatically as they stream in:
 ```
 
 ### Data Activator — PM2.5 Hazard Alert
-- **Trigger:** PM2.5 > 150 µg/m³ for 3 consecutive readings from same station
-- **Action:** Microsoft Teams notification with station name, city, country, current reading
+- **Rule:** `pm25_hazard_alert` — monitors `pm25_station` object from `es_openaq_realtime` stream
+- **Trigger:** PM2.5 value > 150 µg/m³ (WHO Hazardous threshold)
+- **Action:** Email alert with station name, city, country, current PM2.5 reading
+- **Status:** Running — 5 of 98 station IDs actively monitored; email confirmed received (Aug 09 2026, 6:08 UTC)
 - **Threshold basis:** WHO Hazardous category — serious health risk for entire population
 
 ---
@@ -317,6 +320,11 @@ streamlit run app.py
 | Spark UI — 17 jobs succeeded | [12_spark_ui_aqe](screenshots/12_spark_ui_aqe.png) |
 | Gold validation — SCD2 + WHO exceedances | [13_gold_notebook_scd2_merge](screenshots/13_gold_notebook_scd2_merge.png) |
 | Delta table detail — OneLake path | [14_gold_delta_table_detail](screenshots/14_gold_delta_table_detail.png) |
+| KQL Database — raw_readings + silver_readings tables | [16_kql_database_created](screenshots/16_kql_database_created.png) |
+| Eventstream — openaq-custom-source → kql-raw-readings Live | [17_eventstream_configured](screenshots/17_eventstream_configured.png) |
+| Eventstream Live data — 315 events, multi-country real-time stream | [18_eventstream_live_data](screenshots/18_eventstream_live_data.png) |
+| Data Activator — pm25_hazard_alert rule Running (5 of 98 IDs) | [20_activator_rule_configured](screenshots/20_activator_rule_configured.png) |
+| Data Activator — PM2.5 hazard email received at jaydolai@zohomail.in | [21_activator_alert_fired](screenshots/21_activator_alert_fired.png) |
 
 ---
 
