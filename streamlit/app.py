@@ -135,7 +135,6 @@ CHART_DEFAULTS = dict(
         color="#475569",
         activecolor="#00d4ff",
     ),
-    showlegend=False,
 )
 
 PLOTLY_CONFIG = {
@@ -305,6 +304,7 @@ if "Dashboard" in page:
         mapbox=dict(style="carto-darkmatter", zoom=1, center=dict(lat=20, lon=10)),
         margin=dict(l=0, r=0, t=40, b=0),
         height=420,
+        showlegend=False,
     )
     st.plotly_chart(fig_map, use_container_width=True, config=PLOTLY_CONFIG)
 
@@ -339,6 +339,7 @@ if "Dashboard" in page:
             yaxis=dict(color="#94a3b8"),
             margin=dict(l=0, r=10, t=40, b=10),
             height=380,
+            showlegend=False,
         )
         st.plotly_chart(fig_bar, use_container_width=True, config=PLOTLY_CONFIG)
 
@@ -393,6 +394,7 @@ if "Dashboard" in page:
         yaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
         margin=dict(l=0, r=0, t=40, b=10),
         height=300,
+        showlegend=False,
     )
     st.plotly_chart(fig_pred, use_container_width=True, config=PLOTLY_CONFIG)
 
