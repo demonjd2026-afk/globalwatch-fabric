@@ -339,6 +339,10 @@ streamlit run app.py
 | KQL raw_readings count — 2,205 events after pipeline run | [33_kql_raw_readings_count](screenshots/33_kql_raw_readings_count.png) |
 | Batch pipeline — all 5 activities Succeeded (Bronze 19m48s → Agent 52s) | [34_batch_pipeline_success](screenshots/34_batch_pipeline_success.png) |
 | Gold table counts post pipeline — fact_readings 344, dim_station 126, fact_aqi_predictions 74 | [35_gold_table_counts_post_pipeline](screenshots/35_gold_table_counts_post_pipeline.png) |
+| Semantic model — 4 active relationships (fact_readings to all dims) | [22_semantic_model_relationships](screenshots/22_semantic_model_relationships.png) |
+| RLS — ContinentViewer role successfully applied on dim_country | [23_rls_continent_viewer_role](screenshots/23_rls_continent_viewer_role.png) |
+| Power BI Page 1 — 344 readings, 121 stations, 9 countries, bar chart, donut | [24_powerbi_report_page1](screenshots/24_powerbi_report_page1.png) |
+| Power BI Page 2 — readings by date fixed, all 9 countries on 09 Aug | [36_powerbi_page2_fixed](screenshots/36_powerbi_page2_fixed.png) |
 
 ---
 
