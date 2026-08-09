@@ -337,6 +337,8 @@ streamlit run app.py
 | Realtime pipeline — pl_realtime_globalwatch hourly, Stream_To_Eventstream | [32_realtime_pipeline_scheduled](screenshots/32_realtime_pipeline_scheduled.png) |
 | Realtime pipeline — Succeeded in 1m 44s, Stream_To_Eventstream green | [32_realtime_pipeline_success](screenshots/32_realtime_pipeline_success.png) |
 | KQL raw_readings count — 2,205 events after pipeline run | [33_kql_raw_readings_count](screenshots/33_kql_raw_readings_count.png) |
+| Batch pipeline — all 5 activities Succeeded (Bronze 19m48s → Agent 52s) | [34_batch_pipeline_success](screenshots/34_batch_pipeline_success.png) |
+| Gold table counts post pipeline — fact_readings 344, dim_station 126, fact_aqi_predictions 74 | [35_gold_table_counts_post_pipeline](screenshots/35_gold_table_counts_post_pipeline.png) |
 
 ---
 
