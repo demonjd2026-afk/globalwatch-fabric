@@ -427,9 +427,11 @@ if "Dashboard" in page:
             xaxis=dict(gridcolor="#1e2d4a", color="#64748b",
                        title=dict(text="Avg PM2.5 (µg/m³)", standoff=10),
                        automargin=True),
-            yaxis=dict(color="#94a3b8", automargin=True),
+            yaxis=dict(color="#94a3b8", automargin=True,
+                       tickmode="linear", dtick=1,
+                       ticksuffix="   ", tickfont=dict(size=11)),
             margin=dict(l=10, r=20, t=50, b=40),
-            height=420,
+            height=max(420, len(pm25) * 24),
             showlegend=False,
         )
         st.plotly_chart(fig_bar, config=PLOTLY_CONFIG, theme=None, width='stretch')
@@ -478,16 +480,19 @@ if "Dashboard" in page:
         marker_color=[aqi_color(c) for c in pred_counts["Predicted AQI"]],
         text=pred_counts["Stations"],
         textposition="outside",
-        textfont=dict(color="#94a3b8"),
+        textfont=dict(color="#e2e8f0", size=13),
+        cliponaxis=False,
         hovertemplate="<b>%{x}</b><br>Stations: %{y}<extra></extra>",
     ))
     fig_pred.update_layout(
         **CHART_DEFAULTS,
         title="ML-Predicted AQI Classes (Random Forest · 96.15% accuracy)",
-        xaxis=dict(color="#94a3b8", gridcolor="#1e2d4a", automargin=True),
-        yaxis=dict(color="#64748b", gridcolor="#1e2d4a", automargin=True),
-        margin=dict(l=10, r=10, t=50, b=40),
-        height=320,
+        xaxis=dict(color="#94a3b8", gridcolor="#1e2d4a", automargin=True,
+                   showgrid=False),
+        yaxis=dict(color="#64748b", gridcolor="#1e2d4a", automargin=True,
+                   range=[0, pred_counts["Stations"].max() * 1.18]),
+        margin=dict(l=10, r=10, t=60, b=40),
+        height=340,
         showlegend=False,
     )
     st.plotly_chart(fig_pred, config=PLOTLY_CONFIG, theme=None, width='stretch')
