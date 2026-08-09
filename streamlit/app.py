@@ -115,6 +115,19 @@ h1, h2, h3 { color: #e2e8f0 !important; }
 .js-plotly-plot .plotly .modebar-btn path {
     fill: #64748b !important;
 }
+
+/* Force hover tooltip text visible */
+.js-plotly-plot .plotly .hovertext text,
+.js-plotly-plot .plotly .hoverlayer .hovertext text {
+    fill: #000000 !important;
+    font-weight: 600 !important;
+}
+.js-plotly-plot .plotly .hovertext path,
+.js-plotly-plot .plotly .hoverlayer .hovertext path {
+    fill: #ffffff !important;
+    stroke: #0088cc !important;
+    stroke-width: 2px !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -129,7 +142,7 @@ CHART_DEFAULTS = dict(
         font_color="#000000",
         bordercolor="#0088cc",
         font_size=13,
-        font_family="Arial Black",
+        
     ),
     modebar=dict(
         bgcolor="#0f1629",
@@ -301,7 +314,7 @@ if "Dashboard" in page:
         hoverlabel=dict(
             bgcolor="#ffffff",
             bordercolor="#0088cc",
-            font=dict(color="#000000", size=13, family="Arial Black"),
+            font=dict(color="#000000", size=13),
         ),
     ))
     fig_map.update_layout(
@@ -331,7 +344,7 @@ if "Dashboard" in page:
             orientation="h",
             marker_color=[pm25_color(v) for v in pm25["Avg PM2.5"]],
             hovertemplate="<b>%{y}</b><br>Avg PM2.5: %{x:.1f} µg/m³<extra></extra>",
-            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
+            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
         ))
         fig_bar.add_vline(
             x=15, line_dash="dash", line_color="#00d4ff",
@@ -363,7 +376,7 @@ if "Dashboard" in page:
             textinfo="percent",
             textfont=dict(color="#e2e8f0", size=11),
             hovertemplate="<b>%{label}</b><br>Count: %{value}<br>%{percent}<extra></extra>",
-            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
+            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
         ))
         fig_donut.update_layout(
             **CHART_DEFAULTS,
@@ -394,7 +407,7 @@ if "Dashboard" in page:
         textposition="outside",
         textfont=dict(color="#94a3b8"),
         hovertemplate="<b>%{x}</b><br>Stations: %{y}<extra></extra>",
-        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
+        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13)),
     ))
     fig_pred.update_layout(
         **CHART_DEFAULTS,
