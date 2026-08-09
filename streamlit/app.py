@@ -244,12 +244,9 @@ if "Dashboard" in page:
         World Air Quality Dashboard
     </h1>
     <p style='color:#64748b; margin:0 0 24px; font-size:0.9rem'>
-        Real-time monitoring across {country_count} countries · {station_count} active stations · WHO guideline tracking
+        Real-time air quality intelligence powered by Microsoft Fabric · OpenAQ v3 · WHO guideline tracking
     </p>
-    """.format(
-        country_count=fact_df["country_name"].nunique(),
-        station_count=fact_df["location_id"].nunique()
-    ), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     # ── KPI Cards ──
     total   = len(fact_df)
@@ -295,23 +292,33 @@ if "Dashboard" in page:
     fig_map = px.scatter_mapbox(
         map_df,
         lat="latitude", lon="longitude",
-        size="value", color="value",
+        size="value",
         hover_name="location_name",
         hover_data={"city": True, "country_code": True, "value": ":.1f"},
-        color_continuous_scale=["#22c55e","#f59e0b","#ef4444","#dc2626"],
         size_max=20,
         zoom=1,
         title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
         mapbox_style="carto-darkmatter",
     )
+    fig_map.update_traces(
+        marker=dict(
+            color=[
+                "#dc2626" if v > 150 else
+                "#ef4444" if v > 55 else
+                "#f59e0b" if v > 35 else
+                "#22c55e"
+                for v in map_df["value"]
+            ],
+            opacity=0.8
+        )
+    )
     fig_map.update_layout(
         paper_bgcolor="#0f1629",
         font=dict(color="#e2e8f0", family="Space Grotesk"),
         title_font=dict(size=14, color="#94a3b8"),
-        coloraxis_showscale=False,
-        coloraxis_colorbar=dict(bgcolor="#0f1629"),
         margin=dict(l=0, r=0, t=40, b=0),
         height=420,
+        showlegend=False,
     )
     st.plotly_chart(fig_map, use_container_width=True)
 
@@ -327,18 +334,25 @@ if "Dashboard" in page:
             pm25, x="Avg PM2.5 (µg/m³)", y="Country",
             orientation="h",
             title="Average PM2.5 by Country",
-            color="Avg PM2.5 (µg/m³)",
-            color_continuous_scale=["#22c55e", "#f59e0b", "#ef4444", "#dc2626"],
+        )
+        fig_bar.update_traces(
+            marker_color=[
+                "#dc2626" if v > 150 else
+                "#ef4444" if v > 55 else
+                "#f59e0b" if v > 35 else
+                "#22c55e"
+                for v in pm25["Avg PM2.5 (µg/m³)"]
+            ]
         )
         fig_bar.update_layout(
             plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
             font=dict(color="#e2e8f0", family="Space Grotesk"),
             title_font=dict(size=14, color="#94a3b8"),
-            coloraxis_showscale=False,
             margin=dict(l=0, r=10, t=40, b=10),
             xaxis=dict(gridcolor="#1e2d4a", color="#64748b"),
             yaxis=dict(color="#94a3b8"),
             height=320,
+            showlegend=False,
         )
         fig_bar.add_vline(x=15, line_dash="dash", line_color="#00d4ff",
                           annotation_text="WHO limit", annotation_font_color="#00d4ff")
