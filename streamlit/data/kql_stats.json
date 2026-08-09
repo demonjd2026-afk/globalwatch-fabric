@@ -1,8 +1,8 @@
 {
-  "events_sent_this_run": 4919,
+  "events_sent_this_run": 4921,
   "skipped": 0,
   "errors": 0,
-  "exported_at": "2026-08-09 16:08:11 UTC",
+  "exported_at": "2026-08-09 16:38:12 UTC",
   "pipeline": "pl_realtime_globalwatch",
   "frequency": "hourly",
   "status": "Live"
