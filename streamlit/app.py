@@ -179,7 +179,21 @@ def load_data():
 
     return fact, country, station, pred
 
+@st.cache_data(ttl=3600)  # refresh every hour
+def load_kql_stats():
+    base = Path(__file__).parent / "data"
+    kql_path = base / "kql_stats.json"
+    if kql_path.exists():
+        with open(kql_path) as f:
+            return json.load(f)
+    return {
+        "events_sent_this_run": 0,
+        "exported_at": "N/A",
+        "status": "N/A"
+    }
+
 fact_df, country_df, station_df, pred_df = load_data()
+kql_stats = load_kql_stats()
 
 
 # ── Sidebar ───────────────────────────────────────────────────
@@ -207,9 +221,9 @@ with st.sidebar:
         Random Forest<br>
         96.15% accuracy<br>
         <b style='color:#94a3b8'>Last updated</b><br>
-        09 Aug 2026
+        {last_updated}
     </div>
-    """, unsafe_allow_html=True)
+    """.format(last_updated=pd.Timestamp.now().strftime("%d %b %Y")), unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
@@ -238,9 +252,12 @@ if "Dashboard" in page:
         World Air Quality Dashboard
     </h1>
     <p style='color:#64748b; margin:0 0 24px; font-size:0.9rem'>
-        Real-time monitoring across 9 countries · 121 active stations · WHO guideline tracking
+        Real-time monitoring across {country_count} countries · {station_count} active stations · WHO guideline tracking
     </p>
-    """, unsafe_allow_html=True)
+    """.format(
+        country_count=fact_df["country_name"].nunique(),
+        station_count=fact_df["location_id"].nunique()
+    ), unsafe_allow_html=True)
 
     # ── KPI Cards ──
     total   = len(fact_df)
@@ -248,14 +265,17 @@ if "Dashboard" in page:
     countries = fact_df["country_name"].nunique()
     hazardous = len(fact_df[fact_df["aqi_category"] == "Hazardous"])
     who_exc  = fact_df["exceeds_who_guideline"].sum()
+    rt_events = kql_stats.get("events_sent_this_run", 0)
+    rt_exported = kql_stats.get("exported_at", "N/A")
 
-    c1, c2, c3, c4, c5 = st.columns(5)
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
     for col, val, label in [
         (c1, total, "Total Readings"),
         (c2, stations, "Active Stations"),
         (c3, countries, "Countries"),
         (c4, int(who_exc), "WHO Exceedances"),
         (c5, hazardous, "Hazardous Readings"),
+        (c6, rt_events, "⚡ RT Events/Run"),
     ]:
         with col:
             st.markdown(f"""
@@ -264,6 +284,13 @@ if "Dashboard" in page:
                 <div class='metric-label'>{label}</div>
             </div>
             """, unsafe_allow_html=True)
+
+    # Real-time sync info
+    st.markdown(f"""
+    <div style='text-align:right; font-size:0.7rem; color:#334155; margin-top:4px'>
+        ⚡ Real-time stream last synced: {rt_exported}
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
