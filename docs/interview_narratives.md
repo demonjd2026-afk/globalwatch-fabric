@@ -145,3 +145,39 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 **Action:** Built the full RTI stack for GlobalWatch: (1) Fabric Eventstream with a custom endpoint receives OpenAQ readings via the `07_streaming_openaq_eventstream.ipynb` notebook posting JSON payloads over the Azure Event Hubs SDK. (2) Eventstream routes to `kql-raw-readings` in the `globalwatch_eventhouse` KQL Database using Event processing mode. (3) A KQL update policy transforms raw → silver readings with AQI categorization automatically. (4) Data Activator monitors the same Eventstream and fires email alerts when PM2.5 exceeds 150 µg/m³. The KQL Queryset also includes analytical queries (e.g., `silver_readings | summarize count() by country_code, parameter, aqi_category | order by count_ desc | take 10`) for dashboard consumption.
 
 **Result:** 315 events end-to-end in the first streaming run. Top real-time findings: Netherlands (NL) dominates event count — 27 PM10, 23 NO2, 20 PM25 readings; Chile (CL) and Ghana (GH) also active. Data Activator alert confirmed. This is a complete, working RTI reference implementation — not a tutorial replica.
+
+---
+
+## "Have you used MLflow in your projects?"
+
+**Situation:** GlobalWatch needed a way to train, track, and serve an AQI prediction model — and interviewers increasingly ask about ML lifecycle management, not just model accuracy.
+
+**Task:** Train a classifier on air quality data, track it with MLflow, register it in the model registry, and apply it to the Gold layer.
+
+**Action:** Built `06_ml_aqi_prediction.ipynb` with 7 cells covering the full ML lifecycle. Pivoted Silver data from long to wide format (one row per station+timestamp, one column per pollutant). Created WHO PM2.5 threshold-based labels (0=Good → 4=Hazardous). Trained a Random Forest classifier using Spark MLlib with a Pipeline (VectorAssembler → RandomForestClassifier). Logged hyperparameters (num_trees=100, max_depth=5), metrics (accuracy, train/test rows), and the model artifact to MLflow. Registered as `globalwatch_aqi_classifier v1` in the MLflow Model Registry. Loaded the registered model and applied it to Gold `fact_readings` — wrote 74 PM2.5 predictions to a new `fact_aqi_predictions` Delta table.
+
+**Result:** 96.15% accuracy on held-out test set. Feature importance analysis showed PM2.5 dominates at 76.32%, followed by PM10 (12.91%) — confirms the model learned meaningful pollution patterns. Prediction distribution: Good 42, Moderate 21, Unhealthy 7, Hazardous 4 — consistent with real-world air quality data skewed toward cleaner readings.
+
+---
+
+## "Why Random Forest over other algorithms for this problem?"
+
+**Situation:** Given 164 pivoted rows across 5 features with significant class imbalance (134 Good vs 5 Hazardous), algorithm choice matters.
+
+**Task:** Pick an algorithm that handles imbalance, small data, and mixed feature scales without extensive tuning.
+
+**Action:** Chose Random Forest because: (1) ensemble of trees handles class imbalance better than a single decision tree — minority classes like Hazardous get represented across different tree splits; (2) no feature scaling needed unlike SVM or logistic regression — PM2.5 ranges 0-300 while O3 ranges 0-0.1, but RF handles this natively; (3) built-in feature importance via Gini impurity — directly answers "which pollutant matters most?"; (4) robust to overfitting with maxDepth=5 cap on a 164-row dataset. XGBoost would also work but requires pip install in the Fabric environment — RF is available natively in Spark MLlib.
+
+**Result:** 96.15% accuracy with zero preprocessing beyond pivot and null-fill. PM2.5 confirmed as the dominant predictor (76%) — aligns with WHO's PM2.5-centric AQI framework.
+
+---
+
+## "How did you apply the ML model to production data?"
+
+**Situation:** A trained model sitting in MLflow has no value unless it enriches the serving layer that downstream consumers query.
+
+**Task:** Load the registered model and apply it to the Gold lakehouse `fact_readings` table without retraining.
+
+**Action:** Used `mlflow.spark.load_model("models:/globalwatch_aqi_classifier/1")` to load the registered PipelineModel directly from the MLflow Model Registry. Filtered Gold `fact_readings` to PM2.5 rows only, reshaped to match the training schema (pm25, pm10, no2, o3, co columns), ran `loaded_model.transform()` to generate predictions, then mapped numeric predictions back to readable labels (Good/Moderate/Unhealthy/Hazardous). Wrote the result as `fact_aqi_predictions` Delta table in the Gold lakehouse using `saveAsTable` with `mode=overwrite` for idempotency.
+
+**Result:** 74 PM2.5 station predictions persisted to Gold. The pattern — register → load → transform → write — is the standard MLflow inference pattern applicable to any Spark-based ML deployment, whether on Fabric, Databricks, or EMR.
