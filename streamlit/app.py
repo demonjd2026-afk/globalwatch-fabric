@@ -125,11 +125,11 @@ CHART_DEFAULTS = dict(
     font=dict(color="#94a3b8", family="Space Grotesk"),
     title_font=dict(size=14, color="#94a3b8"),
     hoverlabel=dict(
-        bgcolor="#0a0e1a",
-        font_color="#ffffff",
-        bordercolor="#00d4ff",
+        bgcolor="#ffffff",
+        font_color="#000000",
+        bordercolor="#0088cc",
         font_size=13,
-        font_family="Space Grotesk",
+        font_family="Arial Black",
     ),
     modebar=dict(
         bgcolor="#0f1629",
@@ -299,9 +299,9 @@ if "Dashboard" in page:
             "<extra></extra>"
         ),
         hoverlabel=dict(
-            bgcolor="#111827",
-            bordercolor="#00d4ff",
-            font=dict(color="#f8fafc", size=13, family="Arial Black"),
+            bgcolor="#ffffff",
+            bordercolor="#0088cc",
+            font=dict(color="#000000", size=13, family="Arial Black"),
         ),
     ))
     fig_map.update_layout(
@@ -331,7 +331,7 @@ if "Dashboard" in page:
             orientation="h",
             marker_color=[pm25_color(v) for v in pm25["Avg PM2.5"]],
             hovertemplate="<b>%{y}</b><br>Avg PM2.5: %{x:.1f} µg/m³<extra></extra>",
-            hoverlabel=dict(bgcolor="#111827", bordercolor="#00d4ff", font=dict(color="#f8fafc", size=13)),
+            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
         ))
         fig_bar.add_vline(
             x=15, line_dash="dash", line_color="#00d4ff",
@@ -363,7 +363,7 @@ if "Dashboard" in page:
             textinfo="percent",
             textfont=dict(color="#e2e8f0", size=11),
             hovertemplate="<b>%{label}</b><br>Count: %{value}<br>%{percent}<extra></extra>",
-            hoverlabel=dict(bgcolor="#111827", bordercolor="#00d4ff", font=dict(color="#f8fafc", size=13)),
+            hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
         ))
         fig_donut.update_layout(
             **CHART_DEFAULTS,
@@ -394,7 +394,7 @@ if "Dashboard" in page:
         textposition="outside",
         textfont=dict(color="#94a3b8"),
         hovertemplate="<b>%{x}</b><br>Stations: %{y}<extra></extra>",
-        hoverlabel=dict(bgcolor="#111827", bordercolor="#00d4ff", font=dict(color="#f8fafc", size=13)),
+        hoverlabel=dict(bgcolor="#ffffff", bordercolor="#0088cc", font=dict(color="#000000", size=13, family="Arial Black")),
     ))
     fig_pred.update_layout(
         **CHART_DEFAULTS,
