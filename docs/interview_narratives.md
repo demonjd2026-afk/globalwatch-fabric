@@ -2,17 +2,19 @@
 
 STAR-format stories for each phase of GlobalWatch. Use these when interviewers ask behavioural or technical questions.
 
+> Figures quoted as "the dataset" reflect the Gold snapshot of **09 Aug 2026** — 894 fact rows, 303 stations, 23 countries, 274 WHO exceedances. Figures tied to a specific screenshot or run are labelled as such; they describe that run, not the current state.
+
 ---
 
 ## "Tell me about a data engineering project you built end-to-end"
 
 **Situation:** I wanted to build a production-grade portfolio project on Microsoft Fabric that demonstrates the full data engineering lifecycle — ingestion, transformation, serving, and AI — using a globally unique dataset.
 
-**Task:** Design and implement a Lambda architecture platform that ingests real-time and batch air quality data from 10,000+ stations across 90 countries, processes it through a medallion lakehouse, and serves it via Direct Lake Power BI and a Claude-powered AI agent.
+**Task:** Design and implement a Lambda architecture platform that ingests real-time and batch air quality data across 70 targeted country codes, processes it through a medallion lakehouse, scores it with a tracked model, and serves it via Direct Lake Power BI and a natural-language interface.
 
 **Action:** Built GlobalWatch on Microsoft Fabric — Fabric Eventstream for real-time OpenAQ ingestion, Fabric Data Factory watermark pipelines for batch WAQI data, PySpark notebooks with AQE, broadcast joins, and SCD Type 2 via Delta MERGE for the Bronze→Silver→Gold medallion. Added a KQL Database with update policies for the real-time layer, Data Activator for PM2.5 hazard alerting, and a Claude Sonnet tool-use agent for natural language querying.
 
-**Result:** A fully deployed pipeline ingesting air quality readings from 9 countries, with a star schema Gold layer showing India at 100% PM2.5 WHO exceedance (avg 175 µg/m³ vs WHO guideline of 15), and an AI agent that translates natural language to KQL and SQL against live and historical data.
+**Result:** A deployed pipeline currently holding 894 readings from 303 stations across 23 countries, with a star schema Gold layer showing India at 100% PM2.5 WHO exceedance (avg 173.24 µg/m³ against a guideline of 15) and 30.6% of all readings breaching their pollutant's WHO limit. It runs on a schedule — batch daily, streaming hourly — with a Random Forest scoring PM2.5 readings, a Data Activator email alert on hazardous conditions, a Direct Lake Power BI report with continent-level RLS, and a public Streamlit app with a Claude-powered assistant grounded on the published Gold snapshot.
 
 ---
 
@@ -42,11 +44,11 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 ## "How did you optimize Spark joins?"
 
-**Situation:** The Gold layer joins a 344-row fact table to dimension tables of 9, 5, and 121 rows respectively. At production scale with billions of fact rows, unoptimized joins would cause massive shuffles.
+**Situation:** The Gold layer joins the fact table to three dimensions that are tiny by comparison — currently 23, 5 and 308 rows. At production scale with billions of fact rows, unoptimized joins would cause massive shuffles.
 
 **Task:** Eliminate shuffle for dimension joins.
 
-**Action:** Set `autoBroadcastJoinThreshold` to 50MB and applied explicit `F.broadcast()` hints on all three dimension joins. dim_country (9 rows), dim_pollutant (5 rows), and dim_station (121 rows) are all copied to every executor — joins happen locally with zero data movement.
+**Action:** Set `autoBroadcastJoinThreshold` to 50MB and applied explicit `F.broadcast()` hints on all three dimension joins. dim_country (23 rows), dim_pollutant (5 rows) and dim_station (308 rows) are all copied to every executor — joins happen locally with zero data movement. The explicit hint matters because it holds even when AQE's statistics are stale.
 
 **Result:** No shuffle stage in the Gold fact build. At scale, this saves minutes of shuffle time and eliminates the risk of OOM on executor memory during the join phase.
 
@@ -82,9 +84,9 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Task:** Build a natural language interface that routes questions to the correct data layer.
 
-**Action:** Built a Streamlit app powered by Claude Sonnet with three tools: `query_kql` for real-time questions (last 24h), `query_gold_sql` for historical trend questions, and `get_country_health_context` for economic enrichment. The agent decides which tool to call based on the question, generates the query, executes it against the live endpoint, and returns a grounded natural language answer. API key stored in Streamlit secrets — not hardcoded.
+**Action:** Built a Streamlit app powered by Claude Sonnet 4.6 through the Anthropic Messages API. The design decision worth explaining is *grounding*: rather than giving the model query access, the app pre-computes aggregates from the published Gold snapshot — per-country PM2.5 averages, WHO exceedance counts, AQI distribution, ML prediction distribution, top polluted stations, and an architecture summary — and injects them as the system prompt on every turn. The API key lives in Streamlit secrets, never in source.
 
-**Result:** Stakeholders can ask "Which Asian cities had hazardous PM2.5 in the last 6 hours?" and get a live answer pulled from the KQL Database, or "Show me India's PM2.5 trend vs GDP per capita" and get a Gold SQL query result with World Bank enrichment — all through a chat interface.
+**Result:** Stakeholders ask "which country has the worst air quality?" or "how many stations exceed WHO guidelines?" and get an answer citing the real numbers from the latest pipeline export, with no hallucinated figures — because every number available to the model came from the Gold layer. The honest limitation is that it cannot answer outside those aggregates; the three-tool design (`query_kql`, `query_gold_sql`, `get_country_health_context`) is specified in TECH_SPEC as the next step once the agent has network access to the KQL and Lakehouse SQL endpoints. Being able to say precisely what is built, what is designed, and why the boundary sits where it does is usually more convincing than claiming the full agent.
 
 ---
 
@@ -94,9 +96,9 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Task:** Build rate-limit-safe ingestion without over-engineering.
 
-**Action:** Added `time.sleep(1)` between sensor-level API calls and `time.sleep(0.5)` between location iterations. Wrapped all API calls in try/except to log and skip individual failures rather than crashing the pipeline. Added a 429 detection check — if a page returns 429, the loop breaks gracefully and the watermark only updates if at least some records were written.
+**Action:** The first version used simple `time.sleep()` calls between requests — safe, but it made 70-country coverage impractically slow. The current version uses a `ThreadPoolExecutor` with 10 workers and a `Semaphore` that holds total throughput to the 60 req/min ceiling, so concurrency and the rate limit are decoupled. I also switched from `/sensors/{id}/measurements` to `/locations/{id}/latest` — one call per location instead of one per sensor, which is the change that actually made the breadth affordable. Every call is wrapped in try/except so an individual failure is logged and skipped rather than crashing the run, and the watermark only advances if records were written.
 
-**Result:** Zero pipeline crashes from rate limits. The 429 on page 3 of the initial test was caught gracefully — 335 records were still written successfully for pages 1 and 2, and the next run picks up where it left off via the watermark.
+**Result:** Zero pipeline crashes from rate limits, and coverage went from a handful of countries to 23 with sensor data returning across 70 targeted country codes. The lesson I'd give: rate limits are a throughput budget, not a reason to go serial — the fix is bounding concurrency against the budget, plus reducing the number of calls each unit of work needs.
 
 ---
 
@@ -108,7 +110,7 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Action:** Created a KQL Eventhouse with two tables: `raw_readings` (landing zone, 30-day retention) and `silver_readings` (365-day retention). Wrote a KQL function `TransformRawReadings()` that applies AQI categorization logic and WHO exceedance flags. Attached it as an update policy on `raw_readings` with `IsEnabled=true, IsTransactional=true` — so every new row landing in raw automatically triggers the function and writes a transformed record to silver in the same transaction. The Eventstream custom endpoint (`es_openaq_realtime`) routes the OpenAQ feed directly into `kql-raw-readings`.
 
-**Result:** 315 events streamed end-to-end within the first run. No Spark streaming job needed — KQL update policies handle the transformation natively, with transactional guarantees meaning raw and silver are always in sync. This is the Fabric-native alternative to Structured Streaming for sub-minute latency use cases.
+**Result:** 315 events streamed end-to-end on the first run; the hourly pipeline now dispatches around 5,056 events per run. No Spark streaming job needed — KQL update policies handle the transformation natively, with transactional guarantees meaning raw and silver are always in sync. This is the Fabric-native alternative to Structured Streaming for sub-minute latency use cases.
 
 ---
 
@@ -154,9 +156,9 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Task:** Train a classifier on air quality data, track it with MLflow, register it in the model registry, and apply it to the Gold layer.
 
-**Action:** Built `06_ml_aqi_prediction.ipynb` with 7 cells covering the full ML lifecycle. Pivoted Silver data from long to wide format (one row per station+timestamp, one column per pollutant). Created WHO PM2.5 threshold-based labels (0=Good → 4=Hazardous). Trained a Random Forest classifier using Spark MLlib with a Pipeline (VectorAssembler → RandomForestClassifier). Logged hyperparameters (num_trees=100, max_depth=5), metrics (accuracy, train/test rows), and the model artifact to MLflow. Registered as `globalwatch_aqi_classifier v1` in the MLflow Model Registry. Loaded the registered model and applied it to Gold `fact_readings` — wrote 74 PM2.5 predictions to a new `fact_aqi_predictions` Delta table.
+**Action:** Built `06_ml_aqi_prediction.ipynb` with 7 cells covering the full ML lifecycle. Pivoted Silver data from long to wide format (one row per station+timestamp, one column per pollutant). Created WHO PM2.5 threshold-based labels (0=Good → 4=Hazardous). Trained a Random Forest classifier using Spark MLlib with a Pipeline (VectorAssembler → RandomForestClassifier). Logged hyperparameters (num_trees=100, max_depth=5), metrics (accuracy, train/test rows), and the model artifact to MLflow. Registered as `globalwatch_aqi_classifier v1` in the MLflow Model Registry. Loaded the registered model and applied it to Gold `fact_readings`, writing the scored rows to a new `fact_aqi_predictions` Delta table with `mode=overwrite` so re-runs are idempotent.
 
-**Result:** 96.15% accuracy on held-out test set. Feature importance analysis showed PM2.5 dominates at 76.32%, followed by PM10 (12.91%) — confirms the model learned meaningful pollution patterns. Prediction distribution: Good 42, Moderate 21, Unhealthy 7, Hazardous 4 — consistent with real-world air quality data skewed toward cleaner readings.
+**Result:** 96.15% accuracy on the held-out test set. Feature importance showed PM2.5 dominating at 76.32%, followed by PM10 at 12.91%. The current snapshot holds 245 predictions across 206 stations — Good 130, Moderate 87, Unhealthy 20, Hazardous 8, consistent with real-world air quality data skewed toward cleaner readings. Worth saying out loud in an interview: PM2.5 is by construction the dominant signal for a PM2.5-derived label, so 96% demonstrates a working MLflow lifecycle more than a hard prediction problem — the transferable part is the pattern of track → register → load by URI → score → persist.
 
 ---
 
@@ -180,7 +182,7 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Action:** Used `mlflow.spark.load_model("models:/globalwatch_aqi_classifier/1")` to load the registered PipelineModel directly from the MLflow Model Registry. Filtered Gold `fact_readings` to PM2.5 rows only, reshaped to match the training schema (pm25, pm10, no2, o3, co columns), ran `loaded_model.transform()` to generate predictions, then mapped numeric predictions back to readable labels (Good/Moderate/Unhealthy/Hazardous). Wrote the result as `fact_aqi_predictions` Delta table in the Gold lakehouse using `saveAsTable` with `mode=overwrite` for idempotency.
 
-**Result:** 74 PM2.5 station predictions persisted to Gold. The pattern — register → load → transform → write — is the standard MLflow inference pattern applicable to any Spark-based ML deployment, whether on Fabric, Databricks, or EMR.
+**Result:** PM2.5 station predictions persisted to Gold — 245 rows over 206 stations in the current snapshot. The pattern — register → load → transform → write — is the standard MLflow inference pattern, applicable to any Spark-based ML deployment on Fabric, Databricks or EMR alike.
 
 ---
 
@@ -190,7 +192,7 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 
 **Task:** Implement conversational AI querying over air quality data without requiring users to know SQL or KQL.
 
-**Action:** Attempted to provision a native Fabric Data Agent (`globalwatch_agent`) in the globalwatch-dev workspace. Encountered a SKU limitation — Data Agent requires F64+ capacity; the trial runs on a lower SKU. Rather than leaving the capability undocumented, built `07_data_agent_simulation.ipynb` to demonstrate the NL→SQL pattern the Data Agent uses internally: defined 3 natural language questions, mapped each to an equivalent SQL query, executed them against the Gold lakehouse, and surfaced the results. Key findings: India highest PM2.5 at 175.83 µg/m³, 5 hazardous readings detected, station 30 CO reading at 8720 ppb (extreme outlier worth investigating).
+**Action:** Attempted to provision a native Fabric Data Agent (`globalwatch_agent`) in the globalwatch-dev workspace. Encountered a SKU limitation — Data Agent requires F64+ capacity; the trial runs on a lower SKU. Rather than leaving the capability undocumented, built `07_data_agent_simulation.ipynb` to demonstrate the NL→SQL pattern the Data Agent uses internally: defined 3 natural language questions, mapped each to an equivalent SQL query, executed them against the Gold lakehouse, and surfaced the results. Findings from that run (per `screenshots/29_data_agent_query_results.png`): India highest PM2.5 at 175.83 µg/m³, 5 hazardous readings detected, and a CO reading of 8,720 ppb flagged as an extreme outlier worth investigating. The current snapshot shows India at 173.24 µg/m³ and 11 hazardous readings — the figures move with each run.
 
 **Result:** The simulation proves architectural understanding of the Data Agent pattern. In production on F64+, the native Data Agent would replace the manual NL→SQL mapping with an LLM-powered query translator connected directly to the semantic model and KQL database — same queries, zero code. This is a common interview scenario — knowing *why* a feature isn't available and *how* to work around it demonstrates real-world engineering judgment over tutorial-following.
 

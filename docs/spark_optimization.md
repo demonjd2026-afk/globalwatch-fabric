@@ -51,14 +51,14 @@ df_fact = df_silver \
 
 **Table sizes in GlobalWatch:**
 
-| Table | Rows | Approx Size | Strategy |
+| Table | Rows (09 Aug 2026) | Approx Size | Strategy |
 |---|---|---|---|
-| dim_country | 9 | ~1 KB | Broadcast |
+| dim_country | 23 | ~2 KB | Broadcast |
 | dim_pollutant | 5 | <1 KB | Broadcast |
-| dim_station | 121 | ~10 KB | Broadcast |
-| fact_readings | 344+ | Grows over time | Build side (never broadcast) |
+| dim_station | 308 | ~30 KB | Broadcast |
+| fact_readings | 894 and growing | Grows over time | Build side (never broadcast) |
 
-**Interview line:** "dim_country has 9 rows and dim_pollutant has 5 rows — we explicitly broadcast both. At production scale with billions of fact rows, not broadcasting a 9-row table would cause an unnecessary 1TB shuffle. The broadcast hint forces this even if AQE's statistics are stale."
+**Interview line:** "dim_country has 23 rows and dim_pollutant has 5 — we explicitly broadcast both. At production scale with billions of fact rows, not broadcasting a 23-row table would cause an unnecessary multi-terabyte shuffle. The explicit hint forces the right plan even when AQE's statistics are stale."
 
 ---
 
@@ -106,8 +106,8 @@ df_joined = df_readings_salted \
 ```python
 # Silver — partitioned by country_code + year_month
 # Query: "Show me India readings for Aug 2026"
-# Without partitioning: scan all 344 rows
-# With partitioning: scan only IN/2026-08/ directory
+# Without partitioning: scan every row in the table
+# With partitioning: scan only the IN/2026-08/ directory
 df_silver.write \
     .partitionBy("country_code", "year_month") \
     .saveAsTable("silver_readings")
@@ -120,7 +120,7 @@ df_fact.write \
     .saveAsTable("fact_readings")
 ```
 
-**Interview line:** "We partition Silver by country_code + year_month because the dominant query pattern is country-filtered time-range analysis. A query for India in August 2026 skips all other country directories — from scanning 344 rows down to scanning ~25 rows."
+**Interview line:** "We partition Silver by country_code + year_month because the dominant query pattern is country-filtered time-range analysis. A query for India in August 2026 skips every other country directory — in the current snapshot that means touching roughly 40 of 894 rows instead of all of them, and the ratio only improves as the table grows."
 
 ---
 
@@ -143,9 +143,9 @@ spark.sql(f"""
 
 | Query | Without Z-Order | With Z-Order |
 |---|---|---|
-| `WHERE location_id = 173` | Scan all 25 files | Scan 1-2 files |
-| `WHERE location_id = 173 AND reading_ts >= '2026-01-01'` | Scan all 25 files | Scan 1 file |
-| `WHERE country_code = 'IN'` | Not helped (partition handles this) | N/A |
+| `WHERE location_id = 6207952` | Scan every file in the partition | Scan 1–2 files |
+| `WHERE location_id = 6207952 AND reading_ts >= '2026-01-01'` | Scan every file in the partition | Scan 1 file |
+| `WHERE country_code = 'IN'` | Not helped (partition pruning handles this) | N/A |
 
 **Interview line:** "Z-Order is Delta's answer to multi-dimensional clustering. We Z-order on location_id + reading_ts because our Power BI reports and RTI dashboards always filter by station and time range together. The Z-order curve co-locates data for nearby station IDs and timestamps in the same files — Data Skipping then eliminates files that can't contain the query's rows."
 
