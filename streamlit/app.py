@@ -286,7 +286,36 @@ if "Dashboard" in page:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Row 2: Bar chart + Donut ──
+    # ── Row 2: Full width map ──
+    map_df = station_df.merge(
+        fact_df[fact_df["parameter"]=="pm25"].groupby("location_id")["value"].mean().reset_index(),
+        on="location_id", how="left"
+    ).dropna(subset=["latitude","longitude","value"])
+
+    fig_map = px.scatter_mapbox(
+        map_df,
+        lat="latitude", lon="longitude",
+        size="value", color="value",
+        hover_name="location_name",
+        hover_data={"city": True, "country_code": True, "value": ":.1f"},
+        color_continuous_scale=["#22c55e","#f59e0b","#ef4444","#dc2626"],
+        size_max=20,
+        zoom=1,
+        title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
+        mapbox_style="carto-darkmatter",
+    )
+    fig_map.update_layout(
+        paper_bgcolor="#0f1629",
+        font=dict(color="#e2e8f0", family="Space Grotesk"),
+        title_font=dict(size=14, color="#94a3b8"),
+        coloraxis_showscale=False,
+        coloraxis_colorbar=dict(bgcolor="#0f1629"),
+        margin=dict(l=0, r=0, t=40, b=0),
+        height=420,
+    )
+    st.plotly_chart(fig_map, use_container_width=True)
+
+    # ── Row 3: Bar chart + Donut ──
     col_left, col_right = st.columns([3, 2])
 
     with col_left:
@@ -339,68 +368,42 @@ if "Dashboard" in page:
             title_font=dict(size=14, color="#94a3b8"),
             plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
             font=dict(color="#e2e8f0", family="Space Grotesk"),
-            legend=dict(font=dict(color="#94a3b8", size=10)),
+            legend=dict(
+                font=dict(color="#94a3b8", size=10),
+                bgcolor="#0f1629",
+                bordercolor="#1e2d4a",
+                borderwidth=1,
+            ),
             margin=dict(l=0, r=0, t=40, b=10),
             height=320,
         )
         st.plotly_chart(fig_donut, use_container_width=True)
 
-    # ── Row 3: Station map + ML predictions ──
-    col_map, col_pred = st.columns([3, 2])
+    # ── Row 3: ML predictions full width ──
+    pred_counts = pred_df["predicted_aqi_class"].value_counts().reset_index()
+    pred_counts.columns = ["Predicted AQI", "Stations"]
+    pred_colors = [color_map.get(c, "#334155") for c in pred_counts["Predicted AQI"]]
 
-    with col_map:
-        map_df = station_df.merge(
-            fact_df[fact_df["parameter"]=="pm25"].groupby("location_id")["value"].mean().reset_index(),
-            on="location_id", how="left"
-        ).dropna(subset=["latitude","longitude","value"])
-
-        fig_map = px.scatter_mapbox(
-            map_df,
-            lat="latitude", lon="longitude",
-            size="value", color="value",
-            hover_name="location_name",
-            hover_data={"city": True, "country_code": True, "value": ":.1f"},
-            color_continuous_scale=["#22c55e","#f59e0b","#ef4444","#dc2626"],
-            size_max=20,
-            zoom=1,
-            title="PM2.5 by Station (bubble = concentration)",
-            mapbox_style="carto-darkmatter",
-        )
-        fig_map.update_layout(
-            paper_bgcolor="#0f1629",
-            font=dict(color="#e2e8f0", family="Space Grotesk"),
-            title_font=dict(size=14, color="#94a3b8"),
-            coloraxis_showscale=False,
-            margin=dict(l=0, r=0, t=40, b=0),
-            height=340,
-        )
-        st.plotly_chart(fig_map, use_container_width=True)
-
-    with col_pred:
-        pred_counts = pred_df["predicted_aqi_class"].value_counts().reset_index()
-        pred_counts.columns = ["Predicted AQI", "Stations"]
-        pred_colors = [color_map.get(c, "#334155") for c in pred_counts["Predicted AQI"]]
-
-        fig_pred = go.Figure(go.Bar(
-            x=pred_counts["Predicted AQI"],
-            y=pred_counts["Stations"],
-            marker_color=pred_colors,
-            text=pred_counts["Stations"],
-            textposition="outside",
-            textfont=dict(color="#94a3b8"),
-        ))
-        fig_pred.update_layout(
-            title="ML-Predicted AQI Classes",
-            title_font=dict(size=14, color="#94a3b8"),
-            plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
-            font=dict(color="#e2e8f0", family="Space Grotesk"),
-            xaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
-            yaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
-            margin=dict(l=0, r=0, t=40, b=10),
-            height=340,
-            showlegend=False,
-        )
-        st.plotly_chart(fig_pred, use_container_width=True)
+    fig_pred = go.Figure(go.Bar(
+        x=pred_counts["Predicted AQI"],
+        y=pred_counts["Stations"],
+        marker_color=pred_colors,
+        text=pred_counts["Stations"],
+        textposition="outside",
+        textfont=dict(color="#94a3b8"),
+    ))
+    fig_pred.update_layout(
+        title="ML-Predicted AQI Classes",
+        title_font=dict(size=14, color="#94a3b8"),
+        plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
+        font=dict(color="#e2e8f0", family="Space Grotesk"),
+        xaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
+        yaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
+        margin=dict(l=0, r=0, t=40, b=10),
+        height=300,
+        showlegend=False,
+    )
+    st.plotly_chart(fig_pred, use_container_width=True)
 
     # ── Row 4: Top polluted stations ──
     st.markdown("### 🚨 Top 10 Most Polluted Stations")
