@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 import json
 import requests
 
-# ── Page config ──────────────────────────────────────────────
 st.set_page_config(
     page_title="GlobalWatch — Air Quality Intelligence",
     page_icon="🌍",
@@ -13,36 +12,33 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ── Custom CSS ────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Space Grotesk', sans-serif;
-}
+html, body, [class*="css"] { font-family: 'Space Grotesk', sans-serif; }
 
-/* Dark atmospheric background */
-.stApp {
-    background: #0a0e1a;
-    color: #e2e8f0;
-}
+.stApp { background: #0a0e1a; color: #e2e8f0; }
 
-/* Sidebar */
 [data-testid="stSidebar"] {
     background: #0f1629;
     border-right: 1px solid #1e2d4a;
 }
 
-/* Metric cards */
+/* Equal height metric cards */
 .metric-card {
     background: linear-gradient(135deg, #0f1629 0%, #1a2540 100%);
     border: 1px solid #1e3a5f;
     border-radius: 12px;
-    padding: 20px 24px;
+    padding: 20px 12px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .metric-card::before {
     content: '';
@@ -52,26 +48,27 @@ html, body, [class*="css"] {
     background: linear-gradient(90deg, #00d4ff, #0088cc);
 }
 .metric-value {
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #00d4ff;
     line-height: 1;
     font-family: 'JetBrains Mono', monospace;
 }
 .metric-label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     margin-top: 6px;
 }
 
-/* AQI badges */
-.aqi-good { color: #22c55e; font-weight: 600; }
-.aqi-moderate { color: #f59e0b; font-weight: 600; }
-.aqi-unhealthy-sensitive { color: #f97316; font-weight: 600; }
-.aqi-unhealthy { color: #ef4444; font-weight: 600; }
-.aqi-hazardous { color: #dc2626; font-weight: 700; }
+/* Chart wrapper — spacing between charts */
+.chart-wrapper {
+    margin-bottom: 24px;
+}
+
+/* Section divider */
+.section-gap { margin: 24px 0; }
 
 /* Chat messages */
 .chat-user {
@@ -81,6 +78,7 @@ html, body, [class*="css"] {
     margin: 8px 0;
     margin-left: 20%;
     border: 1px solid #2563eb;
+    color: #e2e8f0;
 }
 .chat-agent {
     background: #0f1629;
@@ -89,28 +87,11 @@ html, body, [class*="css"] {
     margin: 8px 0;
     margin-right: 20%;
     border: 1px solid #1e2d4a;
+    color: #e2e8f0;
 }
 
-/* Header */
-.app-header {
-    background: linear-gradient(135deg, #0a0e1a 0%, #0f1e35 100%);
-    border-bottom: 1px solid #1e3a5f;
-    padding: 16px 0;
-    margin-bottom: 24px;
-}
+h1, h2, h3 { color: #e2e8f0 !important; }
 
-/* Section headers */
-h1, h2, h3 {
-    color: #e2e8f0 !important;
-}
-
-/* Plotly chart background */
-.js-plotly-plot {
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* Input styling */
 .stTextInput > div > div > input {
     background: #0f1629;
     border: 1px solid #1e3a5f;
@@ -118,7 +99,6 @@ h1, h2, h3 {
     border-radius: 8px;
 }
 
-/* Button */
 .stButton > button {
     background: linear-gradient(135deg, #0088cc, #00d4ff);
     color: #0a0e1a;
@@ -127,66 +107,92 @@ h1, h2, h3 {
     border-radius: 8px;
     padding: 8px 24px;
 }
-.stButton > button:hover {
-    background: linear-gradient(135deg, #00d4ff, #0088cc);
-    transform: translateY(-1px);
-}
 
-/* Tab styling */
-.stTabs [data-baseweb="tab-list"] {
-    background: #0f1629;
-    border-bottom: 1px solid #1e2d4a;
-    gap: 4px;
+/* Fix Plotly hover and modebar in dark mode */
+.js-plotly-plot .plotly .modebar {
+    background: #0f1629 !important;
 }
-.stTabs [data-baseweb="tab"] {
-    color: #64748b;
-    font-weight: 500;
-}
-.stTabs [aria-selected="true"] {
-    color: #00d4ff !important;
-    border-bottom-color: #00d4ff !important;
+.js-plotly-plot .plotly .modebar-btn path {
+    fill: #64748b !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# ── Plotly dark theme helper ──────────────────────────────────
+CHART_DEFAULTS = dict(
+    paper_bgcolor="#0f1629",
+    plot_bgcolor="#0f1629",
+    font=dict(color="#94a3b8", family="Space Grotesk"),
+    title_font=dict(size=14, color="#94a3b8"),
+    hoverlabel=dict(
+        bgcolor="#1e2d4a",
+        font_color="#00d4ff",
+        bordercolor="#00d4ff",
+        font_size=12,
+    ),
+    modebar=dict(
+        bgcolor="#0f1629",
+        color="#475569",
+        activecolor="#00d4ff",
+    ),
+    showlegend=False,
+)
+
+PLOTLY_CONFIG = {
+    "displaylogo": False,
+    "modeBarButtonsToRemove": ["toImage", "sendDataToCloud"],
+}
 
 # ── Data loading ──────────────────────────────────────────────
 GITHUB_RAW = "https://raw.githubusercontent.com/demonjd2026-afk/globalwatch-fabric/main/streamlit/data"
 
-@st.cache_data(ttl=1800)  # refresh every 30 minutes — matches real-time pipeline
+@st.cache_data(ttl=1800)
 def load_data():
     def read_jsonl(url):
         r = requests.get(url, timeout=30)
         rows = [json.loads(line) for line in r.text.strip().split("\n") if line.strip()]
         return pd.DataFrame(rows)
 
-    fact     = read_jsonl(f"{GITHUB_RAW}/fact_readings.json")
-    country  = read_jsonl(f"{GITHUB_RAW}/dim_country.json")
-    station  = read_jsonl(f"{GITHUB_RAW}/dim_station.json")
-    pred     = read_jsonl(f"{GITHUB_RAW}/fact_aqi_predictions.json")
+    fact    = read_jsonl(f"{GITHUB_RAW}/fact_readings.json")
+    country = read_jsonl(f"{GITHUB_RAW}/dim_country.json")
+    station = read_jsonl(f"{GITHUB_RAW}/dim_station.json")
+    pred    = read_jsonl(f"{GITHUB_RAW}/fact_aqi_predictions.json")
 
     fact = fact.merge(country[["country_sk","country_name","country_code","continent"]],
                       on="country_sk", how="left")
     pred = pred.merge(country[["country_sk","country_name","country_code"]],
                       on="country_sk", how="left")
-
     return fact, country, station, pred
 
-@st.cache_data(ttl=1800)  # refresh every 30 minutes
+@st.cache_data(ttl=1800)
 def load_kql_stats():
     try:
         r = requests.get(f"{GITHUB_RAW}/kql_stats.json", timeout=30)
         return r.json() if r.status_code == 200 else {}
     except:
-        return {
-            "events_sent_this_run": 0,
-            "exported_at": "N/A",
-            "status": "N/A"
-        }
+        return {"events_sent_this_run": 0, "exported_at": "N/A", "status": "N/A"}
 
 fact_df, country_df, station_df, pred_df = load_data()
 kql_stats = load_kql_stats()
 
+# ── Color map ─────────────────────────────────────────────────
+AQI_COLORS = {
+    "Good": "#22c55e",
+    "Moderate": "#f59e0b",
+    "Unhealthy for Sensitive": "#f97316",
+    "Unhealthy": "#ef4444",
+    "Hazardous": "#dc2626",
+    "N/A": "#334155"
+}
+
+def aqi_color(val):
+    return AQI_COLORS.get(val, "#334155")
+
+def pm25_color(v):
+    if v > 150: return "#dc2626"
+    if v > 55:  return "#ef4444"
+    if v > 35:  return "#f59e0b"
+    return "#22c55e"
 
 # ── Sidebar ───────────────────────────────────────────────────
 with st.sidebar:
@@ -197,33 +203,22 @@ with st.sidebar:
         <div style='font-size:0.7rem; color:#64748b; letter-spacing:0.1em'>AIR QUALITY INTELLIGENCE</div>
     </div>
     """, unsafe_allow_html=True)
-
     st.markdown("---")
     page = st.radio("Navigate", ["📊 Dashboard", "🤖 AI Agent"], label_visibility="collapsed")
-
     st.markdown("---")
-    st.markdown("""
+    st.markdown(f"""
     <div style='font-size:0.72rem; color:#64748b; line-height:1.8'>
-        <b style='color:#94a3b8'>Data source</b><br>
-        OpenAQ v3 API<br>
-        <b style='color:#94a3b8'>Pipeline</b><br>
-        Microsoft Fabric<br>
-        Bronze → Silver → Gold<br>
-        <b style='color:#94a3b8'>ML Model</b><br>
-        Random Forest<br>
-        96.15% accuracy<br>
-        <b style='color:#94a3b8'>Last updated</b><br>
-        {last_updated}
+        <b style='color:#94a3b8'>Data source</b><br>OpenAQ v3 API<br>
+        <b style='color:#94a3b8'>Pipeline</b><br>Microsoft Fabric<br>Bronze → Silver → Gold<br>
+        <b style='color:#94a3b8'>ML Model</b><br>Random Forest · 96.15% accuracy<br>
+        <b style='color:#94a3b8'>Last updated</b><br>{pd.Timestamp.now().strftime("%d %b %Y")}
     </div>
-    """.format(last_updated=pd.Timestamp.now().strftime("%d %b %Y")), unsafe_allow_html=True)
-
+    """, unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("""
     <div style='font-size:0.7rem; color:#334155'>
-        Built on Microsoft Fabric<br>
-        Lakehouse + KQL + Eventstream<br>
-        <a href='https://github.com/demonjd2026-afk/globalwatch-fabric'
-           style='color:#0088cc'>GitHub →</a>
+        Built on Microsoft Fabric<br>Lakehouse + KQL + Eventstream<br>
+        <a href='https://github.com/demonjd2026-afk/globalwatch-fabric' style='color:#0088cc'>GitHub →</a>
     </div>
     """, unsafe_allow_html=True)
 
@@ -240,30 +235,28 @@ if "Dashboard" in page:
             LIVE AIR QUALITY INTELLIGENCE PLATFORM
         </span>
     </div>
-    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>
-        World Air Quality Dashboard
-    </h1>
-    <p style='color:#64748b; margin:0 0 24px; font-size:0.9rem'>
+    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>World Air Quality Dashboard</h1>
+    <p style='color:#64748b; margin:0 0 28px; font-size:0.9rem'>
         Real-time air quality intelligence powered by Microsoft Fabric · OpenAQ v3 · WHO guideline tracking
     </p>
     """, unsafe_allow_html=True)
 
-    # ── KPI Cards ──
-    total   = len(fact_df)
-    stations = fact_df["location_id"].nunique()
+    # ── KPI Cards — equal size ──
+    total     = len(fact_df)
+    stations  = fact_df["location_id"].nunique()
     countries = fact_df["country_name"].nunique()
     hazardous = len(fact_df[fact_df["aqi_category"] == "Hazardous"])
-    who_exc  = fact_df["exceeds_who_guideline"].sum()
+    who_exc   = int(fact_df["exceeds_who_guideline"].sum())
     rt_events = kql_stats.get("events_sent_this_run", 0)
-    rt_exported = kql_stats.get("exported_at", "N/A")
+    rt_time   = kql_stats.get("exported_at", "N/A")
 
     c1, c2, c3, c4, c5, c6 = st.columns(6)
     for col, val, label in [
-        (c1, total, "Total Readings"),
-        (c2, stations, "Active Stations"),
+        (c1, total,     "Total Readings"),
+        (c2, stations,  "Active Stations"),
         (c3, countries, "Countries"),
-        (c4, int(who_exc), "WHO Exceedances"),
-        (c5, hazardous, "Hazardous Readings"),
+        (c4, who_exc,   "WHO Exceedances"),
+        (c5, hazardous, "Hazardous"),
         (c6, rt_events, "⚡ RT Events/Run"),
     ]:
         with col:
@@ -274,112 +267,85 @@ if "Dashboard" in page:
             </div>
             """, unsafe_allow_html=True)
 
-    # Real-time sync info
     st.markdown(f"""
-    <div style='text-align:right; font-size:0.7rem; color:#334155; margin-top:4px'>
-        ⚡ Real-time stream last synced: {rt_exported}
+    <div style='text-align:right; font-size:0.7rem; color:#334155; margin-top:6px; margin-bottom:28px'>
+        ⚡ Real-time stream last synced: {rt_time}
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # ── Row 2: Full width map ──
+    # ── Map — full width ──
     map_df = station_df.merge(
-        fact_df[fact_df["parameter"]=="pm25"].groupby("location_id")["value"].mean().reset_index(),
+        fact_df[fact_df["parameter"]=="pm25"]
+            .groupby("location_id")["value"].mean().reset_index(),
         on="location_id", how="left"
     ).dropna(subset=["latitude","longitude","value"])
 
-    fig_map = px.scatter_mapbox(
-        map_df,
-        lat="latitude", lon="longitude",
-        size="value",
-        hover_name="location_name",
-        hover_data={"city": True, "country_code": True, "value": ":.1f"},
-        size_max=20,
-        zoom=1,
-        title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
-        mapbox_style="carto-darkmatter",
-    )
-    fig_map.update_traces(
-        marker=dict(
-            color=[
-                "#dc2626" if v > 150 else
-                "#ef4444" if v > 55 else
-                "#f59e0b" if v > 35 else
-                "#22c55e"
-                for v in map_df["value"]
-            ],
-            opacity=0.8
-        )
-    )
+    fig_map = go.Figure(go.Scattermapbox(
+        lat=map_df["latitude"],
+        lon=map_df["longitude"],
+        mode="markers",
+        marker=go.scattermapbox.Marker(
+            size=[max(6, min(30, v/5)) for v in map_df["value"]],
+            color=[pm25_color(v) for v in map_df["value"]],
+            opacity=0.85,
+        ),
+        text=map_df["location_name"],
+        customdata=map_df[["city","country_code","value"]],
+        hovertemplate=(
+            "<b>%{text}</b><br>"
+            "City: %{customdata[0]}<br>"
+            "Country: %{customdata[1]}<br>"
+            "PM2.5: %{customdata[2]:.1f} µg/m³"
+            "<extra></extra>"
+        ),
+    ))
     fig_map.update_layout(
-        paper_bgcolor="#0f1629",
-        font=dict(color="#e2e8f0", family="Space Grotesk"),
-        title_font=dict(size=14, color="#94a3b8"),
+        **CHART_DEFAULTS,
+        title="🗺️ PM2.5 by Station — Global View (bubble size = concentration)",
+        mapbox=dict(style="carto-darkmatter", zoom=1, center=dict(lat=20, lon=10)),
         margin=dict(l=0, r=0, t=40, b=0),
         height=420,
-        showlegend=False,
-        hoverlabel=dict(
-            bgcolor="#1e2d4a",
-            font_color="#e2e8f0",
-            bordercolor="#00d4ff"
-        ),
-        modebar=dict(
-            bgcolor="#0f1629",
-            color="#64748b",
-            activecolor="#00d4ff"
-        ),
     )
-    st.plotly_chart(fig_map, use_container_width=True, config={"displaylogo": False})
+    st.plotly_chart(fig_map, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # ── Row 3: Bar chart + Donut ──
+    st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
+
+    # ── Bar chart + Donut ──
     col_left, col_right = st.columns([3, 2])
 
     with col_left:
-        pm25 = fact_df[fact_df["parameter"] == "pm25"].groupby("country_name")["value"].mean().reset_index()
-        pm25.columns = ["Country", "Avg PM2.5 (µg/m³)"]
-        pm25 = pm25.sort_values("Avg PM2.5 (µg/m³)", ascending=True)
+        pm25 = fact_df[fact_df["parameter"]=="pm25"]\
+            .groupby("country_name")["value"].mean().reset_index()
+        pm25.columns = ["Country", "Avg PM2.5"]
+        pm25 = pm25.sort_values("Avg PM2.5", ascending=True)
 
-        fig_bar = px.bar(
-            pm25, x="Avg PM2.5 (µg/m³)", y="Country",
+        fig_bar = go.Figure(go.Bar(
+            x=pm25["Avg PM2.5"],
+            y=pm25["Country"],
             orientation="h",
-            title="Average PM2.5 by Country",
-        )
-        fig_bar.update_traces(
-            marker_color=[
-                "#dc2626" if v > 150 else
-                "#ef4444" if v > 55 else
-                "#f59e0b" if v > 35 else
-                "#22c55e"
-                for v in pm25["Avg PM2.5 (µg/m³)"]
-            ]
+            marker_color=[pm25_color(v) for v in pm25["Avg PM2.5"]],
+            hovertemplate="<b>%{y}</b><br>Avg PM2.5: %{x:.1f} µg/m³<extra></extra>",
+        ))
+        fig_bar.add_vline(
+            x=15, line_dash="dash", line_color="#00d4ff",
+            annotation_text="WHO limit",
+            annotation_font_color="#00d4ff",
+            annotation_font_size=10,
         )
         fig_bar.update_layout(
-            plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
-            font=dict(color="#e2e8f0", family="Space Grotesk"),
-            title_font=dict(size=14, color="#94a3b8"),
-            margin=dict(l=0, r=10, t=40, b=10),
-            xaxis=dict(gridcolor="#1e2d4a", color="#64748b"),
+            **CHART_DEFAULTS,
+            title="Average PM2.5 by Country (µg/m³)",
+            xaxis=dict(gridcolor="#1e2d4a", color="#64748b", title="Avg PM2.5 (µg/m³)"),
             yaxis=dict(color="#94a3b8"),
-            height=320,
-            showlegend=False,
-            hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
-            modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
+            margin=dict(l=0, r=10, t=40, b=10),
+            height=380,
         )
-        fig_bar.add_vline(x=15, line_dash="dash", line_color="#00d4ff",
-                          annotation_text="WHO limit", annotation_font_color="#00d4ff")
-        st.plotly_chart(fig_bar, use_container_width=True, config={"displaylogo": False})
+        st.plotly_chart(fig_bar, use_container_width=True, config=PLOTLY_CONFIG)
 
     with col_right:
         aqi_counts = fact_df["aqi_category"].value_counts().reset_index()
         aqi_counts.columns = ["AQI Category", "Count"]
-
-        color_map = {
-            "Good": "#22c55e", "Moderate": "#f59e0b",
-            "Unhealthy for Sensitive": "#f97316",
-            "Unhealthy": "#ef4444", "Hazardous": "#dc2626", "N/A": "#334155"
-        }
-        colors = [color_map.get(c, "#334155") for c in aqi_counts["AQI Category"]]
+        colors = [aqi_color(c) for c in aqi_counts["AQI Category"]]
 
         fig_donut = go.Figure(go.Pie(
             labels=aqi_counts["AQI Category"],
@@ -388,12 +354,12 @@ if "Dashboard" in page:
             marker_colors=colors,
             textinfo="percent",
             textfont=dict(color="#e2e8f0", size=11),
+            hovertemplate="<b>%{label}</b><br>Count: %{value}<br>%{percent}<extra></extra>",
         ))
         fig_donut.update_layout(
+            **CHART_DEFAULTS,
             title="AQI Category Distribution",
-            title_font=dict(size=14, color="#94a3b8"),
-            plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
-            font=dict(color="#e2e8f0", family="Space Grotesk"),
+            showlegend=True,
             legend=dict(
                 font=dict(color="#94a3b8", size=10),
                 bgcolor="#0f1629",
@@ -401,55 +367,54 @@ if "Dashboard" in page:
                 borderwidth=1,
             ),
             margin=dict(l=0, r=0, t=40, b=10),
-            height=320,
-            hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
-            modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
+            height=380,
         )
-        st.plotly_chart(fig_donut, use_container_width=True, config={"displaylogo": False})
+        st.plotly_chart(fig_donut, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # ── Row 3: ML predictions full width ──
+    st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
+
+    # ── ML Predictions ──
     pred_counts = pred_df["predicted_aqi_class"].value_counts().reset_index()
     pred_counts.columns = ["Predicted AQI", "Stations"]
-    pred_colors = [color_map.get(c, "#334155") for c in pred_counts["Predicted AQI"]]
 
     fig_pred = go.Figure(go.Bar(
         x=pred_counts["Predicted AQI"],
         y=pred_counts["Stations"],
-        marker_color=pred_colors,
+        marker_color=[aqi_color(c) for c in pred_counts["Predicted AQI"]],
         text=pred_counts["Stations"],
         textposition="outside",
         textfont=dict(color="#94a3b8"),
+        hovertemplate="<b>%{x}</b><br>Stations: %{y}<extra></extra>",
     ))
     fig_pred.update_layout(
-        title="ML-Predicted AQI Classes",
-        title_font=dict(size=14, color="#94a3b8"),
-        plot_bgcolor="#0f1629", paper_bgcolor="#0f1629",
-        font=dict(color="#e2e8f0", family="Space Grotesk"),
+        **CHART_DEFAULTS,
+        title="ML-Predicted AQI Classes (Random Forest · 96.15% accuracy)",
         xaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
         yaxis=dict(color="#64748b", gridcolor="#1e2d4a"),
         margin=dict(l=0, r=0, t=40, b=10),
         height=300,
-        showlegend=False,
-        hoverlabel=dict(bgcolor="#1e2d4a", font_color="#e2e8f0", bordercolor="#00d4ff"),
-        modebar=dict(bgcolor="#0f1629", color="#64748b", activecolor="#00d4ff"),
     )
-    st.plotly_chart(fig_pred, use_container_width=True, config={"displaylogo": False})
+    st.plotly_chart(fig_pred, use_container_width=True, config=PLOTLY_CONFIG)
 
-    # ── Row 4: Top polluted stations ──
+    st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
+
+    # ── Top 10 Most Polluted Stations ──
     st.markdown("### 🚨 Top 10 Most Polluted Stations")
     top_stations = fact_df[fact_df["parameter"]=="pm25"] \
         .merge(station_df[["location_id","location_name","city"]], on="location_id", how="left") \
         .groupby(["location_name","city","country_name","aqi_category"])["value"].max().reset_index() \
         .nlargest(10, "value") \
-        .rename(columns={"location_name":"Station","city":"City",
-                          "country_name":"Country","value":"PM2.5 (µg/m³)","aqi_category":"AQI"})
-
+        .rename(columns={
+            "location_name": "Station",
+            "city": "City",
+            "country_name": "Country",
+            "value": "PM2.5 (µg/m³)",
+            "aqi_category": "AQI"
+        })
     top_stations["PM2.5 (µg/m³)"] = top_stations["PM2.5 (µg/m³)"].round(1)
 
     def color_aqi(val):
-        colors = {"Good":"#22c55e","Moderate":"#f59e0b","Unhealthy":"#ef4444",
-                  "Hazardous":"#dc2626","N/A":"#64748b"}
-        c = colors.get(val, "#64748b")
+        c = AQI_COLORS.get(val, "#64748b")
         return f"color: {c}; font-weight: 600"
 
     st.dataframe(
@@ -470,24 +435,20 @@ else:
             NATURAL LANGUAGE AIR QUALITY AGENT
         </span>
     </div>
-    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>
-        GlobalWatch AI Agent
-    </h1>
+    <h1 style='font-size:2rem; margin:0 0 4px; font-weight:700'>GlobalWatch AI Agent</h1>
     <p style='color:#64748b; margin:0 0 24px; font-size:0.9rem'>
         Ask questions about air quality data in plain English
     </p>
     """, unsafe_allow_html=True)
 
-    # Build data context for Claude
     pm25_by_country = fact_df[fact_df["parameter"]=="pm25"] \
         .groupby("country_name")["value"].mean().round(2).to_dict()
-    who_by_country = fact_df.groupby("country_name")["exceeds_who_guideline"].sum().to_dict()
-    aqi_dist = fact_df["aqi_category"].value_counts().to_dict()
-    pred_dist = pred_df["predicted_aqi_class"].value_counts().to_dict()
+    who_by_country  = fact_df.groupby("country_name")["exceeds_who_guideline"].sum().to_dict()
+    aqi_dist        = fact_df["aqi_category"].value_counts().to_dict()
+    pred_dist       = pred_df["predicted_aqi_class"].value_counts().to_dict()
 
     DATA_CONTEXT = f"""
 You are GlobalWatch AI Agent, an expert on air quality data from Microsoft Fabric.
-You have access to real air quality data from the GlobalWatch platform built on Microsoft Fabric.
 
 KEY FACTS:
 - Total readings: {len(fact_df)}
@@ -510,22 +471,19 @@ ML MODEL PREDICTIONS (Random Forest, 96.15% accuracy):
 TOP POLLUTED STATIONS (PM2.5):
 {fact_df[fact_df['parameter']=='pm25'].merge(station_df[['location_id','location_name','city']], on='location_id', how='left').nlargest(5,'value')[['location_name','city','country_name','value']].to_string(index=False)}
 
-ARCHITECTURE (for technical questions):
+ARCHITECTURE:
 - Ingestion: Fabric Eventstream (real-time) + Data Factory (batch)
 - Storage: Bronze/Silver/Gold Lakehouse medallion on OneLake
 - Processing: Apache Spark with AQE, Delta Lake MERGE, SCD2
-- Real-time: KQL Eventhouse with update policies (2,205 events)
-- ML: Random Forest classifier via Spark MLlib + MLflow tracking
+- Real-time: KQL Eventhouse with update policies
+- ML: Random Forest via Spark MLlib + MLflow tracking
 - Serving: Direct Lake Power BI + RLS by continent
-- Orchestration: pl_batch_globalwatch (daily) + pl_realtime_globalwatch (hourly)
+- Orchestration: pl_batch_globalwatch (daily) + pl_realtime_globalwatch (every 30 mins)
 
 WHO PM2.5 GUIDELINE: 15 µg/m³ annual mean
-Answer questions accurately based on this data. Be concise but insightful.
-For technical questions about the pipeline architecture, explain clearly.
-Always cite specific numbers from the data.
+Answer concisely and cite specific numbers.
 """
 
-    # Suggested questions
     st.markdown("**Try asking:**")
     cols = st.columns(3)
     suggestions = [
@@ -544,21 +502,18 @@ Always cite specific numbers from the data.
 
     st.markdown("---")
 
-    # Chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Handle suggested question
     if "pending_question" in st.session_state:
         q = st.session_state.pop("pending_question")
         st.session_state.messages.append({"role": "user", "content": q})
 
-    # Display chat history
     for msg in st.session_state.messages:
         if msg["role"] == "user":
             st.markdown(f"""
             <div class='chat-user'>
-                <span style='font-size:0.7rem; color:#64748b'>You</span><br>
+                <span style='font-size:0.7rem; color:#94a3b8'>You</span><br>
                 {msg['content']}
             </div>
             """, unsafe_allow_html=True)
@@ -570,7 +525,6 @@ Always cite specific numbers from the data.
             </div>
             """, unsafe_allow_html=True)
 
-    # Get AI response for last unanswered user message
     msgs = st.session_state.messages
     if msgs and msgs[-1]["role"] == "user":
         with st.spinner("Analyzing air quality data..."):
@@ -586,10 +540,7 @@ Always cite specific numbers from the data.
                         "model": "claude-sonnet-4-6",
                         "max_tokens": 1000,
                         "system": DATA_CONTEXT,
-                        "messages": [
-                            {"role": m["role"], "content": m["content"]}
-                            for m in msgs
-                        ]
+                        "messages": [{"role": m["role"], "content": m["content"]} for m in msgs]
                     },
                     timeout=30
                 )
@@ -606,7 +557,6 @@ Always cite specific numbers from the data.
         st.session_state.messages.append({"role": "assistant", "content": answer})
         st.rerun()
 
-    # Input box
     with st.form("chat_form", clear_on_submit=True):
         col_input, col_btn = st.columns([5, 1])
         with col_input:
