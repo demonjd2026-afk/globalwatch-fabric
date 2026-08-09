@@ -7,7 +7,6 @@
 {"station_sk":714250936,"location_id":2812550,"location_name":"Almaty Arena","city":"Kazakhstan","country_code":"KZ","latitude":43.26408,"longitude":76.81688}
 {"station_sk":51879675,"location_id":2812831,"location_name":"Road, Almaty Industrial Zone","city":"Kazakhstan","country_code":"KZ","latitude":43.31652,"longitude":76.80429}
 {"station_sk":391136069,"location_id":6113134,"location_name":"airqo_g5563","city":"Uganda","country_code":"UG","latitude":0.3118744185161481,"longitude":32.56235063213467}
-{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Braakman","country_code":"NL","latitude":51.29446600001544,"longitude":3.7494090003978005}
 {"station_sk":-1513738336,"location_id":6336503,"location_name":"airqo_g5546","city":"Uganda","country_code":"UG","latitude":0.4105560361796908,"longitude":32.57091121650907}
 {"station_sk":-584528071,"location_id":6113253,"location_name":"airqo_g5448","city":"Uganda","country_code":"UG","latitude":-0.6066042614275536,"longitude":30.65862467761635}
 {"station_sk":104680428,"location_id":2819013,"location_name":"Nurly street","city":"Kazakhstan","country_code":"KZ","latitude":43.2288,"longitude":76.77749}
@@ -16,7 +15,6 @@
 {"station_sk":-559110609,"location_id":3963,"location_name":"\"Budapest Pesthidegkut\"","city":"Budapest","country_code":"HU","latitude":47.5619440001522,"longitude":18.9600080000324}
 {"station_sk":-2073990163,"location_id":2812690,"location_name":"School 187","city":"Kazakhstan","country_code":"KZ","latitude":43.18579,"longitude":76.82848}
 {"station_sk":-1269232905,"location_id":6113246,"location_name":"airqo_g5455","city":"Uganda","country_code":"UG","latitude":-0.5925981347220116,"longitude":30.666213777318678}
-{"station_sk":778719264,"location_id":155,"location_name":"London N. Kensington - UKA00253","city":"Kensington and Chelsea","country_code":"GB","latitude":51.52104999941992,"longitude":-0.21349199974454106}
 {"station_sk":437039034,"location_id":2812821,"location_name":"School 160","city":"Kazakhstan","country_code":"KZ","latitude":43.33584,"longitude":76.91287}
 {"station_sk":-1017234847,"location_id":6113247,"location_name":"airqo_g5463","city":"Uganda","country_code":"UG","latitude":-0.5815995762693341,"longitude":30.70544937554386}
 {"station_sk":-211395717,"location_id":2812691,"location_name":"169 School","city":"Kazakhstan","country_code":"KZ","latitude":43.29713,"longitude":76.8611}
@@ -39,17 +37,12 @@
 {"station_sk":1806139809,"location_id":6113239,"location_name":"airqo_g5519","city":"Uganda","country_code":"UG","latitude":-0.623977767898304,"longitude":30.642503471442712}
 {"station_sk":1206092699,"location_id":7094,"location_name":"Astana","city":"N/A","country_code":"KZ","latitude":51.125287,"longitude":71.467217}
 {"station_sk":-944425502,"location_id":2819078,"location_name":"Shkola-Gimnaziya 152","city":"Kazakhstan","country_code":"KZ","latitude":43.30173,"longitude":76.87217}
-{"station_sk":-1341209213,"location_id":152,"location_name":"Camden Kerbside - UKA00259","city":"Camden","country_code":"GB","latitude":51.54420999974351,"longitude":-0.17526899971392015}
-{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Houtakker","country_code":"NL","latitude":51.51838800001479,"longitude":5.148450000227909}
 {"station_sk":-1288384786,"location_id":6113242,"location_name":"airqo_g5568","city":"Uganda","country_code":"UG","latitude":-0.58759958659695,"longitude":30.646319434757686}
 {"station_sk":-1892385500,"location_id":2812726,"location_name":"Hospital-7","city":"Kazakhstan","country_code":"KZ","latitude":43.23396,"longitude":76.80013}
-{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Biest Houtakker","country_code":"NL","latitude":51.5184,"longitude":5.14845}
 {"station_sk":1699442919,"location_id":6114036,"location_name":"Ntinda","city":"Uganda","country_code":"UG","latitude":0.360209,"longitude":32.610756}
 {"station_sk":52350735,"location_id":2812687,"location_name":"KBTU","city":"Kazakhstan","country_code":"KZ","latitude":43.25348,"longitude":76.94537}
-{"station_sk":-1367854885,"location_id":146,"location_name":"Southwark A2 Old Kent Road - UKA00558","city":"Southwark","country_code":"GB","latitude":51.4804989994662,"longitude":-0.059550000208953166}
 {"station_sk":1564127170,"location_id":6113240,"location_name":"airqo_g5446","city":"Uganda","country_code":"UG","latitude":0.3156788593479292,"longitude":32.635063348773784}
 {"station_sk":1526230583,"location_id":2812555,"location_name":"Magnum Besagash","city":"Kazakhstan","country_code":"KZ","latitude":43.29222,"longitude":77.01218}
-{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Philippine","country_code":"NL","latitude":51.29449999999999,"longitude":3.7494799999999997}
 {"station_sk":357833970,"location_id":3959,"location_name":"\"Gyor Szent Istvan\"","city":"Gyr","country_code":"HU","latitude":47.68527800000957,"longitude":17.639444000391087}
 {"station_sk":-759095498,"location_id":6336502,"location_name":"airqo_g5433","city":"Uganda","country_code":"UG","latitude":0.26328147937525415,"longitude":32.61791872518982}
 {"station_sk":936313626,"location_id":3965,"location_name":"\"Dunaujvaros\"","city":"Dunaújváros","country_code":"HU","latitude":46.97611099972465,"longitude":18.936114000149306}
@@ -83,7 +76,6 @@
 {"station_sk":1938853494,"location_id":3448,"location_name":"BETMEU1","city":"Brussels-Capital Region","country_code":"BE","latitude":50.895101,"longitude":4.392718}
 {"station_sk":1411818440,"location_id":2943,"location_name":"43R221 - LIEGE","city":"Herstal","country_code":"BE","latitude":50.65844441760887,"longitude":5.627835290438242}
 {"station_sk":77053664,"location_id":3449,"location_name":"40AB02 - BERENDRECHT","city":"Belgium","country_code":"BE","latitude":51.34072749230201,"longitude":4.32182021475228}
-{"station_sk":-1367854885,"location_id":146,"location_name":"Southwark - A2 Old Kent Road","city":"Southwark","country_code":"GB","latitude":51.4804994936467,"longitude":-0.0595528932573422}
 {"station_sk":-948815992,"location_id":7464,"location_name":"SAN JUAN DE LURIGANCHO","city":"Lima","country_code":"PE","latitude":-11.981636,"longitude":-76.999247}
 {"station_sk":-1375935307,"location_id":346,"location_name":"MD University, Rohtak - HSPCB","city":"India","country_code":"IN","latitude":28.876028,"longitude":76.619464}
 {"station_sk":-465414146,"location_id":3443,"location_name":"40AB01 - ANTWERPEN","city":"Belgium","country_code":"BE","latitude":51.28101368868136,"longitude":4.32984796437965}
@@ -95,11 +87,9 @@
 {"station_sk":-443495229,"location_id":1214504,"location_name":"下関市彦島迫町５丁目１３－２１","city":" ","country_code":"JP","latitude":33.939444,"longitude":130.898333}
 {"station_sk":2079611232,"location_id":1214503,"location_name":"下関市山の田本町８－１","city":" ","country_code":"JP","latitude":33.985556,"longitude":130.929722}
 {"station_sk":1875159474,"location_id":3358,"location_name":"42N045 - HASSELT","city":"Belgium","country_code":"BE","latitude":50.93971186546469,"longitude":5.368378532294259}
-{"station_sk":778719264,"location_id":155,"location_name":"Kensington and Chelsea - North Ken","city":"Kensington and Chelsea","country_code":"GB","latitude":51.5210467476039,"longitude":-0.213492139585065}
 {"station_sk":1009144214,"location_id":1214498,"location_name":"下新川郡入善町入膳３９４５","city":" ","country_code":"JP","latitude":36.932778,"longitude":137.508611}
 {"station_sk":1682978565,"location_id":3450,"location_name":"42M802 - ANTWERPEN","city":"Antwerpen","country_code":"BE","latitude":51.26098970853363,"longitude":4.424399006770883}
 {"station_sk":986842064,"location_id":3930,"location_name":"40AL04 - BEVEREN","city":"Beveren","country_code":"BE","latitude":51.290694464706185,"longitude":4.293286429844849}
-{"station_sk":-1341209213,"location_id":152,"location_name":"Camden - Swiss Cottage","city":"Camden","country_code":"GB","latitude":51.544219,"longitude":-0.175284}
 {"station_sk":-610370415,"location_id":1214496,"location_name":"下呂市萩原町羽根２６０５－１","city":" ","country_code":"JP","latitude":35.884167,"longitude":137.207222}
 {"station_sk":1268977093,"location_id":4463,"location_name":"43N132 - HABAY-LA-N.","city":"Habay","country_code":"BE","latitude":49.7192811887373,"longitude":5.630397740176085}
 {"station_sk":-486733606,"location_id":1214500,"location_name":"下松市大手町３丁目３－３","city":" ","country_code":"JP","latitude":34.012222,"longitude":131.873056}
@@ -304,5 +294,64 @@
 {"station_sk":664682653,"location_id":304,"location_name":"Campbelltown West","city":"Sydney South-west","country_code":"AU","latitude":-34.06666669999999,"longitude":150.7952778}
 {"station_sk":770606158,"location_id":355,"location_name":"Prospect","city":"Sydney North-west","country_code":"AU","latitude":-33.7947222,"longitude":150.9125}
 {"station_sk":-490900878,"location_id":336,"location_name":"Earlwood","city":"Sydney East","country_code":"AU","latitude":-33.9177778,"longitude":151.1347222}
+{"station_sk":1634310769,"location_id":378,"location_name":"Alandur Bus Depot","city":"India","country_code":"IN","latitude":12.99711389,"longitude":80.19151667}
+{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Braakman","country_code":"NL","latitude":51.29446600001544,"longitude":3.7494090003978005}
+{"station_sk":778719264,"location_id":155,"location_name":"London N. Kensington - UKA00253","city":"Kensington and Chelsea","country_code":"GB","latitude":51.52104999941992,"longitude":-0.21349199974454106}
+{"station_sk":43622223,"location_id":10705,"location_name":"San Cristobal","city":"Colombia","country_code":"CO","latitude":4.5725,"longitude":-74.0836}
+{"station_sk":1525265624,"location_id":354,"location_name":"Lalbagh, DN Park","city":"India","country_code":"IN","latitude":26.84578611,"longitude":80.93874444}
+{"station_sk":-1341209213,"location_id":152,"location_name":"Camden Kerbside - UKA00259","city":"Camden","country_code":"GB","latitude":51.54420999974351,"longitude":-0.17526899971392015}
+{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Houtakker","country_code":"NL","latitude":51.51838800001479,"longitude":5.148450000227909}
+{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Biest Houtakker","country_code":"NL","latitude":51.5184,"longitude":5.14845}
+{"station_sk":-1367854885,"location_id":146,"location_name":"Southwark A2 Old Kent Road - UKA00558","city":"Southwark","country_code":"GB","latitude":51.4804989994662,"longitude":-0.059550000208953166}
+{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Philippine","country_code":"NL","latitude":51.29449999999999,"longitude":3.7494799999999997}
+{"station_sk":1929269518,"location_id":3944,"location_name":"\"Miskolc Buza\"","city":"Miskolc","country_code":"HU","latitude":48.106943999772746,"longitude":20.790005999918233}
+{"station_sk":-1601861446,"location_id":717,"location_name":"Pluakdaeng District Health Office","city":"Rayong","country_code":"TH","latitude":12.97378333,"longitude":101.21285}
+{"station_sk":1191169930,"location_id":619,"location_name":"Bang Sao Thong, Bang Sao Thong","city":"Thailand","country_code":"TH","latitude":13.567696531322,"longitude":100.78940318041}
+{"station_sk":-1745671968,"location_id":2162787,"location_name":"SINDOS","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.65784200021254,"longitude":22.80216900033985}
+{"station_sk":-1006132121,"location_id":906,"location_name":"Residence for Dept. of Mineral Resources","city":"Samut Prakan","country_code":"TH","latitude":13.652141,"longitude":100.531805}
+{"station_sk":-101766857,"location_id":2162796,"location_name":"PIREAUS-1","city":"monitoring network of Athens","country_code":"GR","latitude":37.94465599978361,"longitude":23.645230000091306}
+{"station_sk":2123402709,"location_id":2162781,"location_name":"AGIA SOFIA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.633723999745825,"longitude":22.945099000168426}
+{"station_sk":-1367854885,"location_id":146,"location_name":"Southwark - A2 Old Kent Road","city":"Southwark","country_code":"GB","latitude":51.4804994936467,"longitude":-0.0595528932573422}
+{"station_sk":709047988,"location_id":1007,"location_name":"Pak Phriao, Mueang","city":"Thailand","country_code":"TH","latitude":14.523536277394,"longitude":100.92917127159}
+{"station_sk":-520873866,"location_id":2162786,"location_name":"KORDELIO","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.67345299997995,"longitude":22.89321900000992}
+{"station_sk":1737211028,"location_id":2162791,"location_name":"VOLOS-1","city":"monitoring network of Volos","country_code":"GR","latitude":39.36671100031335,"longitude":22.942921999552695}
+{"station_sk":1883964903,"location_id":2162789,"location_name":"PATRA-2","city":"monitoring network of Patra","country_code":"GR","latitude":38.2464690000783,"longitude":21.73451200017702}
+{"station_sk":1625716877,"location_id":2162795,"location_name":"VOTANIKOS","city":"monitoring network of Athens","country_code":"GR","latitude":37.984100000259446,"longitude":23.705152999670847}
+{"station_sk":-1987715656,"location_id":2162793,"location_name":"LYKOVRISI","city":"monitoring network of Athens","country_code":"GR","latitude":38.06779299986957,"longitude":23.788985999925316}
+{"station_sk":971552197,"location_id":310,"location_name":"Hiran Ruchi, Thon Buri","city":"Thailand","country_code":"TH","latitude":13.732878086814,"longitude":100.48601837802}
+{"station_sk":-470442663,"location_id":863,"location_name":"Noen Phra, Mueang","city":"Thailand","country_code":"TH","latitude":12.7053545,"longitude":101.1818364}
+{"station_sk":778719264,"location_id":155,"location_name":"Kensington and Chelsea - North Ken","city":"Kensington and Chelsea","country_code":"GB","latitude":51.5210467476039,"longitude":-0.213492139585065}
+{"station_sk":251296090,"location_id":2162784,"location_name":"NEOCHOROUDA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.73980500017718,"longitude":22.8760600003919}
+{"station_sk":-1341209213,"location_id":152,"location_name":"Camden - Swiss Cottage","city":"Camden","country_code":"GB","latitude":51.544219,"longitude":-0.175284}
+{"station_sk":2046642636,"location_id":2162785,"location_name":"AGIA SOFIA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.633723999745825,"longitude":22.945099000168426}
+{"station_sk":-119333085,"location_id":798,"location_name":"Din Daeng Rd., Din Daeng","city":"Thailand","country_code":"TH","latitude":13.762406000000002,"longitude":100.550598}
+{"station_sk":400640027,"location_id":2162794,"location_name":"PATISION","city":"monitoring network of Athens","country_code":"GR","latitude":37.99958700010067,"longitude":23.73305299973254}
+{"station_sk":277646338,"location_id":2162790,"location_name":"PATRA-2","city":"monitoring network of Patra","country_code":"GR","latitude":38.2464690000783,"longitude":21.73451200017702}
+{"station_sk":846998386,"location_id":418,"location_name":"Department of Disease Control","city":"Thailand","country_code":"TH","latitude":13.853457,"longitude":100.527132}
+{"station_sk":1358765262,"location_id":701,"location_name":"Sukhothai Thammathirat Open University","city":"Nonthaburi","country_code":"TH","latitude":13.907861,"longitude":100.535641}
+{"station_sk":-24974034,"location_id":2162792,"location_name":"VOLOS-1","city":"monitoring network of Volos","country_code":"GR","latitude":39.36671100031335,"longitude":22.942921999552695}
+{"station_sk":-1002570429,"location_id":6092366,"location_name":" Dhangadhdi Sub-metropolitan City Office","city":"Nepal","country_code":"NP","latitude":28.70728,"longitude":80.585126}
+{"station_sk":-1170075550,"location_id":6093550,"location_name":"Tankeshwor (SC- 18) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7003531,"longitude":85.3015259}
+{"station_sk":1439287510,"location_id":7536,"location_name":"Fiumicino Porto","city":"Roma","country_code":"IT","latitude":41.774849,"longitude":12.223413}
+{"station_sk":-851107596,"location_id":6093551,"location_name":"Teku Ward 12 (SC - 20) - GD Labs ","city":"Nepal","country_code":"NP","latitude":27.6988338,"longitude":85.3041625}
+{"station_sk":-596777978,"location_id":7529,"location_name":"Arenula","city":"Roma","country_code":"IT","latitude":41.894020000000005,"longitude":12.475368000000001}
+{"station_sk":583989312,"location_id":7537,"location_name":"Alatri","city":"Frosinone","country_code":"IT","latitude":41.73,"longitude":13.338333}
+{"station_sk":33266626,"location_id":6083043,"location_name":"Gokarneshwor (SC-13) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7206848,"longitude":85.381682}
+{"station_sk":631454809,"location_id":7533,"location_name":"Ferentino","city":"Frosinone","country_code":"IT","latitude":41.69,"longitude":13.250411}
+{"station_sk":1562452064,"location_id":6071242,"location_name":"Gothatar (SC-12) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7109112,"longitude":85.3803717}
+{"station_sk":-1383945967,"location_id":6093548,"location_name":"Tarakeswor (SC-14)-GD Labs","city":"Nepal","country_code":"NP","latitude":27.759667,"longitude":85.289631}
+{"station_sk":-1144542726,"location_id":7534,"location_name":"Fermi","city":"Roma","country_code":"IT","latitude":41.864194,"longitude":12.469531}
+{"station_sk":237051386,"location_id":6092405,"location_name":"Dhangadhi Sub-metropolitan Ward 8","city":"Nepal","country_code":"NP","latitude":28.699953,"longitude":80.600298}
+{"station_sk":-1696731835,"location_id":6093431,"location_name":"Mahankal (SC-16) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7258555,"longitude":85.3581047}
+{"station_sk":-982067897,"location_id":7539,"location_name":"FROSINONE MAZZINI","city":"VIA MAZZINI - Frosinone (FR)","country_code":"IT","latitude":41.63960900005591,"longitude":13.348977000439092}
+{"station_sk":-877830795,"location_id":7531,"location_name":"Colleferro-Oberdan","city":"Roma","country_code":"IT","latitude":41.73084,"longitude":13.00435}
+{"station_sk":-1129681437,"location_id":7530,"location_name":"C.SO FRANCIA","city":"CORSO FRANCIA - Roma (RM)","country_code":"IT","latitude":41.94744799997372,"longitude":12.46956300022777}
+{"station_sk":1463456148,"location_id":6070692,"location_name":"Shantichowk (SC-11) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7239866,"longitude":85.2793095}
+{"station_sk":64273663,"location_id":6093432,"location_name":"Chhetrapati (SC - 19) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.7119136,"longitude":85.3061473}
+{"station_sk":-1419062128,"location_id":7528,"location_name":"Anagni","city":"Frosinone","country_code":"IT","latitude":41.75,"longitude":13.149685}
+{"station_sk":1386482895,"location_id":7532,"location_name":"Civ. Villa Albani","city":"Roma","country_code":"IT","latitude":42.099363,"longitude":11.798061}
+{"station_sk":-1301158447,"location_id":7538,"location_name":"Malagrotta","city":"Roma","country_code":"IT","latitude":41.874894,"longitude":12.345598}
+{"station_sk":-628778617,"location_id":6093549,"location_name":"Golfutar (SC- 17) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.74857,"longitude":85.349052}
+{"station_sk":-859793044,"location_id":7535,"location_name":"Allumiere","city":"Roma","country_code":"IT","latitude":42.157741,"longitude":11.908744}
 {"station_sk":-300109018,"location_id":60,"location_name":"Haringey - Haringey Town Hall","city":"Haringey","country_code":"GB","latitude":51.599302,"longitude":-0.068218}
 {"station_sk":-1067175668,"location_id":157,"location_name":"Bexley - Slade Green Fidas","city":"Bexley","country_code":"GB","latitude":51.4659832746662,"longitude":0.184877126994369}
