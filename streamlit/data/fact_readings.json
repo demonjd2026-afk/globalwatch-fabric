@@ -1,23 +1,3 @@
-{"location_id":187,"parameter":"pm25","value":10.7,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
-{"location_id":191,"parameter":"o3","value":0.04,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
-{"location_id":135,"parameter":"no2","value":0.0,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
-{"location_id":135,"parameter":"o3","value":0.02,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
-{"location_id":135,"parameter":"pm10","value":39.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
-{"location_id":135,"parameter":"pm25","value":20.0,"unit":"ug/m3","aqi_category":"Moderate","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
-{"location_id":17,"parameter":"co","value":1.65,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":17,"parameter":"no2","value":41.3,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":17,"parameter":"o3","value":16.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":17,"parameter":"pm10","value":182.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":17,"parameter":"pm25","value":110.0,"unit":"ug/m3","aqi_category":"Unhealthy","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":50,"parameter":"co","value":1.16,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":50,"parameter":"no2","value":40.5,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":50,"parameter":"o3","value":1.8,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":50,"parameter":"pm10","value":181.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":50,"parameter":"pm25","value":107.0,"unit":"ug/m3","aqi_category":"Unhealthy","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
-{"location_id":69,"parameter":"co","value":8610.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
-{"location_id":69,"parameter":"pm25","value":4.74,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
-{"location_id":27,"parameter":"pm10","value":33.8,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
-{"location_id":27,"parameter":"pm25","value":5.13,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
 {"location_id":28,"parameter":"no2","value":14.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Europe","country_sk":-2079833584}
 {"location_id":28,"parameter":"o3","value":36.5,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Europe","country_sk":-2079833584}
 {"location_id":28,"parameter":"pm10","value":23.5,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Europe","country_sk":-2079833584}
@@ -319,6 +299,26 @@
 {"location_id":103,"parameter":"no2","value":101.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
 {"location_id":103,"parameter":"pm10","value":345.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
 {"location_id":103,"parameter":"pm25","value":219.0,"unit":"ug/m3","aqi_category":"Hazardous","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":187,"parameter":"pm25","value":10.7,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
+{"location_id":191,"parameter":"o3","value":0.04,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
+{"location_id":135,"parameter":"no2","value":0.0,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
+{"location_id":135,"parameter":"o3","value":0.02,"unit":"ppm","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
+{"location_id":135,"parameter":"pm10","value":39.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
+{"location_id":135,"parameter":"pm25","value":20.0,"unit":"ug/m3","aqi_category":"Moderate","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-418823411}
+{"location_id":17,"parameter":"co","value":1.65,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":17,"parameter":"no2","value":41.3,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":17,"parameter":"o3","value":16.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":17,"parameter":"pm10","value":182.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":17,"parameter":"pm25","value":110.0,"unit":"ug/m3","aqi_category":"Unhealthy","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":50,"parameter":"co","value":1.16,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":50,"parameter":"no2","value":40.5,"unit":"ppb","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":50,"parameter":"o3","value":1.8,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":50,"parameter":"pm10","value":181.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":50,"parameter":"pm25","value":107.0,"unit":"ug/m3","aqi_category":"Unhealthy","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"Asia","country_sk":-251229660}
+{"location_id":69,"parameter":"co","value":8610.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":true,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
+{"location_id":69,"parameter":"pm25","value":4.74,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
+{"location_id":27,"parameter":"pm10","value":33.8,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
+{"location_id":27,"parameter":"pm25","value":5.13,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"South America","country_sk":-437845118}
 {"location_id":186,"parameter":"pm25","value":2.6,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
 {"location_id":195,"parameter":"pm25","value":3.9,"unit":"ug/m3","aqi_category":"Good","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"North America","country_sk":1954003872}
 {"location_id":153,"parameter":"pm10","value":8.0,"unit":"ug/m3","aqi_category":"N/A","exceeds_who_guideline":false,"reading_date":"2026-08-09","continent":"Europe","country_sk":1714678657}
