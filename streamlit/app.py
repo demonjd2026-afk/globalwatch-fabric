@@ -203,6 +203,7 @@ h1, h2, h3 { color: #e2e8f0 !important; }
 
 # ── Plotly dark theme helper ──────────────────────────────────
 CHART_DEFAULTS = dict(
+    template="plotly_dark",
     paper_bgcolor="#0f1629",
     plot_bgcolor="#0f1629",
     font=dict(color="#94a3b8", family="Space Grotesk"),
@@ -456,11 +457,10 @@ if "Dashboard" in page:
             showlegend=True,
             legend=dict(
                 font=dict(color="#cbd5e1", size=11),
-                bgcolor="rgba(10,14,26,0.85)",
-                bordercolor="rgba(0,212,255,0.25)",
-                borderwidth=1,
+                bgcolor="rgba(0,0,0,0)",
+                borderwidth=0,
                 orientation="h",
-                yanchor="top", y=-0.05,
+                yanchor="top", y=-0.08,
                 xanchor="center", x=0.5,
             ),
             margin=dict(l=10, r=10, t=50, b=10),
