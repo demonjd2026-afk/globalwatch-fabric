@@ -97,14 +97,15 @@ globalwatch-fabric/
 ├── TECH_SPEC.md                     ← Full technical specification + ADRs
 ├── .gitignore
 │
+├── pipelines/                       ← Fabric Data Factory pipeline definitions
+│   ├── pl_batch_globalwatch/        ← Daily batch: Bronze→Silver→Gold→ML→Agent (02:00 AM IST)
+│   └── pl_realtime_globalwatch/     ← Hourly real-time: Stream_To_Eventstream
 ├── notebooks/                       ← PySpark notebooks (run in order)
 │   ├── README.md                    ← Detailed notebook guide
 │   ├── 01_bronze_ingest_openaq.ipynb
 │   ├── 04_silver_transform.ipynb
 │   ├── 05_gold_star_schema.ipynb
-│   ├── 06_ml_aqi_prediction.ipynb             ← Random Forest AQI classifier (96.15% accuracy)
-│   ├── 07_streaming_openaq_eventstream.ipynb  ← Posts to Eventstream (315 events)
-│   └── 07_data_agent_simulation.ipynb         ← NL→SQL pattern simulation (F64 SKU required for native agent)
+│   └── 07_streaming_openaq_eventstream.ipynb  ← Posts to Eventstream (315 events)
 │
 ├── docs/                            ← Deep-dive documentation
 │   ├── architecture.md              ← ADRs + architecture decisions
@@ -329,8 +330,13 @@ streamlit run app.py
 | Data Activator — PM2.5 hazard email received at jaydolai@zohomail.in | [21_activator_alert_fired](screenshots/21_activator_alert_fired.png) |
 | MLflow experiment run — accuracy 96.15%, params, registered model | [26_mlflow_experiment_run](screenshots/26_mlflow_experiment_run.png) |
 | ML predictions output — fact_aqi_predictions written to Gold lakehouse | [27_ml_predictions_output](screenshots/27_ml_predictions_output.png) |
-| Data Agent simulation — NL to SQL pattern (3 questions mapped to queries) | [28_data_agent_nl_to_sql](screenshots/28_data_agent_nl_to_sql.png) |
-| Data Agent simulation — query results (India PM2.5 175.83, 5 hazardous, WHO exceedances) | [29_data_agent_query_results](screenshots/29_data_agent_query_results.png) |
+| Data Agent simulation — NL to SQL pattern (3 questions mapped) | [28_data_agent_nl_to_sql](screenshots/28_data_agent_nl_to_sql.png) |
+| Data Agent simulation — query results (India PM2.5 175.83, 5 hazardous) | [29_data_agent_query_results](screenshots/29_data_agent_query_results.png) |
+| Git integration — account type limitation on trial tenant | [30_git_integration_limitation](screenshots/30_git_integration_limitation.png) |
+| Batch pipeline — pl_batch_globalwatch daily 02:00 AM IST, 5 notebooks chained | [31_batch_pipeline_scheduled](screenshots/31_batch_pipeline_scheduled.png) |
+| Realtime pipeline — pl_realtime_globalwatch hourly, Stream_To_Eventstream | [32_realtime_pipeline_scheduled](screenshots/32_realtime_pipeline_scheduled.png) |
+| Realtime pipeline — Succeeded in 1m 44s, Stream_To_Eventstream green | [32_realtime_pipeline_success](screenshots/32_realtime_pipeline_success.png) |
+| KQL raw_readings count — 2,205 events after pipeline run | [33_kql_raw_readings_count](screenshots/33_kql_raw_readings_count.png) |
 
 ---
 

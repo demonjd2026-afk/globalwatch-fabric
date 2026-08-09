@@ -205,3 +205,51 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 **Action:** Fabric Data Agent is an LLM-powered query translator that sits on top of a semantic model or KQL database. When a user asks a natural language question, the agent: (1) interprets the question using an LLM (GPT-4 in the backend); (2) maps it to the available schema — tables, columns, measures, relationships in the semantic model; (3) generates a DAX query (for Power BI semantic models) or KQL query (for Eventhouses); (4) executes the query against the Direct Lake or KQL engine; (5) formats the result as a natural language answer with supporting data. The agent is stateful within a session — follow-up questions like "now filter to India only" resolve correctly because the agent maintains conversation context.
 
 **Result:** Understanding this flow means you can debug Data Agent failures (schema not exposed → agent can't generate correct query), optimize it (add descriptions to semantic model columns → better NL interpretation), and explain its limitations (complex multi-hop reasoning across joins still fails occasionally — better to pre-compute in Gold).
+
+---
+
+## "How did you orchestrate your data pipelines?"
+
+**Situation:** GlobalWatch had 5 notebooks covering Bronze ingestion, Silver transformation, Gold star schema, ML prediction, and Data Agent simulation — each needed to run in dependency order daily.
+
+**Task:** Build an orchestration layer that chains all notebooks, handles failures gracefully, and runs on a schedule without manual intervention.
+
+**Action:** Created two Fabric Data Factory pipelines. `pl_batch_globalwatch` chains 5 notebook activities in sequence: Bronze_Ingest → Silver_Transform → Gold_Star_Schema → ML_AQI_Prediction → Data_Agent_Simulation. Each activity has retry=2, retry interval=60s, timeout=1hr. Green arrows between activities enforce on-success dependencies — Silver only runs if Bronze succeeds, Gold only if Silver succeeds, and so on. Scheduled daily at 02:00 AM IST with failure email notifications to jaydolai@zohomail.in. `pl_realtime_globalwatch` runs `Stream_To_Eventstream` notebook hourly with retry=3, interval=30s — shorter timeout (30 mins) since streaming runs are faster than full batch.
+
+**Result:** Two validated pipelines — batch validated with zero errors in Fabric pipeline validator. The separation of batch and real-time into two pipelines follows Lambda architecture principles: batch handles full medallion refresh + ML, real-time handles continuous stream ingestion independently. In production, `pl_batch_globalwatch` would be triggered after `pl_realtime_globalwatch` completes its last hourly run, ensuring Gold reflects the latest streamed data before ML scoring.
+
+---
+
+## "How would you implement CI/CD for Fabric in production?"
+
+**Situation:** GlobalWatch runs on a personal Zoho trial tenant which blocks Git integration (GitHub OAuth disabled, Azure DevOps requires organizational account). In production at Optum or any enterprise, CI/CD is a hard requirement.
+
+**Task:** Design and explain the production CI/CD setup even where it cannot be demonstrated live.
+
+**Action:** The production setup would use Fabric's native Git integration connected to Azure DevOps (enterprise standard). The workspace connects to a feature branch — developers commit notebook and pipeline changes to feature branches, raise PRs to main. Fabric automatically syncs workspace items on merge. A three-stage deployment pipeline (Dev → Test → Prod) promotes items across workspaces: Dev workspace for development and testing, Test workspace for UAT and data quality validation, Prod workspace for live serving. Each stage has its own capacity and lakehouse — connection strings and secrets managed via Fabric environment variables or Azure Key Vault. Pipeline runs in Test validate Silver DQ rules and Gold assertion counts before promotion to Prod is allowed.
+
+**Result:** The architecture is documented and the limitation is a tenant constraint, not a design gap. The GitHub repo (`demonjd2026-afk/globalwatch-fabric`) serves as the source of truth for all notebooks, pipelines, and docs — matching what a Git-integrated Fabric workspace would track automatically.
+
+---
+
+## "What is the difference between Fabric deployment pipeline and Git integration?"
+
+**Situation:** Interviewers frequently conflate these two Fabric CI/CD features.
+
+**Task:** Explain both clearly and when to use each.
+
+**Action:** Git integration connects a Fabric workspace to a Git branch — it tracks item definitions (notebooks, pipelines, semantic models) as code and syncs changes bidirectionally. It's the developer workflow tool — commit, push, PR, merge. Deployment pipeline promotes items across environments (Dev → Test → Prod) — it's the release management tool. They work together: Git integration manages the code lifecycle within an environment; deployment pipeline moves promoted, tested items across environments. A typical flow: developer commits notebook changes to feature branch (Git) → PR merged to main → Dev workspace syncs (Git) → deployment pipeline promotes Dev → Test → Test team validates → promotes Test → Prod. Git integration without deployment pipeline means you're doing version control but no environment promotion. Deployment pipeline without Git integration means you're promoting items but not tracking their history.
+
+**Result:** Understanding this distinction demonstrates senior-level Fabric knowledge — most tutorials cover only one of the two, not how they compose.
+
+---
+
+## "Did you run your pipelines end-to-end successfully?"
+
+**Situation:** Building pipelines is one thing — proving they run cleanly in production mode is another. Pipeline execution has different constraints than interactive notebook runs.
+
+**Task:** Get both batch and realtime pipelines running successfully via Fabric Data Factory, not just interactively.
+
+**Action:** Hit two pipeline-specific issues during execution. First: `%pip magic command is disabled` — pip installs work in interactive sessions but not pipeline-triggered runs. Fixed by adding `azure-eventhub` to `globalwatch-env` as a PyPI library via External repositories, then removing the `%pip install` cell from the streaming notebook. Second: KQL outbound network resolution fails in pipeline sandbox on trial capacity — the verification cell that queries the KQL endpoint via HTTP was blocked. Fixed by wrapping it in a skip with a comment explaining it must be run manually in interactive mode. After both fixes, `pl_realtime_globalwatch` ran successfully in 1m 44s.
+
+**Result:** `Stream_To_Eventstream` activity — Succeeded. KQL `raw_readings` count grew from 315 → 2,205 events confirming end-to-end data flow: notebook → Eventstream → KQL raw_readings → update policy → silver_readings. These are real production debugging skills — knowing the difference between interactive and pipeline execution environments, and how to fix library management and network access issues specific to Fabric pipeline mode.
