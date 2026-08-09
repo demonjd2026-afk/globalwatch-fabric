@@ -439,11 +439,12 @@ if "Dashboard" in page:
     st.markdown("### 🚨 Top 10 Most Polluted Stations")
     top_stations = fact_df[fact_df["parameter"]=="pm25"] \
         .merge(station_df[["location_id","location_name","city"]], on="location_id", how="left") \
-        .nlargest(10, "value")[["location_name","city","country_name","value","aqi_category"]] \
+        .groupby(["location_name","city","country_name","aqi_category"])["value"].max().reset_index() \
+        .nlargest(10, "value") \
         .rename(columns={"location_name":"Station","city":"City",
                           "country_name":"Country","value":"PM2.5 (µg/m³)","aqi_category":"AQI"})
 
-    def color_aqi(val):
+    top_stations["PM2.5 (µg/m³)"] = top_stations["PM2.5 (µg/m³)"].round(1)
         colors = {"Good":"#22c55e","Moderate":"#f59e0b","Unhealthy":"#ef4444",
                   "Hazardous":"#dc2626","N/A":"#64748b"}
         c = colors.get(val, "#64748b")
