@@ -4,7 +4,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import json
 import requests
-from pathlib import Path
 
 # ── Page config ──────────────────────────────────────────────
 st.set_page_config(
@@ -152,45 +151,38 @@ h1, h2, h3 {
 
 
 # ── Data loading ──────────────────────────────────────────────
-@st.cache_data
-def load_data():
-    base = Path(__file__).parent / "data"
+GITHUB_RAW = "https://raw.githubusercontent.com/demonjd2026-afk/globalwatch-fabric/main/streamlit/data"
 
-    def read_jsonl(path):
-        rows = []
-        with open(path) as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    rows.append(json.loads(line))
+@st.cache_data(ttl=1800)  # refresh every 30 minutes — matches real-time pipeline
+def load_data():
+    def read_jsonl(url):
+        r = requests.get(url, timeout=30)
+        rows = [json.loads(line) for line in r.text.strip().split("\n") if line.strip()]
         return pd.DataFrame(rows)
 
-    fact     = read_jsonl(base / "fact_readings.json")
-    country  = read_jsonl(base / "dim_country.json")
-    station  = read_jsonl(base / "dim_station.json")
-    pred     = read_jsonl(base / "fact_aqi_predictions.json")
+    fact     = read_jsonl(f"{GITHUB_RAW}/fact_readings.json")
+    country  = read_jsonl(f"{GITHUB_RAW}/dim_country.json")
+    station  = read_jsonl(f"{GITHUB_RAW}/dim_station.json")
+    pred     = read_jsonl(f"{GITHUB_RAW}/fact_aqi_predictions.json")
 
-    # Join country name into fact
     fact = fact.merge(country[["country_sk","country_name","country_code","continent"]],
                       on="country_sk", how="left")
-    # Join country name into predictions
     pred = pred.merge(country[["country_sk","country_name","country_code"]],
                       on="country_sk", how="left")
 
     return fact, country, station, pred
 
-@st.cache_data(ttl=3600)  # refresh every hour
+@st.cache_data(ttl=1800)  # refresh every 30 minutes
 def load_kql_stats():
-    base = Path(__file__).parent / "data"
-    kql_path = base / "kql_stats.json"
-    if kql_path.exists():
-        with open(kql_path) as f:
-            return json.load(f)
-    return {
-        "events_sent_this_run": 0,
-        "exported_at": "N/A",
-        "status": "N/A"
-    }
+    try:
+        r = requests.get(f"{GITHUB_RAW}/kql_stats.json", timeout=30)
+        return r.json() if r.status_code == 200 else {}
+    except:
+        return {
+            "events_sent_this_run": 0,
+            "exported_at": "N/A",
+            "status": "N/A"
+        }
 
 fact_df, country_df, station_df, pred_df = load_data()
 kql_stats = load_kql_stats()
