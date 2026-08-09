@@ -102,7 +102,9 @@ globalwatch-fabric/
 │   ├── 01_bronze_ingest_openaq.ipynb
 │   ├── 04_silver_transform.ipynb
 │   ├── 05_gold_star_schema.ipynb
-│   └── 07_streaming_openaq_eventstream.ipynb  ← Posts to Eventstream (315 events)
+│   ├── 06_ml_aqi_prediction.ipynb             ← Random Forest AQI classifier (96.15% accuracy)
+│   ├── 07_streaming_openaq_eventstream.ipynb  ← Posts to Eventstream (315 events)
+│   └── 07_data_agent_simulation.ipynb         ← NL→SQL pattern simulation (F64 SKU required for native agent)
 │
 ├── docs/                            ← Deep-dive documentation
 │   ├── architecture.md              ← ADRs + architecture decisions
@@ -325,6 +327,10 @@ streamlit run app.py
 | Eventstream Live data — 315 events, multi-country real-time stream | [18_eventstream_live_data](screenshots/18_eventstream_live_data.png) |
 | Data Activator — pm25_hazard_alert rule Running (5 of 98 IDs) | [20_activator_rule_configured](screenshots/20_activator_rule_configured.png) |
 | Data Activator — PM2.5 hazard email received at jaydolai@zohomail.in | [21_activator_alert_fired](screenshots/21_activator_alert_fired.png) |
+| MLflow experiment run — accuracy 96.15%, params, registered model | [26_mlflow_experiment_run](screenshots/26_mlflow_experiment_run.png) |
+| ML predictions output — fact_aqi_predictions written to Gold lakehouse | [27_ml_predictions_output](screenshots/27_ml_predictions_output.png) |
+| Data Agent simulation — NL to SQL pattern (3 questions mapped to queries) | [28_data_agent_nl_to_sql](screenshots/28_data_agent_nl_to_sql.png) |
+| Data Agent simulation — query results (India PM2.5 175.83, 5 hazardous, WHO exceedances) | [29_data_agent_query_results](screenshots/29_data_agent_query_results.png) |
 
 ---
 

@@ -181,3 +181,27 @@ STAR-format stories for each phase of GlobalWatch. Use these when interviewers a
 **Action:** Used `mlflow.spark.load_model("models:/globalwatch_aqi_classifier/1")` to load the registered PipelineModel directly from the MLflow Model Registry. Filtered Gold `fact_readings` to PM2.5 rows only, reshaped to match the training schema (pm25, pm10, no2, o3, co columns), ran `loaded_model.transform()` to generate predictions, then mapped numeric predictions back to readable labels (Good/Moderate/Unhealthy/Hazardous). Wrote the result as `fact_aqi_predictions` Delta table in the Gold lakehouse using `saveAsTable` with `mode=overwrite` for idempotency.
 
 **Result:** 74 PM2.5 station predictions persisted to Gold. The pattern — register → load → transform → write — is the standard MLflow inference pattern applicable to any Spark-based ML deployment, whether on Fabric, Databricks, or EMR.
+
+---
+
+## "Did you use the Fabric Data Agent?"
+
+**Situation:** GlobalWatch's architecture called for a native Fabric Data Agent to enable natural language querying over the Gold lakehouse and KQL database — a key differentiator of the Microsoft Fabric RTI stack.
+
+**Task:** Implement conversational AI querying over air quality data without requiring users to know SQL or KQL.
+
+**Action:** Attempted to provision a native Fabric Data Agent (`globalwatch_agent`) in the globalwatch-dev workspace. Encountered a SKU limitation — Data Agent requires F64+ capacity; the trial runs on a lower SKU. Rather than leaving the capability undocumented, built `07_data_agent_simulation.ipynb` to demonstrate the NL→SQL pattern the Data Agent uses internally: defined 3 natural language questions, mapped each to an equivalent SQL query, executed them against the Gold lakehouse, and surfaced the results. Key findings: India highest PM2.5 at 175.83 µg/m³, 5 hazardous readings detected, station 30 CO reading at 8720 ppb (extreme outlier worth investigating).
+
+**Result:** The simulation proves architectural understanding of the Data Agent pattern. In production on F64+, the native Data Agent would replace the manual NL→SQL mapping with an LLM-powered query translator connected directly to the semantic model and KQL database — same queries, zero code. This is a common interview scenario — knowing *why* a feature isn't available and *how* to work around it demonstrates real-world engineering judgment over tutorial-following.
+
+---
+
+## "How does Fabric Data Agent work under the hood?"
+
+**Situation:** Interviewers at Microsoft-stack companies often ask about Data Agent internals to assess depth of Fabric knowledge.
+
+**Task:** Explain the Data Agent architecture beyond "it answers questions in natural language."
+
+**Action:** Fabric Data Agent is an LLM-powered query translator that sits on top of a semantic model or KQL database. When a user asks a natural language question, the agent: (1) interprets the question using an LLM (GPT-4 in the backend); (2) maps it to the available schema — tables, columns, measures, relationships in the semantic model; (3) generates a DAX query (for Power BI semantic models) or KQL query (for Eventhouses); (4) executes the query against the Direct Lake or KQL engine; (5) formats the result as a natural language answer with supporting data. The agent is stateful within a session — follow-up questions like "now filter to India only" resolve correctly because the agent maintains conversation context.
+
+**Result:** Understanding this flow means you can debug Data Agent failures (schema not exposed → agent can't generate correct query), optimize it (add descriptions to semantic model columns → better NL interpretation), and explain its limitations (complex multi-hop reasoning across joins still fails occasionally — better to pre-compute in Gold).
