@@ -325,7 +325,7 @@ if "Dashboard" in page:
         height=420,
         showlegend=False,
     )
-    st.plotly_chart(fig_map, use_container_width=True, config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_map, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
     st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
 
@@ -361,7 +361,7 @@ if "Dashboard" in page:
             height=380,
             showlegend=False,
         )
-        st.plotly_chart(fig_bar, use_container_width=True, config=PLOTLY_CONFIG)
+        st.plotly_chart(fig_bar, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
     with col_right:
         aqi_counts = fact_df["aqi_category"].value_counts().reset_index()
@@ -391,7 +391,7 @@ if "Dashboard" in page:
             margin=dict(l=0, r=0, t=40, b=10),
             height=380,
         )
-        st.plotly_chart(fig_donut, use_container_width=True, config=PLOTLY_CONFIG)
+        st.plotly_chart(fig_donut, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
     st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
 
@@ -418,7 +418,7 @@ if "Dashboard" in page:
         height=300,
         showlegend=False,
     )
-    st.plotly_chart(fig_pred, use_container_width=True, config=PLOTLY_CONFIG)
+    st.plotly_chart(fig_pred, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
     st.markdown("<div class='section-gap'></div>", unsafe_allow_html=True)
 
@@ -443,7 +443,7 @@ if "Dashboard" in page:
 
     st.dataframe(
         top_stations.style.map(color_aqi, subset=["AQI"]),
-        use_container_width=True,
+        width='stretch',
         hide_index=True,
     )
 
@@ -520,7 +520,7 @@ Answer concisely and cite specific numbers.
     ]
     for i, sug in enumerate(suggestions):
         with cols[i % 3]:
-            if st.button(sug, key=f"sug_{i}", use_container_width=True):
+            if st.button(sug, key=f"sug_{i}", width='stretch'):
                 st.session_state.setdefault("messages", [])
                 st.session_state["pending_question"] = sug
 
