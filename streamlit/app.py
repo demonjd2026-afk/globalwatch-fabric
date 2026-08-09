@@ -398,7 +398,7 @@ if "Dashboard" in page:
         return f"color: {c}; font-weight: 600"
 
     st.dataframe(
-        top_stations.style.applymap(color_aqi, subset=["AQI"]),
+        top_stations.style.map(color_aqi, subset=["AQI"]),
         use_container_width=True,
         hide_index=True,
     )
