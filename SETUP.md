@@ -9,7 +9,7 @@
 | Item | Value |
 |---|---|
 | Platform | Microsoft Fabric |
-| Account | `jsydolai@zohomail.in` |
+| Account | `jaydolai@zohomail.in` |
 | Tenant | ZOHOMAIL.IN |
 | Fabric license | Power BI Trial (59 days) + Fabric Trial capacity |
 | Capacity | Trial-20260610T005336Z — FTL64 — Central India |
@@ -22,7 +22,7 @@
 
 ### 1.1 Sign in to Microsoft Fabric
 1. Go to `app.fabric.microsoft.com`
-2. Sign in with `jsydolai@zohomail.in`
+2. Sign in with `jaydolai@zohomail.in`
 3. Verify Power BI trial active (59 days) in profile panel
 
 📸 screenshot: `screenshots/01_fabric_home.png` ✅
