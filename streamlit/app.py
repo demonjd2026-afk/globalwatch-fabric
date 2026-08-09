@@ -445,6 +445,8 @@ if "Dashboard" in page:
                           "country_name":"Country","value":"PM2.5 (µg/m³)","aqi_category":"AQI"})
 
     top_stations["PM2.5 (µg/m³)"] = top_stations["PM2.5 (µg/m³)"].round(1)
+
+    def color_aqi(val):
         colors = {"Good":"#22c55e","Moderate":"#f59e0b","Unhealthy":"#ef4444",
                   "Hazardous":"#dc2626","N/A":"#64748b"}
         c = colors.get(val, "#64748b")
