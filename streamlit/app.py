@@ -235,11 +235,10 @@ def load_data():
     station = read_jsonl(f"{GITHUB_RAW}/dim_station.json")
     pred    = read_jsonl(f"{GITHUB_RAW}/fact_aqi_predictions.json")
 
-    # The ingest re-lands rows it has already written, so fact_readings carries
-    # fully identical rows (same station, parameter, value, date and category).
-    # They hold no information and inflate every count and mean, so drop them.
-    # Only exact repeats go — two different readings for one station survive.
-    fact = fact.drop_duplicates()
+    # Do not deduplicate fact here. Rows that look identical are distinct
+    # hourly readings that the Gold export flattens by projecting reading_date
+    # without reading_ts — dropping them would discard real measurements and
+    # bias every mean. Fix belongs in 08_export_to_streamlit, not here.
 
     # dim_station carries SCD2 versions — several location_ids appear twice with
     # slightly different name/city/coords. Keep the latest row per station, else
