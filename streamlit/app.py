@@ -257,6 +257,26 @@ def load_kql_stats():
 fact_df, country_df, station_df, pred_df = load_data()
 kql_stats = load_kql_stats()
 
+
+# ── Station ranking ───────────────────────────────────────────
+def peak_pm25_per_station():
+    """One row per station — its highest PM2.5 reading, ranked worst first.
+
+    fact_readings holds several pm25 rows per station (repeat ingests of the
+    same day plus older reading_dates), so ranking raw rows lets one station
+    occupy several places. Rank on the per-station peak instead. Both the
+    dashboard table and the agent prompt read from here so they can't drift.
+    """
+    readings = fact_df[fact_df["parameter"] == "pm25"] \
+        .merge(station_df[["location_id","location_name","city"]],
+               on="location_id", how="left") \
+        .dropna(subset=["value"])
+    if readings.empty:
+        return readings
+    return readings.loc[readings.groupby("location_id")["value"].idxmax()] \
+                   .sort_values("value", ascending=False)
+
+
 # ── Color map ─────────────────────────────────────────────────
 AQI_COLORS = {
     "Good": "#22c55e",
@@ -511,19 +531,8 @@ if "Dashboard" in page:
         <div class='title'>🚨 Top 10 Most Polluted Stations</div>
     </div>
     """, unsafe_allow_html=True)
-    pm25_readings = fact_df[fact_df["parameter"]=="pm25"] \
-        .merge(station_df[["location_id","location_name","city"]], on="location_id", how="left") \
-        .dropna(subset=["value"])
-
-    # One row per station: the peak reading, keeping the AQI category that
-    # belongs to that reading. Grouping on aqi_category instead would split a
-    # station across categories and show it twice with different values.
-    peak_per_station = pm25_readings.loc[
-        pm25_readings.groupby("location_id")["value"].idxmax()
-    ]
-
-    top_stations = peak_per_station \
-        .nlargest(10, "value")[["location_name","city","country_name","value","aqi_category"]] \
+    top_stations = peak_pm25_per_station() \
+        .head(10)[["location_name","city","country_name","value","aqi_category"]] \
         .rename(columns={
             "location_name": "Station",
             "city": "City",
@@ -598,8 +607,10 @@ AQI CATEGORY DISTRIBUTION:
 ML MODEL PREDICTIONS (Random Forest, 96.15% accuracy):
 {json.dumps(pred_dist, indent=2)}
 
-TOP POLLUTED STATIONS (PM2.5):
-{fact_df[fact_df['parameter']=='pm25'].merge(station_df[['location_id','location_name','city']], on='location_id', how='left').nlargest(5,'value')[['location_name','city','country_name','value']].to_string(index=False)}
+TOP 10 POLLUTED STATIONS (PM2.5, µg/m³ — one row per station, showing that
+station's peak reading. This list is already deduplicated: if a station is
+absent it is genuinely not in the top 10, and no station repeats.)
+{peak_pm25_per_station().head(10)[['location_name','city','country_name','value']].to_string(index=False)}
 
 ARCHITECTURE:
 - Ingestion: Fabric Eventstream (real-time) + Data Factory (batch)
