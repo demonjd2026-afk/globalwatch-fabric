@@ -301,9 +301,7 @@
 {"station_sk":1525265624,"location_id":354,"location_name":"Lalbagh, DN Park","city":"India","country_code":"IN","latitude":26.84578611,"longitude":80.93874444}
 {"station_sk":-1341209213,"location_id":152,"location_name":"Camden Kerbside - UKA00259","city":"Camden","country_code":"GB","latitude":51.54420999974351,"longitude":-0.17526899971392015}
 {"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Houtakker","country_code":"NL","latitude":51.51838800001479,"longitude":5.148450000227909}
-{"station_sk":-2147437839,"location_id":71,"location_name":"Biest Houtakker-Biestsestraat","city":"Biest Houtakker","country_code":"NL","latitude":51.5184,"longitude":5.14845}
 {"station_sk":-1367854885,"location_id":146,"location_name":"Southwark A2 Old Kent Road - UKA00558","city":"Southwark","country_code":"GB","latitude":51.4804989994662,"longitude":-0.059550000208953166}
-{"station_sk":1997922972,"location_id":63,"location_name":"Philippine-Stelleweg","city":"Philippine","country_code":"NL","latitude":51.29449999999999,"longitude":3.7494799999999997}
 {"station_sk":1929269518,"location_id":3944,"location_name":"\"Miskolc Buza\"","city":"Miskolc","country_code":"HU","latitude":48.106943999772746,"longitude":20.790005999918233}
 {"station_sk":-1601861446,"location_id":717,"location_name":"Pluakdaeng District Health Office","city":"Rayong","country_code":"TH","latitude":12.97378333,"longitude":101.21285}
 {"station_sk":1191169930,"location_id":619,"location_name":"Bang Sao Thong, Bang Sao Thong","city":"Thailand","country_code":"TH","latitude":13.567696531322,"longitude":100.78940318041}
@@ -311,7 +309,6 @@
 {"station_sk":-1006132121,"location_id":906,"location_name":"Residence for Dept. of Mineral Resources","city":"Samut Prakan","country_code":"TH","latitude":13.652141,"longitude":100.531805}
 {"station_sk":-101766857,"location_id":2162796,"location_name":"PIREAUS-1","city":"monitoring network of Athens","country_code":"GR","latitude":37.94465599978361,"longitude":23.645230000091306}
 {"station_sk":2123402709,"location_id":2162781,"location_name":"AGIA SOFIA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.633723999745825,"longitude":22.945099000168426}
-{"station_sk":-1367854885,"location_id":146,"location_name":"Southwark - A2 Old Kent Road","city":"Southwark","country_code":"GB","latitude":51.4804994936467,"longitude":-0.0595528932573422}
 {"station_sk":709047988,"location_id":1007,"location_name":"Pak Phriao, Mueang","city":"Thailand","country_code":"TH","latitude":14.523536277394,"longitude":100.92917127159}
 {"station_sk":-520873866,"location_id":2162786,"location_name":"KORDELIO","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.67345299997995,"longitude":22.89321900000992}
 {"station_sk":1737211028,"location_id":2162791,"location_name":"VOLOS-1","city":"monitoring network of Volos","country_code":"GR","latitude":39.36671100031335,"longitude":22.942921999552695}
@@ -320,9 +317,7 @@
 {"station_sk":-1987715656,"location_id":2162793,"location_name":"LYKOVRISI","city":"monitoring network of Athens","country_code":"GR","latitude":38.06779299986957,"longitude":23.788985999925316}
 {"station_sk":971552197,"location_id":310,"location_name":"Hiran Ruchi, Thon Buri","city":"Thailand","country_code":"TH","latitude":13.732878086814,"longitude":100.48601837802}
 {"station_sk":-470442663,"location_id":863,"location_name":"Noen Phra, Mueang","city":"Thailand","country_code":"TH","latitude":12.7053545,"longitude":101.1818364}
-{"station_sk":778719264,"location_id":155,"location_name":"Kensington and Chelsea - North Ken","city":"Kensington and Chelsea","country_code":"GB","latitude":51.5210467476039,"longitude":-0.213492139585065}
 {"station_sk":251296090,"location_id":2162784,"location_name":"NEOCHOROUDA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.73980500017718,"longitude":22.8760600003919}
-{"station_sk":-1341209213,"location_id":152,"location_name":"Camden - Swiss Cottage","city":"Camden","country_code":"GB","latitude":51.544219,"longitude":-0.175284}
 {"station_sk":2046642636,"location_id":2162785,"location_name":"AGIA SOFIA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.633723999745825,"longitude":22.945099000168426}
 {"station_sk":-119333085,"location_id":798,"location_name":"Din Daeng Rd., Din Daeng","city":"Thailand","country_code":"TH","latitude":13.762406000000002,"longitude":100.550598}
 {"station_sk":400640027,"location_id":2162794,"location_name":"PATISION","city":"monitoring network of Athens","country_code":"GR","latitude":37.99958700010067,"longitude":23.73305299973254}
@@ -353,5 +348,52 @@
 {"station_sk":-1301158447,"location_id":7538,"location_name":"Malagrotta","city":"Roma","country_code":"IT","latitude":41.874894,"longitude":12.345598}
 {"station_sk":-628778617,"location_id":6093549,"location_name":"Golfutar (SC- 17) - GD Labs","city":"Nepal","country_code":"NP","latitude":27.74857,"longitude":85.349052}
 {"station_sk":-859793044,"location_id":7535,"location_name":"Allumiere","city":"Roma","country_code":"IT","latitude":42.157741,"longitude":11.908744}
+{"station_sk":-1067175668,"location_id":157,"location_name":"Bexley - Slade Green","city":"Bexley","country_code":"GB","latitude":51.4659832746662,"longitude":0.184877126994369}
+{"station_sk":246935953,"location_id":269,"location_name":"Northampton Kingsthorpe","city":"United Kingdom","country_code":"GB","latitude":52.271886,"longitude":-0.879898}
+{"station_sk":-1782955292,"location_id":337,"location_name":"Birmingham Tyburn","city":"United Kingdom","country_code":"GB","latitude":52.511722,"longitude":-1.830583}
+{"station_sk":-258524865,"location_id":694,"location_name":"Urgakh naran","city":"Mongolia","country_code":"MN","latitude":47.8664611,"longitude":107.1180194}
+{"station_sk":-679299028,"location_id":716,"location_name":"Rabindra Bharati University, Kolkata - WBSPCB","city":"India","country_code":"IN","latitude":22.627875,"longitude":88.3804}
+{"station_sk":1750860466,"location_id":797,"location_name":"City Railway Station - KSPCB","city":"India","country_code":"IN","latitude":12.9773472,"longitude":77.5706972222222}
+{"station_sk":1119513266,"location_id":811,"location_name":"Tolgoit","city":"Mongolia","country_code":"MN","latitude":47.922495,"longitude":106.794805}
+{"station_sk":1455184697,"location_id":854,"location_name":"Chandrapur","city":"India","country_code":"IN","latitude":19.95,"longitude":79.3}
+{"station_sk":2063387875,"location_id":860,"location_name":"Sanjay Palace, Agra - UPPCB","city":"India","country_code":"IN","latitude":27.19865833,"longitude":78.00598056}
+{"station_sk":880750611,"location_id":910,"location_name":"Victoria Memorial - WBSPCB","city":"India","country_code":"IN","latitude":22.572646,"longitude":88.36389499999996}
+{"station_sk":-1781039147,"location_id":985,"location_name":"Collectorate - Muzaffarpur - BSPCB","city":"India","country_code":"IN","latitude":26.0762,"longitude":85.4115}
+{"station_sk":-1707230497,"location_id":2275,"location_name":"Bayankhoshuu","city":"Mongolia","country_code":"MN","latitude":47.95756,"longitude":106.822752}
+{"station_sk":-1328381141,"location_id":2345,"location_name":"VK Industrial Area Jaipur - RSPCB","city":"India","country_code":"IN","latitude":26.9738778,"longitude":75.7738777777777}
+{"station_sk":1073688966,"location_id":2407,"location_name":"Municipality Office Tungsadao","city":"Chachoengsao","country_code":"TH","latitude":13.588500000000002,"longitude":101.28633329999998}
+{"station_sk":-361660925,"location_id":2429,"location_name":"Chong Kham, Mueang","city":"Thailand","country_code":"TH","latitude":19.304501021455,"longitude":97.971525255487}
+{"station_sk":331327068,"location_id":2433,"location_name":"Nonsi Witthaya School","city":"Bangkok","country_code":"TH","latitude":13.70806667,"longitude":100.5473333}
+{"station_sk":898626901,"location_id":2456,"location_name":"Talkatora District Industries Center, Lucknow - CPCB","city":"India","country_code":"IN","latitude":26.83399722,"longitude":80.8917361}
+{"station_sk":-1523521340,"location_id":2459,"location_name":"US Diplomatic Post: Hyderabad","city":"India","country_code":"IN","latitude":17.443464,"longitude":78.47489}
+{"station_sk":1906013531,"location_id":2590,"location_name":"Mongol gazar","city":"Mongolia","country_code":"MN","latitude":47.9035389,"longitude":106.8507083}
+{"station_sk":-1210373129,"location_id":2745,"location_name":"Bad Vöslau - Gainfarn","city":"Austria","country_code":"AT","latitude":47.959982927256554,"longitude":16.206955198442348}
+{"station_sk":785545805,"location_id":2746,"location_name":"NET.04","city":"Amt der Oberösterreichischen Landesregierung","country_code":"AT","latitude":48.22527779946668,"longitude":14.238888890000002}
+{"station_sk":1507150555,"location_id":2747,"location_name":"St. Koloman Kleinhorn","city":"Austria","country_code":"AT","latitude":47.6505835144072,"longitude":13.233351944949906}
+{"station_sk":-915777718,"location_id":2748,"location_name":"NET.04","city":"Amt der Oberösterreichischen Landesregierung","country_code":"AT","latitude":48.16499999946656,"longitude":14.035556000000001}
+{"station_sk":-1100126244,"location_id":2749,"location_name":"Wolkersdorf","city":"Austria","country_code":"AT","latitude":48.392243317295836,"longitude":16.5222638631683}
+{"station_sk":-559223239,"location_id":2750,"location_name":"Obervellach Schulzentrum","city":"Austria","country_code":"AT","latitude":46.935546751351815,"longitude":13.195532871488474}
+{"station_sk":-1448223057,"location_id":2751,"location_name":"Wien Hohe Warte - Zentralanstalt für Meteorologie und Geodyn","city":"Austria","country_code":"AT","latitude":48.249179535401346,"longitude":16.357782334646014}
+{"station_sk":816090901,"location_id":2752,"location_name":"Wiener Neustadt","city":"2700 Wiener Neustadt","country_code":"AT","latitude":47.814166999937704,"longitude":16.254999999598795}
+{"station_sk":1201913731,"location_id":2753,"location_name":"Wien Stephansplatz","city":"Austria","country_code":"AT","latitude":48.20890608925811,"longitude":16.373862178231754}
+{"station_sk":-641258976,"location_id":2754,"location_name":"Wien Kaiserebersdorf","city":"Austria","country_code":"AT","latitude":48.156916713820294,"longitude":16.47555146839408}
+{"station_sk":-1363141962,"location_id":2755,"location_name":"Heiterwang","city":"Austria","country_code":"AT","latitude":47.44776838195361,"longitude":10.744210124183125}
+{"station_sk":935938828,"location_id":2756,"location_name":"Purkersdorf","city":"Austria","country_code":"AT","latitude":48.207229835654985,"longitude":16.175603995026574}
+{"station_sk":1087273882,"location_id":2757,"location_name":"NET.04","city":"Amt der Oberösterreichischen Landesregierung","country_code":"AT","latitude":48.27444444346679,"longitude":14.314722200000002}
+{"station_sk":-797874677,"location_id":2758,"location_name":"Enns Kristein - A1 Westautobahn","city":"4470 Enns","country_code":"AT","latitude":48.209443999983016,"longitude":14.436944000080794}
+{"station_sk":-1485416803,"location_id":2759,"location_name":"Leoben Donawitz","city":"Austria","country_code":"AT","latitude":47.37609577232571,"longitude":15.077503391718873}
+{"station_sk":-175653382,"location_id":2760,"location_name":"Krems","city":"Austria","country_code":"AT","latitude":48.40941979013526,"longitude":15.620265486383888}
+{"station_sk":-2010148604,"location_id":4555,"location_name":"BETN043","city":"Brussels-Capital Region","country_code":"BE","latitude":50.8835598117798,"longitude":4.38296325180234}
+{"station_sk":-197739975,"location_id":4809,"location_name":"44R701 - GENT","city":"Gent","country_code":"BE","latitude":51.05833171710871,"longitude":3.729298171790459}
+{"station_sk":1070465252,"location_id":4833,"location_name":"BETR002","city":"Brussels-Capital Region","country_code":"BE","latitude":50.825128,"longitude":4.384719}
+{"station_sk":1861837691,"location_id":4857,"location_name":"43R223 - JEMEPPE","city":"Seraing","country_code":"BE","latitude":50.62067087992639,"longitude":5.5164047555731885}
+{"station_sk":-1805335995,"location_id":1656789,"location_name":"Asuncion","city":"N/A","country_code":"PY","latitude":-25.293536,"longitude":-57.60395}
+{"station_sk":-1594522345,"location_id":2834723,"location_name":"Airgradient, Quito(E)","city":"Ecuador","country_code":"EC","latitude":-0.161684749654914,"longitude":-78.48064546109624}
+{"station_sk":2067407308,"location_id":2838228,"location_name":"AirGradient, Quito","city":"Ecuador","country_code":"EC","latitude":-0.161684749654914,"longitude":-78.48064546109624}
+{"station_sk":-60133478,"location_id":3175328,"location_name":"EigenAge","city":"Ecuador","country_code":"EC","latitude":-2.159281398303954,"longitude":-79.89789310719081}
+{"station_sk":-1351602402,"location_id":6395767,"location_name":"Barrio Sajonia","city":"Paraguay","country_code":"PY","latitude":-25.289,"longitude":-57.661}
+{"station_sk":1579432068,"location_id":6395820,"location_name":"RESPIRA-MAX-CDE-KM8_5-001","city":"Paraguay","country_code":"PY","latitude":-25.496,"longitude":-54.681}
+{"station_sk":690161682,"location_id":6395821,"location_name":"RESPIRA-AIR-CDE-KM8_5-001","city":"Paraguay","country_code":"PY","latitude":-25.520878,"longitude":-54.610425}
+{"station_sk":393999095,"location_id":6411194,"location_name":"Fernando de la Mora-ZonaNorte","city":"Paraguay","country_code":"PY","latitude":-25.306974,"longitude":-57.547382}
+{"station_sk":1079409657,"location_id":6454278,"location_name":"La Ceja - CBA","city":"Bolivia","country_code":"BO","latitude":-16.5091134,"longitude":-68.164298}
 {"station_sk":-300109018,"location_id":60,"location_name":"Haringey - Haringey Town Hall","city":"Haringey","country_code":"GB","latitude":51.599302,"longitude":-0.068218}
-{"station_sk":-1067175668,"location_id":157,"location_name":"Bexley - Slade Green Fidas","city":"Bexley","country_code":"GB","latitude":51.4659832746662,"longitude":0.184877126994369}
