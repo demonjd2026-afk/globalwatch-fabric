@@ -235,6 +235,11 @@ def load_data():
     station = read_jsonl(f"{GITHUB_RAW}/dim_station.json")
     pred    = read_jsonl(f"{GITHUB_RAW}/fact_aqi_predictions.json")
 
+    # dim_station carries SCD2 versions — several location_ids appear twice with
+    # slightly different name/city/coords. Keep the latest row per station, else
+    # every join on location_id fans out and duplicates readings.
+    station = station.drop_duplicates(subset="location_id", keep="last")
+
     fact = fact.merge(country[["country_sk","country_name","country_code","continent"]],
                       on="country_sk", how="left")
     pred = pred.merge(country[["country_sk","country_name","country_code"]],
@@ -506,10 +511,19 @@ if "Dashboard" in page:
         <div class='title'>🚨 Top 10 Most Polluted Stations</div>
     </div>
     """, unsafe_allow_html=True)
-    top_stations = fact_df[fact_df["parameter"]=="pm25"] \
+    pm25_readings = fact_df[fact_df["parameter"]=="pm25"] \
         .merge(station_df[["location_id","location_name","city"]], on="location_id", how="left") \
-        .groupby(["location_name","city","country_name","aqi_category"])["value"].max().reset_index() \
-        .nlargest(10, "value") \
+        .dropna(subset=["value"])
+
+    # One row per station: the peak reading, keeping the AQI category that
+    # belongs to that reading. Grouping on aqi_category instead would split a
+    # station across categories and show it twice with different values.
+    peak_per_station = pm25_readings.loc[
+        pm25_readings.groupby("location_id")["value"].idxmax()
+    ]
+
+    top_stations = peak_per_station \
+        .nlargest(10, "value")[["location_name","city","country_name","value","aqi_category"]] \
         .rename(columns={
             "location_name": "Station",
             "city": "City",
