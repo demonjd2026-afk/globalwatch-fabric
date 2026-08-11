@@ -232,6 +232,89 @@
 {"station_sk":1159954462,"location_id":43,"location_name":"Konarskiego","city":"Poland","country_code":"PL","latitude":52.17203333,"longitude":22.27277778}
 {"station_sk":1860791280,"location_id":94,"location_name":"Din Daeng, Din Daeng","city":"Thailand","country_code":"TH","latitude":13.775373291477,"longitude":100.56892844813}
 {"station_sk":1547219295,"location_id":53,"location_name":"Shenyang","city":"Shenyang","country_code":"CN","latitude":41.78,"longitude":123.42}
+{"station_sk":700431956,"location_id":2742,"location_name":"CONSTITUCIÓN","city":"GIJÓN","country_code":"ES","latitude":43.529900000007785,"longitude":-5.6734999998595255}
+{"station_sk":-1221213650,"location_id":2914,"location_name":"AVENIDA JUAN XXIII","city":"MÁLAGA","country_code":"ES","latitude":36.70729999972174,"longitude":-4.446000000297394}
+{"station_sk":-1686809100,"location_id":2920,"location_name":"ES1867A","city":"A Coruña","country_code":"ES","latitude":43.48055554946381,"longitude":-8.24138888}
+{"station_sk":-328047262,"location_id":2921,"location_name":"ES1163A","city":"Spain","country_code":"ES","latitude":42.68444443946479,"longitude":-2.9175}
+{"station_sk":1971008728,"location_id":2922,"location_name":"PUYO","city":"DONOSTIA-SAN SEBASTIÁN","country_code":"ES","latitude":43.302777770142654,"longitude":-1.9844444402843806}
+{"station_sk":41681998,"location_id":2923,"location_name":"ALAGÓN","city":"ALAGÓN","country_code":"ES","latitude":41.76279999970938,"longitude":-1.1432999997848563}
+{"station_sk":-1676111379,"location_id":2924,"location_name":"MEDINA DE POMAR","city":"MEDINA DE POMAR","country_code":"ES","latitude":42.95190000018525,"longitude":-3.47530000041445}
+{"station_sk":-350248581,"location_id":2925,"location_name":"SORIA","city":"SORIA","country_code":"ES","latitude":41.76669999991624,"longitude":-2.4666999996427585}
+{"station_sk":1914106049,"location_id":2926,"location_name":"MONFRAGÜE","city":"TORIL","country_code":"ES","latitude":39.84916999982423,"longitude":-5.93972000040763}
+{"station_sk":85049431,"location_id":2927,"location_name":"LARIO","city":"BURÓN","country_code":"ES","latitude":43.04140000012391,"longitude":-5.08970000008512}
+{"station_sk":2021755967,"location_id":2990,"location_name":"BARCELONA (PARC DE LA VALL D'HEBRON)","city":"BARCELONA","country_code":"ES","latitude":41.426099999937115,"longitude":2.147999999784839}
+{"station_sk":2072036527,"location_id":3140,"location_name":"SORT (ESCOLA DE CAIAC)","city":"SORT","country_code":"ES","latitude":42.405400000309996,"longitude":1.1300000000323471}
+{"station_sk":1654388206,"location_id":3150,"location_name":"ES1753A","city":"La Rioja","country_code":"ES","latitude":42.3399999994653,"longitude":-2.05972}
+{"station_sk":1518116764,"location_id":7832,"location_name":"ARISTOTELOUS","city":"monitoring network of Athens","country_code":"GR","latitude":37.98806600025286,"longitude":23.727617000199235}
+{"station_sk":-1107150237,"location_id":7861,"location_name":"KOROPI","city":"ΑΤΤΙΚΗ","country_code":"GR","latitude":37.90130800001128,"longitude":23.879026000365254}
+{"station_sk":-198538638,"location_id":7948,"location_name":"Entrecampos","city":"Rede de Qualidade do Ar de Lisboa e Vale do Tejo","country_code":"PT","latitude":38.7486110000273,"longitude":-9.148888999962436}
+{"station_sk":650707438,"location_id":7962,"location_name":"THRAKOMAKEDONES","city":"ΑΤΤΙΚΗ","country_code":"GR","latitude":38.14352099994721,"longitude":23.758195000293767}
+{"station_sk":564446711,"location_id":7966,"location_name":"Escavadeira","city":"Rede de Qualidade do Ar de Lisboa e Vale do Tejo","country_code":"PT","latitude":38.65861100013332,"longitude":-9.066943999720381}
+{"station_sk":-1495572203,"location_id":7971,"location_name":"GR0020A","city":"ΚΕΝΤΡΙΚΗ ΜΑΚΕΔΟΝΙΑ","country_code":"GR","latitude":40.67354965,"longitude":22.89343834}
+{"station_sk":640596419,"location_id":7985,"location_name":"Lavradio","city":"Rede de Qualidade do Ar de Lisboa e Vale do Tejo","country_code":"PT","latitude":38.66666699998462,"longitude":-9.047778000264257}
+{"station_sk":1344716071,"location_id":8003,"location_name":"ALIARTOS","city":"monitoring network of Athens","country_code":"GR","latitude":38.37529500017302,"longitude":23.11030199983137}
+{"station_sk":-940284753,"location_id":8008,"location_name":"VNTelha-Maia","city":"Porto","country_code":"PT","latitude":41.2522219999231,"longitude":-8.66055599994044}
+{"station_sk":1645272997,"location_id":8023,"location_name":"Fernando Pó","city":"Rede de Qualidade do Ar de Lisboa e Vale do Tejo","country_code":"PT","latitude":38.63555599971323,"longitude":-8.690555999726657}
+{"station_sk":-1640240090,"location_id":9506,"location_name":"PANORAMA","city":"monitoring network of Central Macedonia Region","country_code":"GR","latitude":40.58891800028266,"longitude":23.031689000098456}
+{"station_sk":-2142430850,"location_id":9512,"location_name":"GR0046A","city":"ΚΕΝΤΡΙΚΗ ΜΑΚΕΔΟΝΙΑ","country_code":"GR","latitude":40.65784454,"longitude":22.80236626}
+{"station_sk":1764670539,"location_id":9514,"location_name":"Agia PARASKEVI","city":"monitoring network of Athens","country_code":"GR","latitude":37.99510999998216,"longitude":23.819420999904715}
+{"station_sk":947797866,"location_id":10493,"location_name":"GIR-SOSN - _OFF-Girardota - S.O.S Aburrá Norte","city":"Colombia","country_code":"CO","latitude":6.3784332,"longitude":-75.4511414}
+{"station_sk":-659827084,"location_id":10499,"location_name":"Fontibon","city":"Colombia","country_code":"CO","latitude":4.6782472,"longitude":-74.1438166}
+{"station_sk":1903673262,"location_id":10500,"location_name":"ITA-CONC - Itagüí - I.E. Concejo Municipal de Itagüí","city":"Itagüí","country_code":"CO","latitude":6.1684971,"longitude":-75.6443558}
+{"station_sk":108039992,"location_id":10501,"location_name":"Guaymaral","city":"Colombia","country_code":"CO","latitude":4.78374,"longitude":-74.04417}
+{"station_sk":-394334700,"location_id":10503,"location_name":"ITA-CJUS - Itagüí - Casa de Justicia Itagüí","city":"Medellin","country_code":"CO","latitude":6.1856666,"longitude":-75.5972061}
+{"station_sk":707795170,"location_id":10535,"location_name":"Centro de Alto Rendimiento","city":"Colombia","country_code":"CO","latitude":4.658369999999999,"longitude":-74.084}
+{"station_sk":-365408179,"location_id":10603,"location_name":"Puente Aranda","city":"Colombia","country_code":"CO","latitude":4.63187,"longitude":-74.11757}
+{"station_sk":440452153,"location_id":10615,"location_name":"Suba","city":"Colombia","country_code":"CO","latitude":4.76251,"longitude":-74.09343}
+{"station_sk":-1469790656,"location_id":10626,"location_name":"Jazmin","city":"Colombia","country_code":"CO","latitude":4.6085,"longitude":-74.11494444444442}
+{"station_sk":1455938054,"location_id":10638,"location_name":"BEL-USBV - Universidad San Buenaventura","city":"Bello","country_code":"CO","latitude":6.3306971,"longitude":-75.5686722}
+{"station_sk":566291088,"location_id":10639,"location_name":"BEL-FEVE - Bello - I.E. Fernando Vélez","city":"Bello","country_code":"CO","latitude":6.3375502,"longitude":-75.5678024}
+{"station_sk":392021235,"location_id":10640,"location_name":"MED-VILL - Medellín, Villahermosa - Planta de producción de agua potable EPM","city":"Medellin","country_code":"CO","latitude":6.2589092,"longitude":-75.5482635}
+{"station_sk":1616573541,"location_id":10641,"location_name":"MED-UNNV - Medellín,  centro occidente - Universidad Nacional, sede El Volador","city":"Colombia","country_code":"CO","latitude":6.2633696,"longitude":-75.5770035}
+{"station_sk":-1907059383,"location_id":10643,"location_name":"MED-UDEM - Universidad de Medellin","city":"Medellin","country_code":"CO","latitude":6.2301841,"longitude":-75.6099625}
+{"station_sk":-523757613,"location_id":367925,"location_name":"Central","city":"N/A","country_code":"SG","latitude":1.35735,"longitude":103.82}
+{"station_sk":2042709609,"location_id":367926,"location_name":"West","city":"N/A","country_code":"SG","latitude":1.35735,"longitude":103.699997}
+{"station_sk":247887615,"location_id":367927,"location_name":"North","city":"N/A","country_code":"SG","latitude":1.41803,"longitude":103.82}
+{"station_sk":-1636209810,"location_id":367928,"location_name":"East","city":"N/A","country_code":"SG","latitude":1.35735,"longitude":103.940002}
+{"station_sk":-377594888,"location_id":367929,"location_name":"South","city":"N/A","country_code":"SG","latitude":1.29587,"longitude":103.82}
+{"station_sk":431408709,"location_id":370218,"location_name":"Kuala Lumpur","city":"N/A","country_code":"MY","latitude":3.15675,"longitude":101.72145}
+{"station_sk":-2064128972,"location_id":1174411,"location_name":"Ban Padang Community School","city":"Phatthalung","country_code":"MY","latitude":6.39,"longitude":100.19}
+{"station_sk":380676083,"location_id":1235975,"location_name":"Newton","city":"Singapore","country_code":"SG","latitude":1.314694,"longitude":103.839758}
+{"station_sk":-1062869995,"location_id":1285352,"location_name":"SPARTAN - NUS","city":"Singapore","country_code":"SG","latitude":1.29767,"longitude":103.78}
+{"station_sk":1759843736,"location_id":1543132,"location_name":"Manila","city":"N/A","country_code":"PH","latitude":14.57711,"longitude":120.9778}
+{"station_sk":2077905749,"location_id":1730792,"location_name":"CEASTech, UniMAP","city":"Malaysia","country_code":"MY","latitude":6.4363665,"longitude":100.2330824}
+{"station_sk":-181084911,"location_id":1817295,"location_name":"Setia Alam","city":"Malaysia","country_code":"MY","latitude":3.124023,"longitude":101.455835}
+{"station_sk":620395226,"location_id":1845518,"location_name":"Mall of Asia Sensor","city":"Philippines","country_code":"PH","latitude":14.536036,"longitude":120.985543}
+{"station_sk":1303494412,"location_id":1846215,"location_name":"South Triangle, Quezon City","city":"Philippines","country_code":"PH","latitude":14.639479,"longitude":121.032469}
+{"station_sk":806190999,"location_id":2812740,"location_name":"Quezon Rd, San Simon","city":"Philippines","country_code":"PH","latitude":15.00045,"longitude":120.7505}
+{"station_sk":689327830,"location_id":2812750,"location_name":"Demo Unit 1","city":"Philippines","country_code":"PH","latitude":14.58594,"longitude":121.02932}
+{"station_sk":899941460,"location_id":2879671,"location_name":"Iloilo City, Augustine Grove Subd.","city":"Philippines","country_code":"PH","latitude":10.735369779100294,"longitude":122.53702703753301}
+{"station_sk":1257204554,"location_id":3004174,"location_name":"Central Philippine University","city":"Philippines","country_code":"PH","latitude":10.731469678756133,"longitude":122.54695296200924}
+{"station_sk":-729214294,"location_id":3015283,"location_name":"Demo Unit 4","city":"Philippines","country_code":"PH","latitude":15.19384,"longitude":120.63862}
+{"station_sk":1257080585,"location_id":3015284,"location_name":"Demo Unit 2","city":"Philippines","country_code":"PH","latitude":15.0247,"longitude":120.68723}
+{"station_sk":1038792607,"location_id":3015285,"location_name":"Ortigas","city":"Philippines","country_code":"PH","latitude":14.58853,"longitude":121.05822}
+{"station_sk":641507913,"location_id":3023432,"location_name":"NASA GSFC Rutgers Calib. N7","city":"Singapore","country_code":"SG","latitude":1.2976,"longitude":103.7803}
+{"station_sk":-97523496,"location_id":3027756,"location_name":"NASA GSFC Rutgers Calib. N12","city":"Philippines","country_code":"PH","latitude":14.63525,"longitude":121.07784}
+{"station_sk":1748599123,"location_id":3038744,"location_name":"Ocean Park","city":"Singapore","country_code":"SG","latitude":1.3094745,"longitude":103.9178515}
+{"station_sk":1658487273,"location_id":3040714,"location_name":"Midwood","city":"Singapore","country_code":"SG","latitude":1.3641,"longitude":103.7637}
+{"station_sk":588590413,"location_id":3327567,"location_name":"Brgy. Benedicto, Jaro, Iloilo","city":"Philippines","country_code":"PH","latitude":10.7258204,"longitude":122.5580665}
+{"station_sk":-302372589,"location_id":3331918,"location_name":"Taman Tun Dr. Ismail","city":"Malaysia","country_code":"MY","latitude":3.1411106257486976,"longitude":101.6274985267597}
+{"station_sk":-1137513870,"location_id":3336373,"location_name":"Brgy. East Timawa, Molo","city":"Philippines","country_code":"PH","latitude":10.696736,"longitude":122.5488203}
+{"station_sk":416983763,"location_id":3337463,"location_name":"Brgy. Infante","city":"Philippines","country_code":"PH","latitude":10.6941494,"longitude":122.5551708}
+{"station_sk":1109278302,"location_id":3364093,"location_name":"Binangonan","city":"Philippines","country_code":"PH","latitude":14.5235999,"longitude":121.1645249}
+{"station_sk":-1107194209,"location_id":3400976,"location_name":"Dakar Plateau ","city":"Senegal","country_code":"SN","latitude":14.666288,"longitude":-17.4414021}
+{"station_sk":-1092208974,"location_id":3400991,"location_name":"Potong Pasir Singapore","city":"Singapore","country_code":"SG","latitude":1.330931,"longitude":103.868663}
+{"station_sk":236458349,"location_id":3430568,"location_name":"Ecole Notre Dame des Victoires ,Diourbel","city":"Senegal","country_code":"SN","latitude":14.653855,"longitude":-16.2306}
+{"station_sk":-1494305969,"location_id":3431593,"location_name":"Lycée Technique André Peytavin, Saint-Louis","city":"Senegal","country_code":"SN","latitude":16.019319341426606,"longitude":-16.490593389948394}
+{"station_sk":948578028,"location_id":3431594,"location_name":"Ecole Elémentaire Ndiangué, Richard-Toll","city":"Senegal","country_code":"SN","latitude":16.457985152738317,"longitude":-15.705461444809703}
+{"station_sk":1334646394,"location_id":3431595,"location_name":"Lycée de Bargny, Rufisque","city":"Senegal","country_code":"SN","latitude":14.69486544210658,"longitude":-17.22422650962825}
+{"station_sk":-1667802978,"location_id":3439881,"location_name":"Station de référence, Pikine","city":"Senegal","country_code":"SN","latitude":14.7444588,"longitude":-17.4017114}
+{"station_sk":674030058,"location_id":3617277,"location_name":"Université de Thiès","city":"Senegal","country_code":"SN","latitude":14.794498116325476,"longitude":-16.96105368259619}
+{"station_sk":-165779968,"location_id":4576354,"location_name":"Choa Chu Kang","city":"Singapore","country_code":"SG","latitude":1.3836628874274692,"longitude":103.74700933032665}
+{"station_sk":-935521184,"location_id":5905179,"location_name":"Shelford","city":"Singapore","country_code":"SG","latitude":1.324983,"longitude":103.812506}
+{"station_sk":-1500794533,"location_id":6314693,"location_name":"Khulna City | Dhaka | Smart Air Bangladesh","city":"Bangladesh","country_code":"BD","latitude":22.820601,"longitude":89.559077}
+{"station_sk":-1545369505,"location_id":6322838,"location_name":"Sensor No -03","city":"Bangladesh","country_code":"BD","latitude":23.785969,"longitude":90.427902}
+{"station_sk":-723207991,"location_id":6322839,"location_name":"Sensor No -04","city":"Bangladesh","country_code":"BD","latitude":23.823305,"longitude":90.440429}
 {"station_sk":-1574997941,"location_id":2600,"location_name":"US Diplomatic Post: Bogota","city":"Colombia","country_code":"CO","latitude":4.6379935,"longitude":-74.0962868}
 {"station_sk":-2117619214,"location_id":7645,"location_name":"SAB-RAME - Sabaneta - I.E. Rafael J. Mejía","city":"Colombia","country_code":"CO","latitude":6.1433334,"longitude":-75.6202774}
 {"station_sk":320289675,"location_id":6396,"location_name":"ITA-POGO - Itagüí - Estación de Policía Los Gómez","city":"Itagüí","country_code":"CO","latitude":6.189889,"longitude":-75.610611}
