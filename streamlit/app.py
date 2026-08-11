@@ -468,7 +468,8 @@ if "Dashboard" in page:
         st.plotly_chart(fig_bar, config=PLOTLY_CONFIG, theme=None, width='stretch')
 
     with col_right:
-        aqi_counts = fact_df["aqi_category"].value_counts().reset_index()
+        #aqi_counts = fact_df["aqi_category"].value_counts().reset_index()
+        aqi_counts = fact_df[fact_df["parameter"] == "pm25"]["aqi_category"].value_counts().reset_index()
         aqi_counts.columns = ["AQI Category", "Count"]
         colors = [aqi_color(c) for c in aqi_counts["AQI Category"]]
 
