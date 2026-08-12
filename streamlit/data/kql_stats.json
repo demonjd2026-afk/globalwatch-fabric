@@ -2,7 +2,7 @@
   "events_sent_this_run": 0,
   "skipped": 0,
   "errors": 0,
-  "exported_at": "2026-08-12 09:11:08 UTC",
+  "exported_at": "2026-08-12 13:11:10 UTC",
   "pipeline": "pl_realtime_globalwatch",
   "frequency": "hourly",
   "status": "Live"
